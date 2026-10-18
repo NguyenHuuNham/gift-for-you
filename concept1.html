@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Món Quà 20/10 Bí Mật Dành Riêng Cho Cậu 💖</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Google Fonts: Dancing Script & Quicksand -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- canvas-confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Quicksand', 'sans-serif'],
+            dancing: ['"Dancing Script"', 'cursive'],
+          },
+          colors: {
+            pastel: {
+              pink: '#ffe4e6',
+              rose: '#f43f5e',
+              deepPink: '#e11d48',
+              cream: '#fffdfa',
+              gold: '#f59e0b',
+            }
+          },
+          animation: {
+            'spin-slow': 'spin 5s linear infinite',
+            'float': 'float 3s ease-in-out infinite',
+            'float-slow': 'float 5s ease-in-out infinite',
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+            'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+            'pop': 'pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both',
+            'sparkle': 'sparkle 1.5s ease-in-out infinite alternate',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-10px) rotate(1.5deg)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { filter: 'drop-shadow(0 0 12px rgba(244, 63, 94, 0.45))' },
+              '50%': { filter: 'drop-shadow(0 0 25px rgba(244, 63, 94, 0.85))' },
+            },
+            shake: {
+              '10%, 90%': { transform: 'translateX(-4px)' },
+              '20%, 80%': { transform: 'translateX(6px)' },
+              '30%, 50%, 70%': { transform: 'translateX(-6px)' },
+              '40%, 60%': { transform: 'translateX(6px)' },
+            },
+            pop: {
+              '0%': { transform: 'scale(0.5)', opacity: '0' },
+              '70%': { transform: 'scale(1.2)', opacity: '1' },
+              '100%': { transform: 'scale(1)', opacity: '1' },
+            },
+            sparkle: {
+              '0%': { opacity: '0.4', transform: 'scale(0.9)' },
+              '100%': { opacity: '1', transform: 'scale(1.15)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Chống cuộn tràn trang & tối ưu cảm ứng màn hình dọc điện thoại */
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      height: 100dvh;
+      overflow: hidden;
+      overscroll-behavior: none;
+      touch-action: manipulation;
+      font-family: 'Quicksand', sans-serif;
+      background: #fed7aa;
+      background: linear-gradient(135deg, #fbcfe8 0%, #ffe4e6 40%, #fef3c7 100%);
+    }
+
+    /* Hiệu ứng Kính Mờ Glassmorphism Siêu Mịn */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.48);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.75);
+      box-shadow: 0 12px 35px 0 rgba(225, 29, 72, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    }
+
+    .glass-card-subtle {
+      background: rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .glass-button {
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 4px 15px rgba(244, 63, 94, 0.12);
+    }
+
+    /* 3D Flip Card Styles */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.75s cubic-bezier(0.4, 0.2, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+
+    .flip-card-inner.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 1.25rem;
+      overflow: hidden;
+    }
+
+    .flip-card-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Vé Voucher VIP với viền đục lỗ 2 bên */
+    .ticket-coupon {
+      position: relative;
+      background: radial-gradient(circle at 0% 50%, transparent 12px, #ffffff 13px) top left,
+                  radial-gradient(circle at 100% 50%, transparent 12px, #ffffff 13px) top right;
+      background-size: 51% 100%;
+      background-repeat: no-repeat;
+      filter: drop-shadow(0 12px 25px rgba(225, 29, 72, 0.18));
+    }
+
+    /* Thanh cuộn ẩn hoàn toàn cho mượt */
+    ::-webkit-scrollbar {
+      display: none;
+      width: 0px;
+    }
+
+    /* Con trỏ nhấp nháy Typewriter */
+    .typewriter-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background-color: #e11d48;
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+
+<body class="flex items-center justify-center min-h-[100dvh] p-0 sm:p-4 text-slate-800">
+
+  <!-- ================= CANVAS NỀN HOA ANH ĐÀO RƠI ================= -->
+  <canvas id="sakuraCanvas" class="fixed inset-0 pointer-events-none z-0 w-full h-full"></canvas>
+
+  <!-- ================= KHUNG HIỂN THỊ CHUẨN MOBILE ================= -->
+  <div id="appContainer" class="relative z-10 w-full h-[100dvh] max-w-md mx-auto sm:h-[860px] sm:max-h-[92vh] sm:rounded-[2.5rem] overflow-hidden flex flex-col justify-between shadow-2xl glass-card transition-all duration-500">
+    
+    <!-- HEADER BAR: Đèn trạng thái & Nút nhạc đĩa quay -->
+    <header class="w-full pt-4 pb-2 px-5 flex items-center justify-between z-30 shrink-0">
+      <div class="flex items-center space-x-2 bg-white/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/70 shadow-sm">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+        <span class="text-xs font-semibold text-rose-700 tracking-wide uppercase">20/10 Special Edition</span>
+      </div>
+
+      <!-- Nút Bật / Tắt Nhạc Nền -->
+      <button id="musicToggleBtn" class="relative group flex items-center justify-center w-11 h-11 rounded-full bg-white/70 backdrop-blur-md border border-white/90 shadow-md transition-all duration-300 hover:scale-105 active:scale-95 text-rose-600" title="Bật/Tắt nhạc nền">
+        <i id="musicDiscIcon" class="fa-solid fa-compact-disc text-2xl transition-all"></i>
+        <!-- Nốt nhạc bay bổng khi đang phát -->
+        <span id="musicNoteBubble" class="hidden absolute -top-1 -right-1 text-xs text-rose-500 animate-bounce">
+          <i class="fa-solid fa-music"></i>
+        </span>
+      </button>
+    </header>
+
+    <!-- KHUNG CHỨA 4 MÀN HÌNH CHUYỂN TIẾP -->
+    <main class="relative flex-1 w-full overflow-hidden px-4 sm:px-6 py-2 flex flex-col justify-center">
+
+      <!-- ========================================== -->
+      <!-- 1. MÀN HÌNH 1: NHẬP PASSCODE BẢO MẬT     -->
+      <!-- ========================================== -->
+      <section id="screen-1" class="screen-view active flex flex-col justify-between h-full py-2 transition-all duration-500 opacity-100 transform translate-x-0">
+        
+        <!-- Phần tiêu đề & Gợi ý mật khẩu -->
+        <div class="text-center pt-2">
+          <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-400 to-pink-300 text-white shadow-lg shadow-rose-300/50 mb-3 animate-float">
+            <i class="fa-solid fa-lock text-2xl"></i>
+          </div>
+          
+          <h1 class="text-xl sm:text-2xl font-bold text-rose-900 tracking-tight px-2 leading-tight">
+            Món quà 20/10 bí mật<br>
+            dành riêng cho <span id="crushNameDisplay" class="font-dancing text-2xl sm:text-3xl text-rose-600 font-bold underline decoration-rose-300 decoration-wavy">Em Bé</span>
+          </h1>
+
+          <!-- Thẻ gợi ý mật khẩu -->
+          <div class="mt-3 mx-auto max-w-xs px-3.5 py-2 rounded-xl glass-card-subtle text-xs text-rose-800 font-medium flex items-center justify-center space-x-2 border border-rose-200/60 shadow-sm">
+            <i class="fa-solid fa-wand-magic-sparkles text-rose-500 animate-spin-slow"></i>
+            <span id="passcodeHintText">Gợi ý: Ngày sinh cô gái xinh nhất (4 số)</span>
+          </div>
+        </div>
+
+        <!-- 4 Ô hiển thị trạng thái mã PIN -->
+        <div class="py-4">
+          <div id="pinDotsContainer" class="flex justify-center items-center space-x-4 mb-2">
+            <div class="pin-dot w-11 h-11 rounded-2xl glass-card flex items-center justify-center text-rose-500 text-lg font-bold border-2 border-rose-200/80 shadow-sm transition-all duration-200"></div>
+            <div class="pin-dot w-11 h-11 rounded-2xl glass-card flex items-center justify-center text-rose-500 text-lg font-bold border-2 border-rose-200/80 shadow-sm transition-all duration-200"></div>
+            <div class="pin-dot w-11 h-11 rounded-2xl glass-card flex items-center justify-center text-rose-500 text-lg font-bold border-2 border-rose-200/80 shadow-sm transition-all duration-200"></div>
+            <div class="pin-dot w-11 h-11 rounded-2xl glass-card flex items-center justify-center text-rose-500 text-lg font-bold border-2 border-rose-200/80 shadow-sm transition-all duration-200"></div>
+          </div>
+          
+          <!-- Thông báo lỗi khi sai mật khẩu -->
+          <div id="pinErrorMessage" class="h-6 text-center text-xs font-semibold text-rose-600 opacity-0 transition-opacity duration-200 flex items-center justify-center">
+            <i class="fa-solid fa-circle-exclamation mr-1"></i> Chưa đúng rồi đồ ngốc ạ! 🥺
+          </div>
+        </div>
+
+        <!-- Bàn phím số trên màn hình (0-9, C, Xóa) -->
+        <div class="w-full max-w-xs mx-auto pb-4">
+          <div class="grid grid-cols-3 gap-3">
+            <button class="keypad-btn h-13 py-3 rounded-2xl glass-button text-xl font-bold text-slate-700 hover:bg-white active:scale-90 active:bg-rose-100 transition-all duration-150 shadow-sm" data-key="1">1</button>
+            <button class="keypad-btn h-13 py-3 rounded-2xl glass-button text-xl font-bold text-slate-700 hover:bg-white active:scale-90 active:bg-rose-100 transition-all duration-150 shadow-sm" data-key="2">2</button>
+            <button class="keypad-btn h-13 py-3 rounded-2xl glass-button text-xl font-bold text-slate-700 hover:bg-white active:scale-90 active:bg-rose-100 transition-all duration-150 shadow-sm" data-key="3">3</button>
+            
+            <button class="keypad-btn h-13 py-3 rounded-2xl glass-button text-xl font-bold text-slate-700 hover:bg-white active:scale-90 active:bg-rose-100 transition-all duration-150 shadow-sm" data-key="4">4</button>
+            <button class="keypad-btn h-13 py-3 rounded-2xl glass-button text-xl font-bold text-slate-700 hover:bg-white active:scale-90 active:bg-rose-100 transition-all duration-150 shadow-sm" data-key="5">5</button>
+            <button class="keypad-btn h-13 py-3 rounded-2xl glass-button text-xl font-bold text-slate-700 hover:bg-white active:scale-90 active:bg-rose-100 transition-all duration-150 shadow-sm" data-key="6">6</button>
+            
+            <button class="keypad-btn h-13 py-3 rounded-2xl glass-button text-xl font-bold text-slate-700 hover:bg-white active:scale-90 active:bg-rose-100 transition-all duration-150 shadow-sm" data-key="7">7</button>
+            <button class="keypad-btn h-13 py-3 rounded-2xl glass-button text-xl font-bold text-slate-700 hover:bg-white active:scale-90 active:bg-rose-100 transition-all duration-150 shadow-sm" data-key="8">8</button>
+            <button class="keypad-btn h-13 py-3 rounded-2xl glass-button text-xl font-bold text-slate-700 hover:bg-white active:scale-90 active:bg-rose-100 transition-all duration-150 shadow-sm" data-key="9">9</button>
+            
+            <button class="keypad-btn h-13 py-3 rounded-2xl glass-button text-xs font-semibold text-rose-500 hover:bg-white active:scale-90 active:bg-rose-100 transition-all duration-150 shadow-sm uppercase tracking-wider" data-key="clear">Clear</button>
+            <button class="keypad-btn h-13 py-3 rounded-2xl glass-button text-xl font-bold text-slate-700 hover:bg-white active:scale-90 active:bg-rose-100 transition-all duration-150 shadow-sm" data-key="0">0</button>
+            <button class="keypad-btn h-13 py-3 rounded-2xl glass-button text-base font-bold text-slate-600 hover:bg-white active:scale-90 active:bg-rose-100 transition-all duration-150 shadow-sm flex items-center justify-center" data-key="delete">
+              <i class="fa-solid fa-delete-left"></i>
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================== -->
+      <!-- 2. MÀN HÌNH 2: MỞ QUÀ & POLAROID 3D       -->
+      <!-- ========================================== -->
+      <section id="screen-2" class="screen-view hidden flex flex-col justify-between h-full py-2 transition-all duration-500 opacity-0 transform translate-x-12">
+        
+        <!-- TRẠNG THÁI A: HỘP QUÀ ĐANG RUNG RINH ĐỢI MỞ -->
+        <div id="giftBoxState" class="flex flex-col items-center justify-center flex-1 py-4 text-center">
+          <div class="relative group cursor-pointer" id="mysteryGiftTrigger">
+            <!-- Vòng hào quang phát sáng -->
+            <div class="absolute inset-0 rounded-full bg-rose-400/40 blur-2xl transform scale-125 animate-pulse-glow"></div>
+            
+            <!-- Hộp quà 3D lung linh rung rinh -->
+            <div class="relative w-44 h-44 sm:w-52 sm:h-52 flex items-center justify-center transition-transform duration-300 hover:scale-110 active:scale-95 animate-float">
+              <div class="text-7xl sm:text-8xl filter drop-shadow-2xl">
+                🎁
+              </div>
+              <!-- Tia sáng lấp lánh xung quanh -->
+              <div class="absolute -top-2 -right-1 text-amber-400 text-2xl animate-sparkle">✨</div>
+              <div class="absolute -bottom-1 -left-2 text-rose-400 text-xl animate-sparkle delay-200">💖</div>
+              <div class="absolute top-4 -left-3 text-pink-400 text-lg animate-sparkle delay-500">🌸</div>
+            </div>
+          </div>
+
+          <h2 class="mt-4 text-xl sm:text-2xl font-bold text-rose-950">Một chiếc hộp bí mật!</h2>
+          <p class="mt-2 text-sm text-rose-700/80 max-w-xs font-medium">
+            Có điều bất ngờ tớ đã chuẩn bị cho cậu ở bên trong... Chạm vào hộp quà để mở nhé!
+          </p>
+
+          <button id="openGiftBtn" class="mt-6 px-7 py-3 rounded-full bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold text-sm tracking-wide shadow-lg shadow-rose-400/40 hover:from-rose-600 hover:to-pink-600 active:scale-95 transition-all duration-200 flex items-center space-x-2">
+            <span>Mở quà ngay</span>
+            <i class="fa-solid fa-hand-pointer animate-bounce"></i>
+          </button>
+        </div>
+
+        <!-- TRẠNG THÁI B: HIỆN 3 THẺ ẢNH POLAROID 3D FLIP -->
+        <div id="polaroidDeckState" class="hidden flex flex-col justify-between flex-1 py-1">
+          <div class="text-center pt-1">
+            <h2 class="text-lg sm:text-xl font-bold text-rose-950 flex items-center justify-center gap-1.5">
+              <span>Điều đặc biệt về cậu</span>
+              <span class="text-rose-500">✨</span>
+            </h2>
+            <p class="text-xs text-rose-700/80 font-medium">Chạm vào ảnh để lật xem lời nhắn bí mật ở mặt sau nhé!</p>
+          </div>
+
+          <!-- Slider / Carousel 3 Thẻ Ảnh Polaroid 3D -->
+          <div class="relative w-full my-auto py-2 flex items-center justify-center">
+            
+            <!-- Nút Prev -->
+            <button id="prevCardBtn" class="absolute left-0 z-20 w-9 h-9 rounded-full bg-white/80 backdrop-blur-md border border-white text-rose-600 shadow-md flex items-center justify-center active:scale-90 transition-transform">
+              <i class="fa-solid fa-chevron-left text-sm"></i>
+            </button>
+
+            <!-- Khung Thẻ Polaroid 3D Độc Đáo -->
+            <div class="w-64 h-[350px] sm:w-72 sm:h-[380px] perspective-1000">
+              <div id="activeFlipCard" class="flip-card-inner cursor-pointer shadow-2xl rounded-2xl">
+                
+                <!-- MẶT TRƯỚC: Ảnh Polaroid + Băng dính + Chú thích -->
+                <div class="flip-card-front bg-white p-3.5 pb-5 flex flex-col justify-between border border-rose-100 shadow-lg">
+                  <!-- Miếng dán giả lập Washi Tape -->
+                  <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-16 h-5 bg-rose-200/70 border border-white/60 rotate-2 backdrop-blur-sm z-10 shadow-sm"></div>
+
+                  <!-- Khung hình ảnh -->
+                  <div class="w-full h-56 sm:h-64 rounded-xl overflow-hidden bg-rose-50 relative group">
+                    <img id="polaroidFrontImg" src="" alt="Moment" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <div class="absolute bottom-2 right-2 bg-black/40 backdrop-blur-sm text-white text-[10px] px-2 py-0.5 rounded-full font-medium">
+                      <i class="fa-solid fa-rotate mr-1"></i>Chạm để lật
+                    </div>
+                  </div>
+
+                  <!-- Chú thích phong cách chữ viết tay -->
+                  <div class="pt-2 text-center">
+                    <p id="polaroidCaption" class="font-dancing text-xl font-bold text-rose-800 tracking-wide"></p>
+                    <span class="text-[10px] text-slate-400 font-medium">Thẻ <span id="currentCardIndexText">1</span> / 3</span>
+                  </div>
+                </div>
+
+                <!-- MẶT SAU: Lời khen viết tay cực ngọt -->
+                <div class="flip-card-back bg-gradient-to-br from-amber-50 via-rose-50 to-pink-100 p-5 flex flex-col justify-between border-2 border-rose-200 shadow-xl">
+                  <!-- Header mặt sau -->
+                  <div class="flex items-center justify-between text-rose-400 text-xs pb-2 border-b border-rose-200/50">
+                    <span class="font-bold tracking-wider uppercase text-[10px]">Secret Message</span>
+                    <i class="fa-solid fa-heart text-rose-500 animate-pulse"></i>
+                  </div>
+
+                  <!-- Nội dung lời khen mặt sau -->
+                  <div class="my-auto py-2 text-center px-1">
+                    <i class="fa-solid fa-quote-left text-rose-300 text-2xl mb-1 block"></i>
+                    <p id="polaroidBackText" class="font-dancing text-xl sm:text-2xl font-bold text-rose-900 leading-relaxed"></p>
+                    <i class="fa-solid fa-quote-right text-rose-300 text-2xl mt-1 block"></i>
+                  </div>
+
+                  <!-- Chân thẻ mặt sau -->
+                  <div class="text-center pt-2 border-t border-rose-200/50">
+                    <span class="text-[11px] text-rose-600 font-medium bg-white/70 px-3 py-1 rounded-full border border-rose-200/60 inline-flex items-center gap-1">
+                      <i class="fa-solid fa-arrow-rotate-left"></i> Chạm để lật lại ảnh
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Nút Next -->
+            <button id="nextCardBtn" class="absolute right-0 z-20 w-9 h-9 rounded-full bg-white/80 backdrop-blur-md border border-white text-rose-600 shadow-md flex items-center justify-center active:scale-90 transition-transform">
+              <i class="fa-solid fa-chevron-right text-sm"></i>
+            </button>
+          </div>
+
+          <!-- Chỉ số 3 chấm tròn chuyển thẻ -->
+          <div class="flex justify-center items-center space-x-2 py-1">
+            <span class="card-dot w-2.5 h-2.5 rounded-full bg-rose-500 transition-all"></span>
+            <span class="card-dot w-2 h-2 rounded-full bg-rose-200 transition-all"></span>
+            <span class="card-dot w-2 h-2 rounded-full bg-rose-200 transition-all"></span>
+          </div>
+
+          <!-- Nút Đọc thư mật -> để sang Màn hình 3 -->
+          <div class="pt-2 pb-2">
+            <button id="toLetterScreenBtn" class="w-full py-3 px-6 rounded-2xl bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold text-sm tracking-wide shadow-lg shadow-rose-400/40 hover:from-rose-600 hover:to-pink-600 active:scale-95 transition-all flex items-center justify-center space-x-2">
+              <span>Đọc thư mật dành cho cậu</span>
+              <i class="fa-solid fa-arrow-right animate-pulse"></i>
+            </button>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ========================================== -->
+      <!-- 3. MÀN HÌNH 3: LÁ THƯ TYPEWRITER          -->
+      <!-- ========================================== -->
+      <section id="screen-3" class="screen-view hidden flex flex-col justify-between h-full py-2 transition-all duration-500 opacity-0 transform translate-x-12">
+        
+        <!-- Khung lá thư nghệ thuật -->
+        <div class="flex-1 flex flex-col justify-between my-auto">
+          
+          <!-- Thẻ thư tinh tế -->
+          <div class="relative bg-white/80 backdrop-blur-md rounded-3xl p-5 sm:p-6 border border-white shadow-xl flex-1 flex flex-col justify-between overflow-hidden">
+            
+            <!-- Con dấu sáp phong thư ở góc -->
+            <div class="absolute top-4 right-4 flex items-center space-x-1.5 bg-rose-100 text-rose-700 px-3 py-1 rounded-full text-xs font-bold border border-rose-200 shadow-inner">
+              <i class="fa-solid fa-envelope-open-text"></i>
+              <span>Lá thư 20/10</span>
+            </div>
+
+            <!-- Nút hiện chữ nhanh nếu không muốn chờ -->
+            <button id="fastForwardLetterBtn" class="absolute top-4 left-4 text-[11px] text-slate-500 hover:text-rose-600 font-semibold bg-white/70 px-2.5 py-1 rounded-lg border border-slate-200 transition-colors flex items-center gap-1" title="Hiện toàn bộ nội dung ngay">
+              <i class="fa-solid fa-bolt text-amber-500"></i> Hiện nhanh
+            </button>
+
+            <!-- Tiêu đề lá thư -->
+            <div class="pt-7 pb-2 border-b border-rose-100/80">
+              <h3 id="letterRecipientHeader" class="font-dancing text-2xl sm:text-3xl font-bold text-rose-800">
+                Gửi [Tên Crush] thân mến,
+              </h3>
+            </div>
+
+            <!-- Vùng chạy chữ Typewriter mượt mà -->
+            <div class="flex-1 py-3 overflow-y-auto text-sm sm:text-base leading-relaxed text-slate-700 font-medium whitespace-pre-line">
+              <span id="typewriterBodyText"></span><span id="typewriterCursor" class="typewriter-cursor"></span>
+            </div>
+
+            <!-- Chữ ký người gửi -->
+            <div class="pt-2 border-t border-rose-100 text-right">
+              <p id="letterSignText" class="font-dancing text-xl font-bold text-rose-700 italic">
+                — Người luôn dõi theo cậu 💖
+              </p>
+            </div>
+
+          </div>
+
+          <!-- Nút sang Màn hình 4 (ẩn ban đầu, hiện lên khi chữ gõ xong) -->
+          <div id="voucherRevealWrapper" class="pt-3 pb-1 opacity-0 pointer-events-none transform translate-y-3 transition-all duration-500">
+            <button id="toVoucherScreenBtn" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-500 to-pink-500 text-white font-bold text-sm tracking-wide shadow-xl shadow-rose-400/40 hover:opacity-95 active:scale-95 transition-all flex items-center justify-center space-x-2 animate-bounce">
+              <span>Nhận Voucher Đặc Quyền 🎁</span>
+              <i class="fa-solid fa-gift"></i>
+            </button>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ========================================== -->
+      <!-- 4. MÀN HÌNH 4: VOUCHER VIP & NÚT CHẠY TRỐN -->
+      <!-- ========================================== -->
+      <section id="screen-4" class="screen-view hidden flex flex-col justify-between h-full py-2 transition-all duration-500 opacity-0 transform translate-x-12">
+        
+        <div class="text-center pt-1 pb-2">
+          <span class="inline-block px-3 py-1 rounded-full bg-rose-500/10 text-rose-600 text-xs font-bold uppercase tracking-widest border border-rose-200">
+            Đặc quyền 20/10
+          </span>
+          <h2 class="text-xl sm:text-2xl font-bold text-rose-950 mt-1">Tấm Vé Hẹn Hò VIP</h2>
+        </div>
+
+        <!-- TẤM VÉ VOUCHER ĐẲNG CẤP VỚI VIỀN ĐỤC LỖ -->
+        <div class="ticket-coupon rounded-2xl p-5 sm:p-6 border border-rose-200 relative overflow-hidden my-auto shadow-2xl">
+          
+          <!-- Dấu mộc ĐÃ DUYỆT xoay nghiêng -->
+          <div class="absolute -right-3 -bottom-3 rotate-[-15deg] pointer-events-none opacity-85 z-10">
+            <div class="w-24 h-24 rounded-full border-4 border-rose-600 flex flex-col items-center justify-center text-rose-600 font-extrabold uppercase tracking-tighter text-[9px] p-1 bg-white/40 backdrop-blur-xs">
+              <span class="text-[8px] text-rose-400 font-bold">OFFICIAL STAMP</span>
+              <span class="text-sm font-black text-rose-700">ĐÃ DUYỆT</span>
+              <span class="text-[8px]">★ KHÔNG THỂ HỦY ★</span>
+            </div>
+          </div>
+
+          <!-- Header Tấm Vé -->
+          <div class="flex items-center justify-between pb-3 border-b-2 border-dashed border-rose-200">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 rounded-lg bg-rose-500 text-white flex items-center justify-center text-sm font-bold shadow-md">
+                <i class="fa-solid fa-ticket"></i>
+              </div>
+              <div>
+                <p class="text-[10px] text-slate-400 uppercase font-semibold">Coupon Code</p>
+                <p class="text-xs font-extrabold text-rose-700 tracking-wider">#2010-SPECIAL-LOVE</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-300">
+                VIP ONLY
+              </span>
+            </div>
+          </div>
+
+          <!-- Thân Tấm Vé: Quyền lợi -->
+          <div class="py-4 text-center">
+            <p class="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-1">Đặc quyền dành riêng cho cậu</p>
+            <h3 id="voucherPerkText" class="text-lg sm:text-xl font-black text-rose-900 leading-snug">
+              01 buổi đi trà sữa / ăn tối miễn phí không giới hạn cùng tớ 🧋🍣
+            </h3>
+            <p id="voucherNoteText" class="mt-2 text-xs text-rose-600/90 font-medium">
+              Có giá trị trọn đời • Người mời: Người gửi tấm vé này ✨
+            </p>
+          </div>
+
+          <!-- Barcode trang trí phía dưới -->
+          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+            <div class="flex items-center space-x-1 text-slate-400 text-xs">
+              <i class="fa-solid fa-barcode text-2xl text-slate-700"></i>
+              <span class="text-[10px] font-mono tracking-widest text-slate-500">2010-2026-FOREVER</span>
+            </div>
+            <span class="text-[10px] text-rose-500 font-semibold italic">Hạn dùng: Mãi mãi</span>
+          </div>
+
+        </div>
+
+        <!-- CÂU HỎI & VÙNG 2 NÚT BẤM (CÓ NÚT CHẠY TRỐN) -->
+        <div class="pt-2 pb-2 flex flex-col justify-end">
+          <div class="text-center mb-3">
+            <p id="invitationQuestionText" class="text-sm sm:text-base font-bold text-rose-900">
+              Cuối tuần này đi nhận quà thật với tớ nhé? 🥰
+            </p>
+          </div>
+
+          <!-- Container chứa 2 nút (Dành không gian cho nút chạy nhảy múa) -->
+          <div id="actionButtonsArea" class="relative w-full h-24 sm:h-28 flex items-center justify-center gap-3 px-2">
+            
+            <!-- NÚT 1: CHỐT LUÔN! (Bắn pháo hoa tim & Hiện chúc mừng) -->
+            <button id="acceptDateBtn" class="z-20 flex-1 max-w-[170px] py-3.5 px-4 rounded-2xl bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 text-white font-bold text-sm tracking-wide shadow-xl shadow-rose-400/40 hover:from-rose-600 hover:to-pink-600 active:scale-95 transition-all flex items-center justify-center space-x-1.5">
+              <span>Chốt luôn!</span>
+              <span class="text-base animate-pulse">💖</span>
+            </button>
+
+            <!-- NÚT 2: ĐỂ SUY NGHĨ ĐÃ (NÚT CHẠY TRỐN KHI RÊ HOẶC CHẠM TAY VÀO) -->
+            <button id="runawayBtn" class="z-10 flex-1 max-w-[170px] py-3.5 px-4 rounded-2xl bg-white/80 backdrop-blur-md text-slate-600 font-bold text-sm border border-slate-200/80 shadow-md transition-all duration-200 flex items-center justify-center space-x-1 hover:bg-slate-50">
+              <span id="runawayBtnLabel">Để suy nghĩ đã</span>
+              <span class="text-base">😅</span>
+            </button>
+
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- FOOTER NHẸ NHÀNG DƯỚI ĐÁY -->
+    <footer class="w-full pb-3 px-4 text-center text-[10px] text-rose-800/60 font-medium z-30 shrink-0">
+      Made with <i class="fa-solid fa-heart text-rose-500"></i> exclusively for you on Vietnamese Women's Day 20/10
+    </footer>
+
+  </div>
+
+  <!-- ================= MODAL CHÚC MỪNG KHI CHỐT HẸN THÀNH CÔNG ================= -->
+  <div id="successModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="relative w-full max-w-sm rounded-3xl bg-white/90 backdrop-blur-xl p-6 text-center shadow-2xl border border-white transform scale-90 transition-transform duration-300" id="successModalCard">
+      
+      <!-- Icon ăn mừng -->
+      <div class="w-20 h-20 mx-auto rounded-full bg-gradient-to-tr from-rose-400 to-pink-300 text-white flex items-center justify-center text-4xl shadow-xl shadow-rose-300/60 animate-bounce mb-4">
+        🎉
+      </div>
+
+      <h3 class="text-2xl font-black text-rose-900 leading-tight">LỊCH HẸN ĐÃ ĐƯỢC CHỐT!</h3>
+      
+      <p class="mt-3 text-sm text-slate-700 leading-relaxed font-medium">
+        Đã lưu lịch hẹn! <br>
+        <span class="font-bold text-rose-600">Chụp màn hình gửi cho tớ ngay nhé!</span> 🥰📸
+      </p>
+
+      <div class="mt-4 p-3 rounded-2xl bg-rose-50 border border-rose-100 text-xs text-rose-800 font-semibold">
+        ✨ Cậu không được đổi ý đâu đó nha! Tớ háo hức chờ tin nhắn của cậu đây! ✨
+      </div>
+
+      <div class="mt-6 flex flex-col gap-2">
+        <button id="closeModalBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-rose-500 to-pink-500 text-white font-bold text-sm shadow-lg shadow-rose-300/50 hover:from-rose-600 hover:to-pink-600 active:scale-95 transition-all">
+          Yêu luôn! Chụp màn hình ngay 📸
+        </button>
+        <button id="replayBtn" class="w-full py-2.5 rounded-xl bg-slate-100 text-slate-600 font-semibold text-xs hover:bg-slate-200 transition-all">
+          Xem lại từ đầu 🔄
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Audio Element (Âm thanh nền lãng mạn) -->
+  <audio id="bgMusic" loop preload="auto" crossorigin="anonymous">
+    <!-- Link nguồn sẽ được nạp từ biến cấu hình CONFIG bên dưới -->
+  </audio>
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT LOGIC ĐẦY ĐỦ                                                    -->
+  <!-- ========================================================================= -->
+  <script>
+    /* =========================================================================
+       1. CẤU HÌNH DÀNH CHO BẠN (DỄ DÀNG CHỈNH SỬA TẠI ĐÂY)
+       ========================================================================= */
+    const CONFIG = {
+      // Tên Crush của bạn
+      CRUSH_NAME: "Em Bé Xinh Đẹp",
+
+      // Mật khẩu 4 số để mở khóa (Mặc định: 1607)
+      PASSCODE: "1607",
+
+      // Gợi ý mật khẩu hiển thị trên màn hình
+      PASSCODE_HINT: "Ngày sinh của cô gái xinh nhất hôm nay (4 số: DDMM)",
+
+      // Link nhạc MP3 lãng mạn (Tự động phát khi nhập đúng mật mã hoặc bấm nút đĩa nhạc)
+      MUSIC_URL: "https://ia800905.us.archive.org/19/items/FREE_background_music_dhalius/Sweet_Romance.mp3",
+
+      // 3 Thẻ Ảnh Polaroid 3D (Ảnh mặt trước & Lời khen mặt sau)
+      PHOTOS: [
+        {
+          url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80",
+          caption: "Nụ cười tỏa nắng ✨",
+          backText: "Nụ cười tỏa nắng làm tớ ngẩn ngơ mỗi khi nhìn thấy cậu. Hãy luôn cười thật tươi như thế nhé! 💖"
+        },
+        {
+          url: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=700&q=80",
+          caption: "Cô gái đặc biệt 🌸",
+          backText: "Cô gái vừa giỏi giang vừa đáng yêu. Cậu có một nguồn năng lượng diệu kỳ khiến mọi người xung quanh luôn thấy ấm áp và hạnh phúc! ✨"
+        },
+        {
+          url: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=700&q=80",
+          caption: "Luôn rạng rỡ nhé 💖",
+          backText: "Luôn rạng rỡ và hạnh phúc như ngày hôm nay nhé! Cậu xứng đáng với tất cả những điều ngọt ngào và dịu dàng nhất thế gian. 🌸"
+        }
+      ],
+
+      // Nội dung lá thư bí mật (Chạy hiệu ứng gõ chữ Typewriter)
+      LETTER_HEADER: "Gửi cô gái đáng yêu của tớ,",
+      LETTER_CONTENT: `Chúc mừng ngày Phụ nữ Việt Nam 20/10! 🌸
+
+Chúc cậu luôn luôn vui vẻ, rạng rỡ, xinh đẹp và ngập tràn hạnh phúc. 
+
+Cảm ơn cậu vì đã xuất hiện và làm những ngày bình thường của tớ trở nên thật đặc biệt và nhiều màu sắc hơn.
+
+Mong rằng mỗi sáng thức dậy, nụ cười đều nở trên môi cậu và những điều may mắn, dịu dàng nhất sẽ luôn đồng hành cùng cậu trên mọi nẻo đường.
+
+Cậu mãi là điều tuyệt vời nhất! ✨`,
+      LETTER_SIGN: "— Người luôn âm thầm dõi theo cậu 💖",
+
+      // Nội dung voucher đặc quyền và câu hỏi hẹn hò
+      VOUCHER_PERK: "01 buổi đi trà sữa / ăn tối miễn phí không giới hạn cùng tớ 🧋🍣",
+      VOUCHER_NOTE: "Có giá trị trọn đời • Không áp dụng từ chối • 100% tớ bao hết",
+      INVITATION_QUESTION: "Cuối tuần này đi nhận quà thật với tớ nhé? 🥰"
+    };
+
+    /* =========================================================================
+       2. KHỞI TẠO DỮ LIỆU GIAO DIỆN TỪ CONFIG
+       ========================================================================= */
+    document.addEventListener("DOMContentLoaded", () => {
+      // Gán tên crush & gợi ý
+      const crushNameDisplay = document.getElementById("crushNameDisplay");
+      if (crushNameDisplay) crushNameDisplay.textContent = CONFIG.CRUSH_NAME;
+
+      const passcodeHintText = document.getElementById("passcodeHintText");
+      if (passcodeHintText) passcodeHintText.textContent = "Gợi ý: " + CONFIG.PASSCODE_HINT;
+
+      const letterRecipientHeader = document.getElementById("letterRecipientHeader");
+      if (letterRecipientHeader) letterRecipientHeader.textContent = "Gửi " + CONFIG.CRUSH_NAME + " thân mến,";
+
+      const letterSignText = document.getElementById("letterSignText");
+      if (letterSignText) letterSignText.textContent = CONFIG.LETTER_SIGN;
+
+      const voucherPerkText = document.getElementById("voucherPerkText");
+      if (voucherPerkText) voucherPerkText.textContent = CONFIG.VOUCHER_PERK;
+
+      const voucherNoteText = document.getElementById("voucherNoteText");
+      if (voucherNoteText) voucherNoteText.textContent = CONFIG.VOUCHER_NOTE;
+
+      const invitationQuestionText = document.getElementById("invitationQuestionText");
+      if (invitationQuestionText) invitationQuestionText.textContent = CONFIG.INVITATION_QUESTION;
+
+      // Khởi tạo thẻ Polaroid đầu tiên
+      renderPolaroidCard(0);
+
+      // Khởi tạo hiệu ứng cánh hoa anh đào
+      initSakuraPetals();
+
+      // Thiết lập âm thanh
+      initAudio();
+    });
+
+    /* =========================================================================
+       3. HIỆU ỨNG CÁNH HOA ANH ĐÀO RƠI (HTML5 CANVAS SAKURA)
+       ========================================================================= */
+    function initSakuraPetals() {
+      const canvas = document.getElementById("sakuraCanvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+
+      let width = canvas.width = window.innerWidth;
+      let height = canvas.height = window.innerHeight;
+
+      window.addEventListener("resize", () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const PETAL_COUNT = 36;
+      const petals = [];
+
+      class Petal {
+        constructor() {
+          this.reset(true);
+        }
+
+        reset(initial = false) {
+          this.x = Math.random() * width;
+          this.y = initial ? Math.random() * height : -20;
+          this.size = 11 + Math.random() * 12;
+          this.speedY = 1.0 + Math.random() * 1.6;
+          this.speedX = -0.5 + Math.random() * 1.0;
+          this.angle = Math.random() * Math.PI * 2;
+          this.spinSpeed = (Math.random() - 0.5) * 0.03;
+          this.swingAmp = 20 + Math.random() * 30;
+          this.swingFreq = 0.01 + Math.random() * 0.02;
+          this.swingStep = Math.random() * Math.PI * 2;
+          this.opacity = 0.55 + Math.random() * 0.4;
+          this.tiltAngle = Math.random() * Math.PI;
+          this.tiltSpeed = 0.02 + Math.random() * 0.03;
+        }
+
+        update() {
+          this.swingStep += this.swingFreq;
+          this.x += this.speedX + Math.sin(this.swingStep) * 0.8;
+          this.y += this.speedY;
+          this.angle += this.spinSpeed;
+          this.tiltAngle += this.tiltSpeed;
+
+          if (this.y > height + 25 || this.x < -30 || this.x > width + 30) {
+            this.reset();
+          }
+        }
+
+        draw() {
+          ctx.save();
+          ctx.translate(this.x, this.y);
+          ctx.rotate(this.angle);
+          ctx.scale(Math.cos(this.tiltAngle), 1);
+
+          // Vẽ cánh hoa bằng đường cong Bezier mềm mại
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.bezierCurveTo(this.size / 2, -this.size / 2, this.size, 0, 0, this.size);
+          ctx.bezierCurveTo(-this.size, 0, -this.size / 2, -this.size / 2, 0, 0);
+          
+          // Gradient màu hồng pastel phớt kem
+          const grad = ctx.createRadialGradient(0, 0, 1, 0, this.size / 2, this.size);
+          grad.addColorStop(0, `rgba(255, 235, 240, ${this.opacity})`);
+          grad.addColorStop(0.7, `rgba(251, 207, 216, ${this.opacity * 0.9})`);
+          grad.addColorStop(1, `rgba(244, 114, 182, ${this.opacity * 0.6})`);
+
+          ctx.fillStyle = grad;
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      for (let i = 0; i < PETAL_COUNT; i++) {
+        petals.push(new Petal());
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+        petals.forEach(p => {
+          p.update();
+          p.draw();
+        });
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+
+    /* =========================================================================
+       4. BỘ ĐIỀU KHIỂN ÂM THANH NỀN & NÚT ĐĨA NHẠC XOAY
+       ========================================================================= */
+    const bgMusic = document.getElementById("bgMusic");
+    const musicToggleBtn = document.getElementById("musicToggleBtn");
+    const musicDiscIcon = document.getElementById("musicDiscIcon");
+    const musicNoteBubble = document.getElementById("musicNoteBubble");
+    let isMusicPlaying = false;
+    let webAudioContext = null;
+
+    function initAudio() {
+      if (bgMusic && CONFIG.MUSIC_URL) {
+        bgMusic.src = CONFIG.MUSIC_URL;
+      }
+
+      if (musicToggleBtn) {
+        musicToggleBtn.addEventListener("click", () => {
+          toggleMusic();
+        });
+      }
+    }
+
+    function playMusic() {
+      if (bgMusic && bgMusic.src) {
+        bgMusic.play()
+          .then(() => {
+            isMusicPlaying = true;
+            updateMusicButtonUI(true);
+          })
+          .catch(err => {
+            console.warn("Trình duyệt chặn autoplay hoặc nhạc online chưa tải, dùng Web Audio synthesizer nhẹ nhàng:", err);
+            startRomanticChimeFallback();
+            isMusicPlaying = true;
+            updateMusicButtonUI(true);
+          });
+      } else {
+        startRomanticChimeFallback();
+        isMusicPlaying = true;
+        updateMusicButtonUI(true);
+      }
+    }
+
+    function pauseMusic() {
+      if (bgMusic) bgMusic.pause();
+      if (webAudioContext && webAudioContext.state === "running") {
+        webAudioContext.suspend();
+      }
+      isMusicPlaying = false;
+      updateMusicButtonUI(false);
+    }
+
+    function toggleMusic() {
+      if (isMusicPlaying) {
+        pauseMusic();
+      } else {
+        playMusic();
+      }
+    }
+
+    function updateMusicButtonUI(playing) {
+      if (!musicDiscIcon) return;
+      if (playing) {
+        musicDiscIcon.classList.add("animate-spin-slow", "text-rose-600");
+        musicDiscIcon.classList.remove("text-slate-400");
+        if (musicNoteBubble) musicNoteBubble.classList.remove("hidden");
+      } else {
+        musicDiscIcon.classList.remove("animate-spin-slow", "text-rose-600");
+        musicDiscIcon.classList.add("text-slate-400");
+        if (musicNoteBubble) musicNoteBubble.classList.add("hidden");
+      }
+    }
+
+    // Dự phòng Web Audio API phát giai điệu hộp nhạc êm dịu nếu file nhạc ngoài bị chặn
+    function startRomanticChimeFallback() {
+      try {
+        if (!webAudioContext) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          webAudioContext = new AudioContext();
+          
+          const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 349.23, 329.63]; // C E G C A G F E
+          let step = 0;
+
+          setInterval(() => {
+            if (!isMusicPlaying || webAudioContext.state !== "running") return;
+            const osc = webAudioContext.createOscillator();
+            const gain = webAudioContext.createGain();
+            
+            osc.type = "sine";
+            osc.frequency.setValueAtTime(notes[step % notes.length], webAudioContext.currentTime);
+            
+            gain.gain.setValueAtTime(0.04, webAudioContext.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, webAudioContext.currentTime + 1.6);
+            
+            osc.connect(gain);
+            gain.connect(webAudioContext.destination);
+            
+            osc.start();
+            osc.stop(webAudioContext.currentTime + 1.6);
+            step++;
+          }, 650);
+        } else if (webAudioContext.state === "suspended") {
+          webAudioContext.resume();
+        }
+      } catch (e) {
+        console.warn("Web Audio fallback error:", e);
+      }
+    }
+
+    /* =========================================================================
+       5. CHUYỂN TIẾP MÀN HÌNH MƯỢT MÀ (CHỈ HIỂN THỊ 1 MÀN HÌNH TẠI 1 THỜI ĐIỂM)
+       ========================================================================= */
+    let currentScreen = 1;
+
+    function goToScreen(screenNumber) {
+      if (screenNumber === currentScreen) return;
+
+      const currentScreenEl = document.getElementById(`screen-${currentScreen}`);
+      const nextScreenEl = document.getElementById(`screen-${screenNumber}`);
+
+      if (!currentScreenEl || !nextScreenEl) return;
+
+      // Ẩn màn hình hiện tại với hiệu ứng mờ dần
+      currentScreenEl.classList.remove("opacity-100", "translate-x-0");
+      currentScreenEl.classList.add("opacity-0", "-translate-x-12");
+
+      setTimeout(() => {
+        currentScreenEl.classList.add("hidden");
+        currentScreenEl.classList.remove("active");
+
+        // Chuẩn bị và hiện màn hình kế tiếp
+        nextScreenEl.classList.remove("hidden");
+        nextScreenEl.classList.add("active");
+
+        // Force reflow
+        void nextScreenEl.offsetWidth;
+
+        nextScreenEl.classList.remove("opacity-0", "translate-x-12");
+        nextScreenEl.classList.add("opacity-100", "translate-x-0");
+
+        currentScreen = screenNumber;
+
+        // Kích hoạt logic riêng từng màn hình khi bước vào
+        if (screenNumber === 3) {
+          startTypewriterEffect();
+        }
+      }, 350);
+    }
+
+    /* =========================================================================
+       6. LOGIC MÀN HÌNH 1: NHẬP PASSCODE VÀ RUNG LỖI
+       ========================================================================= */
+    let enteredPin = "";
+    const pinDots = document.querySelectorAll(".pin-dot");
+    const pinErrorMessage = document.getElementById("pinErrorMessage");
+    const pinDotsContainer = document.getElementById("pinDotsContainer");
+
+    document.querySelectorAll(".keypad-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const key = btn.dataset.key;
+        handleKeypadPress(key);
+      });
+    });
+
+    function handleKeypadPress(key) {
+      if (key === "clear") {
+        enteredPin = "";
+        updatePinDisplay();
+        hidePinError();
+        return;
+      }
+
+      if (key === "delete") {
+        if (enteredPin.length > 0) {
+          enteredPin = enteredPin.slice(0, -1);
+          updatePinDisplay();
+          hidePinError();
+        }
+        return;
+      }
+
+      // Nhập số
+      if (enteredPin.length < 4) {
+        enteredPin += key;
+        updatePinDisplay();
+        hidePinError();
+
+        if (enteredPin.length === 4) {
+          validatePasscode();
+        }
+      }
+    }
+
+    function updatePinDisplay() {
+      pinDots.forEach((dot, index) => {
+        if (index < enteredPin.length) {
+          dot.innerHTML = `<i class="fa-solid fa-heart animate-pop text-rose-500"></i>`;
+          dot.classList.add("border-rose-400", "bg-rose-50/70");
+        } else {
+          dot.innerHTML = "";
+          dot.classList.remove("border-rose-400", "bg-rose-50/70");
+        }
+      });
+    }
+
+    function validatePasscode() {
+      if (enteredPin === CONFIG.PASSCODE) {
+        // Đúng mật khẩu: Pháo hoa nhỏ, phát nhạc, và sang màn hình 2
+        playSuccessConfetti();
+        playMusic();
+
+        pinDots.forEach(dot => {
+          dot.classList.add("border-emerald-400", "text-emerald-500");
+        });
+
+        setTimeout(() => {
+          goToScreen(2);
+        }, 600);
+      } else {
+        // Sai mật khẩu: Rung lắc (shake) và báo lỗi
+        if (navigator.vibrate) {
+          try { navigator.vibrate([80, 50, 80]); } catch (e) {}
+        }
+
+        pinDotsContainer.classList.add("animate-shake");
+        if (pinErrorMessage) {
+          pinErrorMessage.classList.remove("opacity-0");
+          pinErrorMessage.classList.add("opacity-100");
+        }
+
+        setTimeout(() => {
+          pinDotsContainer.classList.remove("animate-shake");
+        }, 500);
+
+        setTimeout(() => {
+          enteredPin = "";
+          updatePinDisplay();
+        }, 750);
+      }
+    }
+
+    function hidePinError() {
+      if (pinErrorMessage) {
+        pinErrorMessage.classList.remove("opacity-100");
+        pinErrorMessage.classList.add("opacity-0");
+      }
+    }
+
+    /* =========================================================================
+       7. LOGIC MÀN HÌNH 2: MỞ QUÀ & POLAROID 3D FLIP CARD
+       ========================================================================= */
+    const mysteryGiftTrigger = document.getElementById("mysteryGiftTrigger");
+    const openGiftBtn = document.getElementById("openGiftBtn");
+    const giftBoxState = document.getElementById("giftBoxState");
+    const polaroidDeckState = document.getElementById("polaroidDeckState");
+
+    const activeFlipCard = document.getElementById("activeFlipCard");
+    const polaroidFrontImg = document.getElementById("polaroidFrontImg");
+    const polaroidCaption = document.getElementById("polaroidCaption");
+    const polaroidBackText = document.getElementById("polaroidBackText");
+    const currentCardIndexText = document.getElementById("currentCardIndexText");
+    const prevCardBtn = document.getElementById("prevCardBtn");
+    const nextCardBtn = document.getElementById("nextCardBtn");
+    const cardDots = document.querySelectorAll(".card-dot");
+    const toLetterScreenBtn = document.getElementById("toLetterScreenBtn");
+
+    let currentCardIndex = 0;
+
+    // Chạm vào hộp quà để bung pháo hoa và lộ 3 thẻ ảnh
+    function triggerOpenGift() {
+      playBigConfetti();
+
+      giftBoxState.classList.add("scale-125", "opacity-0", "transition-all", "duration-500");
+      setTimeout(() => {
+        giftBoxState.classList.add("hidden");
+        polaroidDeckState.classList.remove("hidden");
+        polaroidDeckState.classList.add("opacity-100");
+        renderPolaroidCard(0);
+      }, 450);
+    }
+
+    if (mysteryGiftTrigger) mysteryGiftTrigger.addEventListener("click", triggerOpenGift);
+    if (openGiftBtn) openGiftBtn.addEventListener("click", triggerOpenGift);
+
+    // Lật thẻ 3D khi chạm vào ảnh
+    if (activeFlipCard) {
+      activeFlipCard.addEventListener("click", () => {
+        activeFlipCard.classList.toggle("flipped");
+      });
+    }
+
+    // Hiển thị nội dung thẻ ảnh Polaroid theo index
+    function renderPolaroidCard(index) {
+      if (!CONFIG.PHOTOS || CONFIG.PHOTOS.length === 0) return;
+      currentCardIndex = (index + CONFIG.PHOTOS.length) % CONFIG.PHOTOS.length;
+      const data = CONFIG.PHOTOS[currentCardIndex];
+
+      // Nếu đang lật mặt sau, lật lại mặt trước trước khi đổi ảnh
+      if (activeFlipCard && activeFlipCard.classList.contains("flipped")) {
+        activeFlipCard.classList.remove("flipped");
+      }
+
+      if (polaroidFrontImg) polaroidFrontImg.src = data.url;
+      if (polaroidCaption) polaroidCaption.textContent = data.caption;
+      if (polaroidBackText) polaroidBackText.textContent = data.backText;
+      if (currentCardIndexText) currentCardIndexText.textContent = (currentCardIndex + 1);
+
+      // Cập nhật dots
+      cardDots.forEach((dot, idx) => {
+        if (idx === currentCardIndex) {
+          dot.classList.remove("bg-rose-200", "w-2");
+          dot.classList.add("bg-rose-500", "w-3.5");
+        } else {
+          dot.classList.remove("bg-rose-500", "w-3.5");
+          dot.classList.add("bg-rose-200", "w-2");
+        }
+      });
+    }
+
+    if (prevCardBtn) {
+      prevCardBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        renderPolaroidCard(currentCardIndex - 1);
+      });
+    }
+
+    if (nextCardBtn) {
+      nextCardBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        renderPolaroidCard(currentCardIndex + 1);
+      });
+    }
+
+    if (toLetterScreenBtn) {
+      toLetterScreenBtn.addEventListener("click", () => {
+        goToScreen(3);
+      });
+    }
+
+    /* =========================================================================
+       8. LOGIC MÀN HÌNH 3: HIỆU ỨNG GÕ CHỮ TYPEWRITER
+       ========================================================================= */
+    const typewriterBodyText = document.getElementById("typewriterBodyText");
+    const typewriterCursor = document.getElementById("typewriterCursor");
+    const voucherRevealWrapper = document.getElementById("voucherRevealWrapper");
+    const fastForwardLetterBtn = document.getElementById("fastForwardLetterBtn");
+    const toVoucherScreenBtn = document.getElementById("toVoucherScreenBtn");
+
+    let typewriterTimer = null;
+    let isTypewriterFinished = false;
+
+    function startTypewriterEffect() {
+      if (isTypewriterFinished) return;
+
+      const fullText = CONFIG.LETTER_CONTENT;
+      let charIndex = 0;
+      typewriterBodyText.textContent = "";
+
+      clearInterval(typewriterTimer);
+
+      typewriterTimer = setInterval(() => {
+        if (charIndex < fullText.length) {
+          typewriterBodyText.textContent += fullText.charAt(charIndex);
+          charIndex++;
+        } else {
+          finishTypewriter();
+        }
+      }, 38);
+    }
+
+    function finishTypewriter() {
+      clearInterval(typewriterTimer);
+      typewriterBodyText.textContent = CONFIG.LETTER_CONTENT;
+      isTypewriterFinished = true;
+
+      if (typewriterCursor) {
+        typewriterCursor.style.display = "none";
+      }
+
+      // Hiện nút chuyển sang Màn hình 4 với hiệu ứng mượt mà
+      if (voucherRevealWrapper) {
+        voucherRevealWrapper.classList.remove("opacity-0", "pointer-events-none", "translate-y-3");
+        voucherRevealWrapper.classList.add("opacity-100", "pointer-events-auto", "translate-y-0");
+        playSmallHeartConfetti();
+      }
+    }
+
+    if (fastForwardLetterBtn) {
+      fastForwardLetterBtn.addEventListener("click", () => {
+        finishTypewriter();
+      });
+    }
+
+    if (toVoucherScreenBtn) {
+      toVoucherScreenBtn.addEventListener("click", () => {
+        goToScreen(4);
+      });
+    }
+
+    /* =========================================================================
+       9. LOGIC MÀN HÌNH 4: NÚT CHẠY TRỐN & NÚT CHỐT LUÔN
+       ========================================================================= */
+    const runawayBtn = document.getElementById("runawayBtn");
+    const runawayBtnLabel = document.getElementById("runawayBtnLabel");
+    const actionButtonsArea = document.getElementById("actionButtonsArea");
+    const acceptDateBtn = document.getElementById("acceptDateBtn");
+    const successModal = document.getElementById("successModal");
+    const successModalCard = document.getElementById("successModalCard");
+    const closeModalBtn = document.getElementById("closeModalBtn");
+    const replayBtn = document.getElementById("replayBtn");
+
+    const playfulQuotes = [
+      "Hụt rùi nè! 😜",
+      "Đừng hòng bấm! 🏃‍♂️",
+      "Nút bị khóa rùi haha 😝",
+      "Chốt luôn đi suy nghĩ chi! 🥺",
+      "Không có cửa từ chối đâu! 💖",
+      "Bấm nút bên kia đi mà! 🥰"
+    ];
+    let dodgeCount = 0;
+
+    // Hàm di chuyển nút runaway sang vị trí ngẫu nhiên không thể bấm trúng
+    function dodgeRunawayButton(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      if (!runawayBtn || !actionButtonsArea) return;
+
+      const areaRect = actionButtonsArea.getBoundingClientRect();
+      const btnRect = runawayBtn.getBoundingClientRect();
+
+      // Đổi thành vị trí absolute bên trong container
+      runawayBtn.style.position = "absolute";
+      runawayBtn.style.zIndex = "40";
+
+      // Đổi lời thoại trêu đùa
+      dodgeCount++;
+      if (runawayBtnLabel) {
+        runawayBtnLabel.textContent = playfulQuotes[dodgeCount % playfulQuotes.length];
+      }
+
+      // Tính toạ độ ngẫu nhiên đảm bảo nằm gọn trong khung nhìn
+      const maxLeft = areaRect.width - btnRect.width - 15;
+      const maxTop = areaRect.height - btnRect.height - 10;
+
+      const randomX = Math.max(10, Math.floor(Math.random() * maxLeft));
+      const randomY = Math.max(5, Math.floor(Math.random() * maxTop));
+
+      runawayBtn.style.left = `${randomX}px`;
+      runawayBtn.style.top = `${randomY}px`;
+      runawayBtn.style.transform = `scale(${Math.max(0.75, 1 - dodgeCount * 0.04)})`;
+    }
+
+    // Bắt đồng thời mouseover, pointerdown, touchstart và touchmove để chạy trốn tức thì trên cả PC & ĐIỆN THOẠI
+    if (runawayBtn) {
+      runawayBtn.addEventListener("mouseover", dodgeRunawayButton);
+      runawayBtn.addEventListener("mouseenter", dodgeRunawayButton);
+      runawayBtn.addEventListener("pointerdown", dodgeRunawayButton);
+      runawayBtn.addEventListener("touchstart", dodgeRunawayButton, { passive: false });
+      runawayBtn.addEventListener("touchmove", dodgeRunawayButton, { passive: false });
+      runawayBtn.addEventListener("click", dodgeRunawayButton);
+    }
+
+    // Nút "Chốt luôn! 💖" -> Bắn pháo hoa hình trái tim & Hiện Popup thành công
+    if (acceptDateBtn) {
+      acceptDateBtn.addEventListener("click", () => {
+        playHeartExplosionConfetti();
+
+        if (successModal && successModalCard) {
+          successModal.classList.remove("opacity-0", "pointer-events-none");
+          successModal.classList.add("opacity-100", "pointer-events-auto");
+          
+          successModalCard.classList.remove("scale-90");
+          successModalCard.classList.add("scale-100");
+        }
+      });
+    }
+
+    if (closeModalBtn) {
+      closeModalBtn.addEventListener("click", () => {
+        playHeartExplosionConfetti();
+        if (successModal) {
+          successModal.classList.add("opacity-0", "pointer-events-none");
+          successModal.classList.remove("opacity-100", "pointer-events-auto");
+        }
+      });
+    }
+
+    // Nút xem lại từ đầu
+    if (replayBtn) {
+      replayBtn.addEventListener("click", () => {
+        if (successModal) {
+          successModal.classList.add("opacity-0", "pointer-events-none");
+          successModal.classList.remove("opacity-100", "pointer-events-auto");
+        }
+        // Reset trạng thái
+        enteredPin = "";
+        updatePinDisplay();
+        currentCardIndex = 0;
+        isTypewriterFinished = false;
+        dodgeCount = 0;
+        
+        if (runawayBtn) {
+          runawayBtn.style.position = "relative";
+          runawayBtn.style.left = "auto";
+          runawayBtn.style.top = "auto";
+          runawayBtn.style.transform = "none";
+          if (runawayBtnLabel) runawayBtnLabel.textContent = "Để suy nghĩ đã";
+        }
+        
+        giftBoxState.classList.remove("hidden", "scale-125", "opacity-0");
+        polaroidDeckState.classList.add("hidden");
+        
+        if (voucherRevealWrapper) {
+          voucherRevealWrapper.classList.add("opacity-0", "pointer-events-none", "translate-y-3");
+          voucherRevealWrapper.classList.remove("opacity-100", "pointer-events-auto", "translate-y-0");
+        }
+
+        goToScreen(1);
+      });
+    }
+
+    /* =========================================================================
+       10. CÁC HIỆU ỨNG PHÁO HOA CANVAS-CONFETTI ĐẶC BIỆT
+       ========================================================================= */
+    function playSuccessConfetti() {
+      if (typeof confetti !== "function") return;
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { y: 0.75 },
+        colors: ['#f43f5e', '#fb7185', '#fda4af', '#fef08a']
+      });
+    }
+
+    function playBigConfetti() {
+      if (typeof confetti !== "function") return;
+      const count = 200;
+      const defaults = {
+        origin: { y: 0.6 }
+      };
+
+      function fire(particleRatio, opts) {
+        confetti(Object.assign({}, defaults, opts, {
+          particleCount: Math.floor(count * particleRatio)
+        }));
+      }
+
+      fire(0.25, {
+        spread: 26,
+        startVelocity: 55,
+        colors: ['#f43f5e', '#fda4af']
+      });
+      fire(0.2, {
+        spread: 60,
+        colors: ['#fbbf24', '#f59e0b']
+      });
+      fire(0.35, {
+        spread: 100,
+        decay: 0.91,
+        scalar: 0.8,
+        colors: ['#ffe4e6', '#ec4899', '#ffffff']
+      });
+      fire(0.1, {
+        spread: 120,
+        startVelocity: 25,
+        decay: 0.92,
+        colors: ['#e11d48', '#f43f5e']
+      });
+      fire(0.1, {
+        spread: 120,
+        startVelocity: 45,
+      });
+    }
+
+    function playSmallHeartConfetti() {
+      if (typeof confetti !== "function") return;
+      confetti({
+        particleCount: 35,
+        spread: 70,
+        origin: { y: 0.8 },
+        colors: ['#fb7185', '#f43f5e', '#fbbf24']
+      });
+    }
+
+    function playHeartExplosionConfetti() {
+      if (typeof confetti !== "function") return;
+      
+      const duration = 2.5 * 1000;
+      const animationEnd = Date.now() + duration;
+
+      const interval = setInterval(function() {
+        const timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+
+        const particleCount = 45 * (timeLeft / duration);
+        confetti({
+          particleCount,
+          startVelocity: 30,
+          spread: 360,
+          ticks: 60,
+          origin: {
+            x: Math.random(),
+            y: Math.random() - 0.2
+          },
+          colors: ['#e11d48', '#f43f5e', '#fb7185', '#fda4af', '#f59e0b', '#ffffff']
+        });
+      }, 250);
+    }
+  </script>
+</body>
+</html>
