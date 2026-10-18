@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Bầu Trời Sao Mang Tên Cậu ✨ 20/10 Special</title>
+  <title>Khu Vườn Ánh Sáng 3D & Đóa Hoa Dành Cho Cậu 🌸✨ 20/10</title>
 
-  <!-- Google Fonts: Cormorant Garamond, Dancing Script & Quicksand -->
+  <!-- Google Fonts: Cormorant Garamond & Quicksand -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -19,7 +19,7 @@
   <!-- canvas-confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
-  <!-- Tailwind Config -->
+  <!-- Tailwind Configuration -->
   <script>
     tailwind.config = {
       theme: {
@@ -27,37 +27,33 @@
           fontFamily: {
             sans: ['Quicksand', 'sans-serif'],
             serif: ['"Cormorant Garamond"', 'serif'],
-            handwriting: ['"Dancing Script"', 'cursive'],
           },
           colors: {
-            cosmic: {
-              black: '#04060d',
-              midnight: '#070c1d',
-              navy: '#0f1738',
-              purple: '#1c1038',
-              starPink: '#f472b6',
-              starGold: '#fde047',
-              cyan: '#38bdf8',
+            garden: {
+              void: '#02040a',
+              deep: '#060a18',
+              emerald: '#059669',
+              teal: '#14b8a6',
+              cyan: '#06b6d4',
+              pink: '#f43f5e',
+              rose: '#fb7185',
+              gold: '#fde047',
             }
           },
           animation: {
-            'pulse-glow': 'pulseGlow 2.5s ease-in-out infinite',
-            'float-star': 'floatStar 4s ease-in-out infinite',
-            'spin-slow': 'spin 20s linear infinite',
-            'shimmer': 'shimmer 3s ease infinite',
+            'pulse-slow': 'pulse 3.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'spin-slow': 'spin 25s linear infinite',
+            'float-orb': 'floatOrb 4s ease-in-out infinite alternate',
+            'glow-breathe': 'glowBreathe 3s ease-in-out infinite alternate',
           },
           keyframes: {
-            pulseGlow: {
-              '0%, 100%': { transform: 'scale(1)', filter: 'drop-shadow(0 0 12px rgba(253, 224, 71, 0.7))' },
-              '50%': { transform: 'scale(1.15)', filter: 'drop-shadow(0 0 28px rgba(244, 114, 182, 0.95))' },
+            floatOrb: {
+              '0%': { transform: 'translateY(0px) scale(1)' },
+              '100%': { transform: 'translateY(-12px) scale(1.05)' },
             },
-            floatStar: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-8px)' },
-            },
-            shimmer: {
-              '0%': { backgroundPosition: '-200% 0' },
-              '100%': { backgroundPosition: '200% 0' },
+            glowBreathe: {
+              '0%': { filter: 'drop-shadow(0 0 15px rgba(6, 182, 212, 0.4))' },
+              '100%': { filter: 'drop-shadow(0 0 35px rgba(244, 63, 94, 0.8))' },
             }
           }
         }
@@ -66,7 +62,7 @@
   </script>
 
   <style>
-    /* Reset & chống tràn cuộn trên điện thoại */
+    /* Reset & chống cuộn trên mobile */
     * {
       -webkit-tap-highlight-color: transparent;
       user-select: none;
@@ -77,13 +73,13 @@
       height: 100%;
       height: 100dvh;
       overflow: hidden;
-      background-color: #04060d;
+      background-color: #02040a;
       color: #ffffff;
       font-family: 'Quicksand', sans-serif;
     }
 
-    /* Canvas nền toàn màn hình */
-    #skyCanvas {
+    /* Canvas nền Hạt Đom Đóm & Hiệu Ứng Sóng */
+    #gardenCanvas {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -92,365 +88,396 @@
       pointer-events: auto;
     }
 
-    /* Hiệu ứng Kính Mờ Vũ Trụ (Cosmic Glassmorphism) */
-    .cosmic-glass {
-      background: rgba(15, 23, 56, 0.55);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+    /* Kính mờ siêu thực (Bioluminescent Glass) */
+    .biolum-card {
+      background: rgba(10, 18, 38, 0.65);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.25);
     }
 
-    .cosmic-glass-pill {
+    .biolum-pill {
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
-    /* Text Glow Effect */
-    .text-starlight {
-      text-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 0 25px rgba(244, 114, 182, 0.65), 0 0 45px rgba(168, 85, 247, 0.45);
+    /* Text Glow Typography */
+    .glow-text-cyan {
+      text-shadow: 0 0 15px rgba(6, 182, 212, 0.8), 0 0 30px rgba(20, 184, 166, 0.5);
+    }
+    .glow-text-pink {
+      text-shadow: 0 0 15px rgba(244, 63, 94, 0.85), 0 0 35px rgba(251, 113, 133, 0.6);
+    }
+    .glow-text-gold {
+      text-shadow: 0 0 12px rgba(253, 224, 71, 0.9), 0 0 25px rgba(245, 158, 11, 0.6);
     }
 
-    .text-goldlight {
-      text-shadow: 0 0 10px rgba(253, 224, 71, 0.8), 0 0 20px rgba(245, 158, 11, 0.5);
+    /* Lớp Parallax Container */
+    .parallax-layer {
+      transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform;
     }
 
-    /* Constellation SVG Lines */
-    #constellationSvg {
+    /* Cánh Hoa Pha Lê SVG & Animation Nở */
+    .crystal-petal {
+      transform-origin: 150px 150px;
+      transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+    }
+
+    /* Vòng tròn tiến trình Hold-to-Bloom */
+    .hold-progress-ring {
+      transition: stroke-dashoffset 0.05s linear;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+
+    /* Tinh Cầu Kỷ Niệm (Floating Memory Orbs) */
+    .memory-orb {
       position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 10;
+      transform: translate(-50%, -50%);
+      transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .constellation-line {
-      stroke: url(#starlightGrad);
-      stroke-width: 2.5;
-      stroke-linecap: round;
-      stroke-dasharray: 600;
-      stroke-dashoffset: 600;
-      filter: drop-shadow(0 0 8px #f472b6) drop-shadow(0 0 16px #38bdf8);
-      transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 3D Tilt Glare Card Effect */
+    .tilt-card-wrapper {
+      perspective: 1000px;
     }
 
-    .constellation-line.connected {
-      stroke-dashoffset: 0;
+    .tilt-card {
+      transition: transform 0.2s ease-out;
+      transform-style: preserve-3d;
     }
 
-    /* Star Halo Pulse Ring */
-    .star-halo {
+    /* Voucher Viền Ánh Kim Hologram */
+    .voucher-border {
+      position: relative;
+    }
+    .voucher-border::before {
+      content: '';
       position: absolute;
-      inset: -12px;
-      border-radius: 9999px;
-      border: 1px dashed rgba(253, 224, 71, 0.6);
-      animation: spin 16s linear infinite;
-      pointer-events: none;
+      inset: -2px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, #f43f5e, #fde047, #06b6d4, #f43f5e);
+      background-size: 300% 300%;
+      animation: voucherShimmer 6s linear infinite;
+      z-index: -1;
     }
 
-    .star-halo-pink {
-      border-color: rgba(244, 114, 182, 0.7);
-      animation: spin 12s linear infinite reverse;
-    }
-
-    /* Bức thư giấy da lấp lánh (Parchment Starlight) */
-    .starlight-parchment {
-      background: linear-gradient(135deg, rgba(20, 26, 60, 0.92) 0%, rgba(29, 17, 54, 0.95) 100%);
-      border: 1.5px solid rgba(253, 224, 71, 0.35);
-      box-shadow: 0 0 40px rgba(244, 114, 182, 0.25), inset 0 0 30px rgba(253, 224, 71, 0.1);
+    @keyframes voucherShimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
   </style>
 </head>
-<body class="flex items-center justify-center bg-[#04060d]">
+<body class="flex items-center justify-center bg-[#02040a]">
 
-  <!-- Mobile App Frame Container (100dvh trên mobile, frame điện thoại sang trọng trên desktop) -->
-  <main class="relative w-full max-w-[430px] h-[100dvh] sm:h-[890px] sm:max-h-[96vh] bg-[#04060d] sm:rounded-[44px] sm:border sm:border-white/15 shadow-[0_30px_90px_rgba(0,0,0,0.9)] overflow-hidden flex flex-col z-10">
+  <!-- Mobile App Frame Container (100dvh trên mobile, Luxury Glass Frame trên PC) -->
+  <main id="appContainer" class="relative w-full max-w-[440px] h-[100dvh] sm:h-[890px] sm:max-h-[96vh] bg-[#02040a] sm:rounded-[44px] sm:border sm:border-white/15 shadow-[0_30px_90px_rgba(0,0,0,0.95)] overflow-hidden flex flex-col z-10 select-none">
 
-    <!-- Canvas Bầu Trời Sao Lấp Lánh & Sao Băng -->
-    <canvas id="skyCanvas"></canvas>
+    <!-- Canvas Nền Đom Đóm Vật Lý & Sóng Nước Ánh Sáng -->
+    <canvas id="gardenCanvas"></canvas>
 
-    <!-- SVG Layer vẽ các đường nối Chòm Sao Hình Trái Tim -->
-    <svg id="constellationSvg">
-      <defs>
-        <linearGradient id="starlightGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#fde047" />
-          <stop offset="50%" stop-color="#f472b6" />
-          <stop offset="100%" stop-color="#38bdf8" />
-        </linearGradient>
-      </defs>
-      <!-- Heart Constellation Lines: nối 5 ngôi sao theo hình trái tim hoàn mỹ -->
-      <!-- Đường 1: Sao 1 (Đỉnh trái) -> Sao 2 (Vết lõm giữa) -->
-      <line id="line1" class="constellation-line" x1="0" y1="0" x2="0" y2="0" />
-      <!-- Đường 2: Sao 2 (Vết lõm giữa) -> Sao 3 (Đỉnh phải) -->
-      <line id="line2" class="constellation-line" x1="0" y1="0" x2="0" y2="0" />
-      <!-- Đường 3: Sao 3 (Đỉnh phải) -> Sao 4 (Sườn phải) -->
-      <line id="line3" class="constellation-line" x1="0" y1="0" x2="0" y2="0" />
-      <!-- Đường 4: Sao 4 (Sườn phải) -> Sao 5 (Chóp nhọn đáy) -->
-      <line id="line4" class="constellation-line" x1="0" y1="0" x2="0" y2="0" />
-      <!-- Đường 5: Sao 5 (Chóp nhọn đáy) -> Sao 1 (Đỉnh trái vòng qua sườn trái) -->
-      <line id="line5" class="constellation-line" x1="0" y1="0" x2="0" y2="0" />
-    </svg>
-
-    <!-- ============================================== -->
-    <!-- MÀN HÌNH MỞ ĐẦU (INTRO OVERLAY)                -->
-    <!-- ============================================== -->
-    <div id="introOverlay" class="absolute inset-0 z-50 flex flex-col justify-between items-center px-7 py-12 bg-gradient-to-b from-[#04060d]/95 via-[#090e24]/90 to-[#04060d]/95 backdrop-blur-md transition-all duration-1000">
-      
-      <!-- Top Badge -->
-      <div class="flex items-center space-x-2 cosmic-glass-pill px-4 py-1.5 rounded-full">
-        <span class="w-2 h-2 rounded-full bg-pink-400 animate-ping"></span>
-        <span class="text-xs font-semibold tracking-wider text-pink-300 uppercase">20/10 Cosmic Gift</span>
-      </div>
-
-      <!-- Center Typography & Starlight Orb -->
-      <div class="my-auto flex flex-col items-center text-center space-y-6">
-        
-        <!-- Glowing Moon & Orbiting Star -->
-        <div class="relative w-28 h-28 flex items-center justify-center">
-          <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-pink-500/30 to-yellow-400/30 filter blur-xl animate-pulse"></div>
-          <div class="w-24 h-24 rounded-full bg-gradient-to-br from-amber-100 via-rose-200 to-indigo-950 p-1 shadow-[0_0_40px_rgba(253,224,71,0.5)] flex items-center justify-center border border-white/40">
-            <i class="fa-solid fa-moon text-4xl text-amber-100 drop-shadow-[0_0_15px_rgba(253,224,71,0.8)]"></i>
-          </div>
-          <div class="absolute -top-1 -right-1 text-pink-300 text-lg animate-bounce">
-            <i class="fa-solid fa-sparkles"></i>
-          </div>
-          <div class="absolute -bottom-2 -left-2 text-yellow-300 text-sm animate-pulse">
-            <i class="fa-solid fa-star"></i>
-          </div>
-        </div>
-
-        <!-- Glowing Headline -->
-        <div class="space-y-3 px-2">
-          <p class="font-serif italic text-base text-pink-200/90 tracking-wide">
-            "Người ta tặng hoa ngoài đời,"
-          </p>
-          <h1 class="font-handwriting text-2xl sm:text-3xl font-bold text-starlight leading-snug">
-            Còn tớ gom cả bầu trời sao 20/10 gửi đến <span id="introCrushName" class="text-amber-300 underline decoration-pink-400 decoration-wavy underline-offset-4">[TÊN_CRUSH]</span>...
-          </h1>
-          <p class="text-xs text-white/60 font-light max-w-xs mx-auto leading-relaxed pt-2">
-            Mỗi ngôi sao sáng nhất đêm nay đều cất giữ một lời chúc và một bí mật dành riêng cho cậu.
-          </p>
-        </div>
-
-      </div>
-
-      <!-- Start Button (Bấm để phát nhạc và mở màn hình tương tác) -->
-      <div class="w-full flex flex-col items-center space-y-3">
-        <button id="startExploreBtn" class="w-full relative group overflow-hidden py-4 px-6 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 text-white font-bold text-sm tracking-wider uppercase shadow-[0_0_35px_rgba(244,114,182,0.6)] hover:shadow-[0_0_50px_rgba(244,114,182,0.9)] transform active:scale-95 transition-all duration-300 flex items-center justify-center gap-2.5">
-          <span class="absolute inset-0 bg-white/25 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
-          <i class="fa-solid fa-wand-magic-sparkles text-amber-300 text-base"></i>
-          <span>Chạm để thắp sáng bầu trời ✨</span>
-        </button>
-        <span class="text-[11px] text-white/40 flex items-center gap-1.5">
-          <i class="fa-solid fa-headphones text-[10px] text-pink-400"></i>
-          <span>Đeo tai nghe để có trải nghiệm âm thanh tuyệt nhất</span>
-        </span>
-      </div>
-
+    <!-- Parallax Layer 1: Nebula Glow xa mờ -->
+    <div id="parallaxNebula" class="parallax-layer absolute inset-0 pointer-events-none z-10 flex items-center justify-center">
+      <div class="w-[320px] h-[320px] rounded-full bg-gradient-to-tr from-cyan-600/20 via-pink-600/20 to-teal-500/15 filter blur-[90px] animate-pulse-slow"></div>
     </div>
 
-    <!-- ============================================== -->
-    <!-- MÀN HÌNH CHÍNH (KHÁM PHÁ 5 NGÔI SAO)           -->
-    <!-- ============================================== -->
-    <header class="w-full pt-4 px-5 pb-2 flex items-center justify-between z-30 select-none">
+    <!-- Header Thông Báo Trạng Thái & Nút Nhạc -->
+    <header class="w-full pt-4 px-6 pb-2 flex items-center justify-between z-40">
       
-      <!-- Trạng thái đếm số sao đã mở (0/5) -->
-      <div class="flex items-center space-x-2 cosmic-glass-pill px-3.5 py-1.5 rounded-full border border-pink-400/30 shadow-[0_0_15px_rgba(244,114,182,0.3)]">
-        <i class="fa-solid fa-star text-amber-300 text-xs animate-spin-slow"></i>
-        <span class="text-xs font-semibold text-white/90">
-          Hãy chạm vào 5 ngôi sao sáng nhất (<span id="starCounter" class="text-pink-300 font-bold">0</span>/5) ⭐
-        </span>
+      <!-- Live Tag -->
+      <div class="flex items-center space-x-2 biolum-pill px-3 py-1 rounded-full border border-teal-400/30">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <span class="text-[11px] font-bold tracking-wider text-cyan-200 uppercase">20/10 GARDEN</span>
       </div>
 
-      <!-- Quick Audio & Help Buttons -->
-      <div class="flex items-center space-x-2">
-        <button id="toggleAudioBtn" class="w-8 h-8 rounded-full cosmic-glass flex items-center justify-center text-white/80 hover:text-pink-300 text-xs transition" title="Bật/Tắt nhạc">
-          <i id="audioIcon" class="fa-solid fa-music"></i>
-        </button>
-      </div>
+      <!-- Âm Lượng & Bài Hát -->
+      <button id="toggleAudioBtn" class="flex items-center space-x-2 biolum-pill px-3 py-1 rounded-full text-xs text-white/80 hover:text-cyan-300 transition" title="Bật/Tắt Nhạc">
+        <i id="audioIcon" class="fa-solid fa-volume-high text-cyan-400 text-[11px]"></i>
+        <span class="text-[10px] font-medium text-white/70">Mất Kết Nối</span>
+      </button>
 
     </header>
 
-    <!-- Subtitle nhỏ hướng dẫn -->
-    <div class="w-full text-center px-4 pt-1 z-20 pointer-events-none">
-      <p id="hintText" class="text-[11px] font-medium text-pink-200/70 tracking-wide transition-opacity duration-300">
-        ✨ Chạm vào từng ngôi sao đang tỏa sáng để mở thông điệp
-      </p>
-    </div>
-
-    <!-- KHU VỰC TỌA ĐỘ 5 NGÔI SAO LỚN TRÊN MÀN HÌNH (Hình Trái Tim) -->
-    <div id="starFieldContainer" class="relative flex-1 w-full z-20">
+    <!-- Khu Vực Trung Tâm: Đóa Hoa Pha Lê & Tinh Cầu (Parallax Mid Layer) -->
+    <div id="parallaxCore" class="parallax-layer relative flex-1 w-full flex flex-col items-center justify-center z-30">
       
-      <!-- NGÔI SAO 1: Đỉnh Trái Trái Tim (x: 27%, y: 28%) -->
-      <button id="starBtn1" data-index="1" class="major-star-btn absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group focus:outline-none" style="left: 27%; top: 28%;">
-        <div class="relative flex items-center justify-center w-14 h-14">
-          <div class="star-halo"></div>
-          <div class="star-halo star-halo-pink"></div>
-          <div class="star-core w-10 h-10 rounded-full bg-gradient-to-tr from-amber-300 via-rose-300 to-white flex items-center justify-center shadow-[0_0_25px_rgba(253,224,71,0.85)] group-hover:scale-125 transition-transform duration-300 animate-pulse-glow">
-            <i class="fa-solid fa-star text-slate-900 text-sm"></i>
-          </div>
-          <!-- Label -->
-          <span class="absolute -bottom-5 text-[10px] font-bold text-amber-200 whitespace-nowrap bg-black/60 px-2 py-0.5 rounded-full border border-amber-300/30">
-            Ngôi sao 1 ✨
-          </span>
-        </div>
-      </button>
-
-      <!-- NGÔI SAO 2: Vết Lõm Giữa Trái Tim (x: 50%, y: 40%) -->
-      <button id="starBtn2" data-index="2" class="major-star-btn absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group focus:outline-none" style="left: 50%; top: 40%;">
-        <div class="relative flex items-center justify-center w-14 h-14">
-          <div class="star-halo"></div>
-          <div class="star-halo star-halo-pink"></div>
-          <div class="star-core w-10 h-10 rounded-full bg-gradient-to-tr from-pink-300 via-purple-300 to-white flex items-center justify-center shadow-[0_0_25px_rgba(244,114,182,0.85)] group-hover:scale-125 transition-transform duration-300 animate-pulse-glow" style="animation-delay: 0.5s;">
-            <i class="fa-solid fa-star text-slate-900 text-sm"></i>
-          </div>
-          <span class="absolute -bottom-5 text-[10px] font-bold text-pink-200 whitespace-nowrap bg-black/60 px-2 py-0.5 rounded-full border border-pink-300/30">
-            Ngôi sao 2 🌸
-          </span>
-        </div>
-      </button>
-
-      <!-- NGÔI SAO 3: Đỉnh Phải Trái Tim (x: 73%, y: 28%) -->
-      <button id="starBtn3" data-index="3" class="major-star-btn absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group focus:outline-none" style="left: 73%; top: 28%;">
-        <div class="relative flex items-center justify-center w-14 h-14">
-          <div class="star-halo"></div>
-          <div class="star-halo star-halo-pink"></div>
-          <div class="star-core w-10 h-10 rounded-full bg-gradient-to-tr from-sky-300 via-indigo-300 to-white flex items-center justify-center shadow-[0_0_25px_rgba(56,189,248,0.85)] group-hover:scale-125 transition-transform duration-300 animate-pulse-glow" style="animation-delay: 1s;">
-            <i class="fa-solid fa-star text-slate-900 text-sm"></i>
-          </div>
-          <span class="absolute -bottom-5 text-[10px] font-bold text-sky-200 whitespace-nowrap bg-black/60 px-2 py-0.5 rounded-full border border-sky-300/30">
-            Ngôi sao 3 ⭐
-          </span>
-        </div>
-      </button>
-
-      <!-- NGÔI SAO 4: Sườn Phải Trái Tim (x: 78%, y: 56%) -->
-      <button id="starBtn4" data-index="4" class="major-star-btn absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group focus:outline-none" style="left: 78%; top: 56%;">
-        <div class="relative flex items-center justify-center w-14 h-14">
-          <div class="star-halo"></div>
-          <div class="star-halo star-halo-pink"></div>
-          <div class="star-core w-10 h-10 rounded-full bg-gradient-to-tr from-rose-400 via-pink-400 to-amber-200 flex items-center justify-center shadow-[0_0_25px_rgba(244,63,94,0.85)] group-hover:scale-125 transition-transform duration-300 animate-pulse-glow" style="animation-delay: 1.5s;">
-            <i class="fa-solid fa-fan text-slate-900 text-sm"></i>
-          </div>
-          <span class="absolute -bottom-5 text-[10px] font-bold text-rose-200 whitespace-nowrap bg-black/60 px-2 py-0.5 rounded-full border border-rose-300/30">
-            Ngôi sao 4 💐
-          </span>
-        </div>
-      </button>
-
-      <!-- NGÔI SAO 5: Chóp Đáy Nhọn Trái Tim (x: 50%, y: 76%) -->
-      <button id="starBtn5" data-index="5" class="major-star-btn absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer group focus:outline-none" style="left: 50%; top: 76%;">
-        <div class="relative flex items-center justify-center w-16 h-16">
-          <div class="star-halo" style="inset: -16px;"></div>
-          <div class="star-halo star-halo-pink" style="inset: -16px;"></div>
-          <div class="star-core w-12 h-12 rounded-full bg-gradient-to-tr from-amber-400 via-pink-500 to-purple-600 flex items-center justify-center shadow-[0_0_35px_rgba(253,224,71,0.95)] group-hover:scale-125 transition-transform duration-300 animate-pulse-glow" style="animation-delay: 2s;">
-            <i class="fa-solid fa-gift text-white text-base"></i>
-          </div>
-          <span class="absolute -bottom-5 text-[11px] font-extrabold text-amber-300 whitespace-nowrap bg-black/70 px-2.5 py-0.5 rounded-full border border-amber-400/40">
-            Ngôi sao 5 🎁
-          </span>
-        </div>
-      </button>
-
-    </div>
-
-    <!-- Bottom Footer Navigation Pill -->
-    <footer class="w-full px-6 py-4 z-20 text-center select-none">
-      <div class="inline-flex items-center gap-2 cosmic-glass-pill px-4 py-2 rounded-full text-xs text-white/70">
-        <i class="fa-solid fa-heart text-pink-400 animate-pulse"></i>
-        <span>Bầu trời 20/10 dành riêng cho</span>
-        <span id="footerCrushName" class="text-pink-300 font-bold">[TÊN_CRUSH]</span>
+      <!-- Dòng Chữ Hướng Dẫn & Thông Điệp Trên Hoa -->
+      <div id="guideTextContainer" class="text-center px-6 mb-3 transition-opacity duration-700">
+        <p class="font-serif italic text-xs text-cyan-200/80 tracking-widest uppercase">
+          Dành tặng <span id="crushNameLabel" class="text-white font-bold underline decoration-pink-400 decoration-2 underline-offset-4">[TÊN_CRUSH]</span> ngày 20/10
+        </p>
+        <h1 id="mainInstruction" class="text-lg sm:text-xl font-bold text-white mt-1.5 leading-snug glow-text-pink">
+          Chạm và giữ để đánh thức đóa hoa pha lê
+        </h1>
+        <p id="subInstruction" class="text-[11px] text-white/60 mt-1">
+          Giữ ngón tay trên nhụy hoa trong 2 giây để chứng kiến điều kỳ diệu ✨
+        </p>
       </div>
-    </footer>
 
-    <!-- ============================================== -->
-    <!-- MODAL KHÁM PHÁ NGÔI SAO (STAR MESSAGE MODAL)   -->
-    <!-- ============================================== -->
-    <div id="starModal" class="absolute inset-0 z-50 bg-black/85 backdrop-blur-xl flex items-center justify-center p-6 transition-all duration-400 opacity-0 pointer-events-none select-none">
-      
-      <div id="starModalCard" class="relative w-full max-w-sm cosmic-glass rounded-3xl p-6 text-center border-pink-400/40 shadow-[0_0_60px_rgba(244,114,182,0.4)] transform scale-90 transition-transform duration-300">
+      <!-- ĐÓA HOA PHA LÊ (CRYSTAL LOTUS) & HOLD-TO-BLOOM BUTTON -->
+      <div class="relative w-[280px] h-[280px] flex items-center justify-center my-auto">
         
-        <!-- Star Icon / Badge at top of Modal -->
-        <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-tr from-amber-300 to-pink-500 flex items-center justify-center shadow-lg border border-white/40">
-          <i id="modalStarIcon" class="fa-solid fa-star text-slate-900 text-lg"></i>
+        <!-- Vòng tiến trình tròn SVG (Hold Progress Ring) -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none z-30" viewBox="0 0 280 280">
+          <!-- Track mờ -->
+          <circle cx="140" cy="140" r="115" stroke="rgba(255, 255, 255, 0.08)" stroke-width="4" fill="none"/>
+          <!-- Progress Stroke -->
+          <circle id="holdProgressCircle" class="hold-progress-ring" cx="140" cy="140" r="115" stroke="url(#progressGrad)" stroke-width="5" stroke-linecap="round" fill="none" stroke-dasharray="722.56" stroke-dashoffset="722.56"/>
+          <defs>
+            <linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#06b6d4"/>
+              <stop offset="50%" stop-color="#f43f5e"/>
+              <stop offset="100%" stop-color="#fde047"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <!-- Đóa Hoa Đa Lớp Cánh (Crystal Flower SVG) -->
+        <div id="flowerContainer" class="relative w-[250px] h-[250px] flex items-center justify-center cursor-pointer transition-transform duration-500">
+          
+          <!-- Hào quang nhụy hoa phát sáng -->
+          <div id="flowerGlowCore" class="absolute w-24 h-24 rounded-full bg-gradient-to-tr from-cyan-400 via-pink-500 to-amber-300 filter blur-xl opacity-50 transition-all duration-700"></div>
+
+          <!-- SVG Đóa Hoa 12 Cánh Pha Lê -->
+          <svg id="flowerSvg" class="w-full h-full filter drop-shadow-[0_0_20px_rgba(6,182,212,0.6)]" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <!-- Gradient Cánh Tầng Ngoài (Cyan/Teal) -->
+              <linearGradient id="petalOuterGrad" x1="150" y1="40" x2="150" y2="160" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.95"/>
+                <stop offset="70%" stop-color="#06b6d4" stop-opacity="0.6"/>
+                <stop offset="100%" stop-color="#0d9488" stop-opacity="0.2"/>
+              </linearGradient>
+              <!-- Gradient Cánh Tầng Giữa (Pink/Rose) -->
+              <linearGradient id="petalMidGrad" x1="150" y1="65" x2="150" y2="160" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#fb7185" stop-opacity="0.95"/>
+                <stop offset="60%" stop-color="#f43f5e" stop-opacity="0.7"/>
+                <stop offset="100%" stop-color="#9333ea" stop-opacity="0.3"/>
+              </linearGradient>
+              <!-- Gradient Cánh Tầng Trong (Gold/Amber) -->
+              <linearGradient id="petalInnerGrad" x1="150" y1="85" x2="150" y2="155" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#fde047" stop-opacity="0.95"/>
+                <stop offset="70%" stop-color="#f59e0b" stop-opacity="0.75"/>
+                <stop offset="100%" stop-color="#e11d48" stop-opacity="0.4"/>
+              </linearGradient>
+            </defs>
+
+            <!-- TẦNG CÁNH NGOÀI CÙNG (6 Cánh Lớn) -->
+            <g id="layerOuterPetals">
+              <!-- Cánh 1 -->
+              <path class="crystal-petal" style="transform: rotate(0deg) scale(0.45); opacity: 0.5;" d="M150 35 C175 80 185 130 150 160 C115 130 125 80 150 35 Z" fill="url(#petalOuterGrad)" stroke="#ffffff" stroke-width="0.8"/>
+              <!-- Cánh 2 -->
+              <path class="crystal-petal" style="transform: rotate(60deg) scale(0.45); opacity: 0.5;" d="M150 35 C175 80 185 130 150 160 C115 130 125 80 150 35 Z" fill="url(#petalOuterGrad)" stroke="#ffffff" stroke-width="0.8"/>
+              <!-- Cánh 3 -->
+              <path class="crystal-petal" style="transform: rotate(120deg) scale(0.45); opacity: 0.5;" d="M150 35 C175 80 185 130 150 160 C115 130 125 80 150 35 Z" fill="url(#petalOuterGrad)" stroke="#ffffff" stroke-width="0.8"/>
+              <!-- Cánh 4 -->
+              <path class="crystal-petal" style="transform: rotate(180deg) scale(0.45); opacity: 0.5;" d="M150 35 C175 80 185 130 150 160 C115 130 125 80 150 35 Z" fill="url(#petalOuterGrad)" stroke="#ffffff" stroke-width="0.8"/>
+              <!-- Cánh 5 -->
+              <path class="crystal-petal" style="transform: rotate(240deg) scale(0.45); opacity: 0.5;" d="M150 35 C175 80 185 130 150 160 C115 130 125 80 150 35 Z" fill="url(#petalOuterGrad)" stroke="#ffffff" stroke-width="0.8"/>
+              <!-- Cánh 6 -->
+              <path class="crystal-petal" style="transform: rotate(300deg) scale(0.45); opacity: 0.5;" d="M150 35 C175 80 185 130 150 160 C115 130 125 80 150 35 Z" fill="url(#petalOuterGrad)" stroke="#ffffff" stroke-width="0.8"/>
+            </g>
+
+            <!-- TẦNG CÁNH GIỮA (6 Cánh Hoa Hồng) -->
+            <g id="layerMidPetals">
+              <path class="crystal-petal" style="transform: rotate(30deg) scale(0.4); opacity: 0.6;" d="M150 60 C170 95 175 135 150 155 C125 135 130 95 150 60 Z" fill="url(#petalMidGrad)" stroke="#ffffff" stroke-width="0.8"/>
+              <path class="crystal-petal" style="transform: rotate(90deg) scale(0.4); opacity: 0.6;" d="M150 60 C170 95 175 135 150 155 C125 135 130 95 150 60 Z" fill="url(#petalMidGrad)" stroke="#ffffff" stroke-width="0.8"/>
+              <path class="crystal-petal" style="transform: rotate(150deg) scale(0.4); opacity: 0.6;" d="M150 60 C170 95 175 135 150 155 C125 135 130 95 150 60 Z" fill="url(#petalMidGrad)" stroke="#ffffff" stroke-width="0.8"/>
+              <path class="crystal-petal" style="transform: rotate(210deg) scale(0.4); opacity: 0.6;" d="M150 60 C170 95 175 135 150 155 C125 135 130 95 150 60 Z" fill="url(#petalMidGrad)" stroke="#ffffff" stroke-width="0.8"/>
+              <path class="crystal-petal" style="transform: rotate(270deg) scale(0.4); opacity: 0.6;" d="M150 60 C170 95 175 135 150 155 C125 135 130 95 150 60 Z" fill="url(#petalMidGrad)" stroke="#ffffff" stroke-width="0.8"/>
+              <path class="crystal-petal" style="transform: rotate(330deg) scale(0.4); opacity: 0.6;" d="M150 60 C170 95 175 135 150 155 C125 135 130 95 150 60 Z" fill="url(#petalMidGrad)" stroke="#ffffff" stroke-width="0.8"/>
+            </g>
+
+            <!-- TẦNG CÁNH TRONG (6 Cánh Nhỏ Vàng Kim) -->
+            <g id="layerInnerPetals">
+              <path class="crystal-petal" style="transform: rotate(15deg) scale(0.35); opacity: 0.7;" d="M150 80 C165 105 168 135 150 150 C132 135 135 105 150 80 Z" fill="url(#petalInnerGrad)" stroke="#fff" stroke-width="0.6"/>
+              <path class="crystal-petal" style="transform: rotate(75deg) scale(0.35); opacity: 0.7;" d="M150 80 C165 105 168 135 150 150 C132 135 135 105 150 80 Z" fill="url(#petalInnerGrad)" stroke="#fff" stroke-width="0.6"/>
+              <path class="crystal-petal" style="transform: rotate(135deg) scale(0.35); opacity: 0.7;" d="M150 80 C165 105 168 135 150 150 C132 135 135 105 150 80 Z" fill="url(#petalInnerGrad)" stroke="#fff" stroke-width="0.6"/>
+              <path class="crystal-petal" style="transform: rotate(195deg) scale(0.35); opacity: 0.7;" d="M150 80 C165 105 168 135 150 150 C132 135 135 105 150 80 Z" fill="url(#petalInnerGrad)" stroke="#fff" stroke-width="0.6"/>
+              <path class="crystal-petal" style="transform: rotate(255deg) scale(0.35); opacity: 0.7;" d="M150 80 C165 105 168 135 150 150 C132 135 135 105 150 80 Z" fill="url(#petalInnerGrad)" stroke="#fff" stroke-width="0.6"/>
+              <path class="crystal-petal" style="transform: rotate(315deg) scale(0.35); opacity: 0.7;" d="M150 80 C165 105 168 135 150 150 C132 135 135 105 150 80 Z" fill="url(#petalInnerGrad)" stroke="#fff" stroke-width="0.6"/>
+            </g>
+
+            <!-- NHỤY HOA PHA LÊ (Pha Lê Trung Tâm) -->
+            <circle cx="150" cy="150" r="18" fill="#ffffff" filter="drop-shadow(0 0 12px #fde047)"/>
+            <circle cx="150" cy="150" r="10" fill="#fde047"/>
+            <circle cx="150" cy="150" r="4" fill="#ffffff"/>
+          </svg>
+
+          <!-- Nút Chạm Nhấn Giữ Trên Nhụy Hoa (Interactive Touch Target) -->
+          <div id="touchTarget" class="absolute w-28 h-28 rounded-full flex items-center justify-center cursor-pointer z-40 active:scale-95 transition-transform">
+            <span class="text-[11px] font-extrabold uppercase tracking-widest text-slate-900 bg-amber-300/90 px-3 py-1 rounded-full shadow-[0_0_15px_rgba(253,224,71,0.8)] border border-white">
+              GIỮ ĐÂY
+            </span>
+          </div>
+
         </div>
 
-        <!-- Star Title -->
-        <div class="pt-4 pb-2">
-          <span id="modalStarTag" class="text-[10px] font-bold tracking-widest text-pink-300 uppercase bg-pink-500/20 px-3 py-1 rounded-full border border-pink-500/30">
-            NGÔI SAO THỨ 1
-          </span>
-        </div>
+      </div>
 
-        <!-- Dynamic Content: Photo OR Animated Icon -->
-        <div id="modalMediaContainer" class="my-3.5 w-full flex items-center justify-center">
-          <!-- Sẽ được fill tự động (ảnh hoặc icon hoa/quà) -->
-        </div>
+      <!-- 4 TINH CẦU ÁNH SÁNG LƠ LỬNG (GIAI ĐOẠN 2: Xuất hiện sau khi hoa nở) -->
+      <div id="memoryOrbsGroup" class="absolute inset-0 pointer-events-none z-30 transition-opacity duration-1000 opacity-0">
+        
+        <!-- Tinh Cầu 1: Góc Trên Trái (Ánh sáng niềm vui) -->
+        <button id="orbBtn1" data-index="1" class="memory-orb pointer-events-auto group focus:outline-none" style="left: 20%; top: 26%;">
+          <div class="relative w-14 h-14 rounded-full bg-gradient-to-tr from-cyan-400 via-teal-300 to-white p-0.5 shadow-[0_0_25px_rgba(6,182,212,0.85)] group-hover:scale-125 transition-transform duration-300 animate-float-orb">
+            <div class="w-full h-full rounded-full bg-slate-950/80 flex items-center justify-center border border-white/40">
+              <i class="fa-solid fa-face-smile text-cyan-300 text-base"></i>
+            </div>
+            <span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] font-bold text-cyan-200 whitespace-nowrap bg-black/70 px-2 py-0.5 rounded-full border border-cyan-400/40">
+              Niềm Vui ✨
+            </span>
+          </div>
+        </button>
 
-        <!-- Message Body -->
-        <div class="px-2 py-2">
-          <p id="modalMessageText" class="text-sm font-medium text-white/95 leading-relaxed">
+        <!-- Tinh Cầu 2: Góc Trên Phải (Ánh sáng dịu dàng) -->
+        <button id="orbBtn2" data-index="2" class="memory-orb pointer-events-auto group focus:outline-none" style="left: 80%; top: 26%;">
+          <div class="relative w-14 h-14 rounded-full bg-gradient-to-tr from-pink-400 via-rose-300 to-white p-0.5 shadow-[0_0_25px_rgba(244,63,94,0.85)] group-hover:scale-125 transition-transform duration-300 animate-float-orb" style="animation-delay: 0.7s;">
+            <div class="w-full h-full rounded-full bg-slate-950/80 flex items-center justify-center border border-white/40">
+              <i class="fa-solid fa-heart text-pink-300 text-base"></i>
+            </div>
+            <span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] font-bold text-pink-200 whitespace-nowrap bg-black/70 px-2 py-0.5 rounded-full border border-pink-400/40">
+              Dịu Dàng 🌸
+            </span>
+          </div>
+        </button>
+
+        <!-- Tinh Cầu 3: Góc Dưới Trái (Điều tốt đẹp) -->
+        <button id="orbBtn3" data-index="3" class="memory-orb pointer-events-auto group focus:outline-none" style="left: 20%; top: 76%;">
+          <div class="relative w-14 h-14 rounded-full bg-gradient-to-tr from-teal-300 via-emerald-400 to-white p-0.5 shadow-[0_0_25px_rgba(20,184,166,0.85)] group-hover:scale-125 transition-transform duration-300 animate-float-orb" style="animation-delay: 1.4s;">
+            <div class="w-full h-full rounded-full bg-slate-950/80 flex items-center justify-center border border-white/40">
+              <i class="fa-solid fa-clover text-emerald-300 text-base"></i>
+            </div>
+            <span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] font-bold text-emerald-200 whitespace-nowrap bg-black/70 px-2 py-0.5 rounded-full border border-emerald-400/40">
+              May Mắn 🍀
+            </span>
+          </div>
+        </button>
+
+        <!-- Tinh Cầu 4 (LỚN NHẤT): Góc Dưới Phải (Bức Thư & Cuộc Hẹn) -->
+        <button id="orbBtn4" data-index="4" class="memory-orb pointer-events-auto group focus:outline-none" style="left: 80%; top: 76%;">
+          <div class="relative w-16 h-16 rounded-full bg-gradient-to-tr from-amber-300 via-pink-500 to-purple-600 p-0.5 shadow-[0_0_35px_rgba(253,224,71,0.95)] group-hover:scale-125 transition-transform duration-300 animate-float-orb" style="animation-delay: 2.1s;">
+            <div class="w-full h-full rounded-full bg-slate-950/80 flex items-center justify-center border border-white/50">
+              <i class="fa-solid fa-envelope-open-text text-amber-300 text-lg animate-bounce"></i>
+            </div>
+            <span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] font-extrabold text-amber-200 whitespace-nowrap bg-black/80 px-2.5 py-0.5 rounded-full border border-amber-400/50 shadow-md">
+              Bí Mật 💌
+            </span>
+          </div>
+        </button>
+
+      </div>
+
+      <!-- Trạng thái footer hướng dẫn -->
+      <div id="footerStatus" class="mt-4 text-center px-4 z-20">
+        <p class="text-[11px] text-white/50 flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-sparkles text-amber-300 text-[10px]"></i>
+          <span id="footerStatusText">Di chuyển tay để tương tác với đom đóm ánh sáng</span>
+        </p>
+      </div>
+
+    </div>
+
+    <!-- ============================================== -->
+    <!-- MODAL 3D TILT KỶ NIỆM (TINH CẦU 1, 2, 3)       -->
+    <!-- ============================================== -->
+    <div id="orbModal" class="absolute inset-0 z-50 bg-black/85 backdrop-blur-xl flex items-center justify-center p-6 transition-all duration-400 opacity-0 pointer-events-none select-none">
+      
+      <div class="tilt-card-wrapper w-full max-w-sm">
+        <div id="orbCard" class="tilt-card relative w-full biolum-card rounded-3xl p-6 text-center border-teal-400/40 shadow-[0_0_60px_rgba(6,182,212,0.4)]">
+          
+          <!-- Top Orb Icon Badge -->
+          <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-400 to-pink-500 flex items-center justify-center shadow-lg border border-white/40">
+            <i id="modalOrbIcon" class="fa-solid fa-sparkles text-slate-900 text-lg"></i>
+          </div>
+
+          <!-- Tag Title -->
+          <div class="pt-4 pb-2">
+            <span id="modalOrbTag" class="text-[10px] font-extrabold tracking-widest text-cyan-300 uppercase bg-cyan-500/20 px-3 py-1 rounded-full border border-cyan-500/30">
+              TINH CẦU KỶ NIỆM
+            </span>
+          </div>
+
+          <!-- Image Container -->
+          <div class="my-4 w-full flex items-center justify-center">
+            <div class="w-48 h-48 rounded-2xl overflow-hidden border-2 border-white/30 shadow-2xl transform rotate-1">
+              <img id="modalOrbPhoto" src="" alt="Crush Memory" class="w-full h-full object-cover">
+            </div>
+          </div>
+
+          <!-- Message Text -->
+          <p id="modalOrbMessage" class="text-xs sm:text-sm font-medium text-white/90 leading-relaxed px-2">
             [LỜI_NHẮN]
           </p>
-        </div>
 
-        <!-- Close / Thu Thập Button -->
-        <div class="pt-4">
-          <button id="closeStarModalBtn" class="w-full py-3 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 active:scale-95 transition">
-            ✨ Đã thu thập ngôi sao (Đóng lại)
-          </button>
-        </div>
+          <!-- Close Button -->
+          <div class="pt-5">
+            <button id="closeOrbModalBtn" class="w-full py-3 rounded-2xl bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-600 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 active:scale-95 transition">
+              ✨ Thu thập tinh cầu & Tiếp tục
+            </button>
+          </div>
 
+        </div>
       </div>
 
     </div>
 
     <!-- ============================================== -->
-    <!-- MÀN HÌNH BỨC THƯ CUỐI CÙNG (5/5 COMPLETED)     -->
+    <!-- GIAI ĐOẠN 3: BỨC THƯ TÂM TÌNH & DATE VOUCHER   -->
+    <!-- (MỞ RA KHI CHẠM TINH CẦU 4 - TINH CẦU LỚN)     -->
     <!-- ============================================== -->
-    <div id="letterModal" class="absolute inset-0 z-50 bg-[#04060d]/90 backdrop-blur-2xl flex items-center justify-center p-5 transition-all duration-700 opacity-0 pointer-events-none select-none">
+    <div id="letterModal" class="absolute inset-0 z-50 bg-[#02040a]/92 backdrop-blur-2xl flex items-center justify-center p-5 transition-all duration-700 opacity-0 pointer-events-none select-none">
       
-      <div id="letterCard" class="relative w-full max-w-sm starlight-parchment rounded-3xl p-6 text-center border-amber-300/40 shadow-[0_0_80px_rgba(253,224,71,0.35)] transform scale-90 transition-transform duration-500 overflow-hidden flex flex-col justify-between max-h-[90vh]">
+      <div id="letterCard" class="relative w-full max-w-sm biolum-card rounded-3xl p-6 text-center border-pink-400/40 shadow-[0_0_80px_rgba(244,63,94,0.45)] transform scale-90 transition-transform duration-500 overflow-hidden flex flex-col justify-between max-h-[92vh]">
         
-        <!-- Ambient Stardust Glow Inside Letter -->
-        <div class="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-pink-500/20 filter blur-2xl"></div>
-        <div class="absolute -bottom-12 -left-12 w-32 h-32 rounded-full bg-amber-400/20 filter blur-2xl"></div>
-
-        <!-- Letter Header -->
-        <div class="relative z-10 pt-1 pb-2 border-b border-amber-300/20">
+        <!-- Header -->
+        <div class="pt-1 pb-2 border-b border-white/10">
           <div class="inline-flex items-center gap-1.5 text-xs text-amber-300 font-serif italic tracking-wider mb-1">
             <i class="fa-solid fa-sparkles text-[10px]"></i>
-            <span>Dải Ngân Hà 20 Tháng 10</span>
+            <span>20/10 Special Edition</span>
             <i class="fa-solid fa-sparkles text-[10px]"></i>
           </div>
-          <h2 class="font-handwriting text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-pink-200 to-white">
-            Gửi <span id="letterCrushName">[TÊN_CRUSH]</span> Của Tớ
+          <h2 class="font-serif text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-amber-200 to-white">
+            Gửi <span id="letterCrushName">[TÊN_CRUSH]</span>
           </h2>
         </div>
 
-        <!-- Letter Content (Cuộn êm nếu dài) -->
-        <div class="relative z-10 my-4 overflow-y-auto max-h-[46vh] px-2 text-left space-y-3">
-          <p id="mainLetterContent" class="font-sans text-xs sm:text-sm text-pink-50/90 leading-relaxed font-normal text-justify">
-            [NỘI_DUNG_THƯ_CHÍNH]
+        <!-- Bức Thư Tâm Tình (Có thể cuộn êm) -->
+        <div class="my-3 overflow-y-auto max-h-[38vh] px-2 text-left space-y-3">
+          <p id="mainLetterText" class="font-sans text-xs sm:text-sm text-pink-50/90 leading-relaxed text-justify">
+            [NỘI_DUNG_THƯ]
           </p>
-
-          <div class="pt-2 text-right">
-            <p class="font-serif italic text-xs text-amber-300/80">Ký tên từ trái tim,</p>
-            <p id="letterYourName" class="font-handwriting text-lg font-bold text-pink-300">[TÊN_BẠN]</p>
+          <div class="text-right pt-1">
+            <p class="font-serif italic text-xs text-amber-300/80">Khu vườn ánh sáng được tạo bởi,</p>
+            <p id="letterYourName" class="font-serif text-base font-bold text-pink-300">[TÊN_BẠN]</p>
           </div>
         </div>
 
-        <!-- Call to Action Button: "Đồng ý đi chơi với tớ nhé 💫" -->
-        <div class="relative z-10 pt-3 border-t border-amber-300/20">
-          <button id="acceptDateBtn" class="w-full relative group overflow-hidden py-3.5 px-5 rounded-2xl bg-gradient-to-r from-amber-400 via-pink-500 to-purple-600 text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_0_35px_rgba(244,114,182,0.6)] hover:shadow-[0_0_50px_rgba(244,114,182,0.9)] transform active:scale-95 transition duration-300 flex items-center justify-center gap-2">
+        <!-- TẤM VÉ HẸN HÒ (VIP DATE VOUCHER) -->
+        <div class="my-2 voucher-border rounded-2xl p-3.5 bg-gradient-to-r from-slate-900/90 to-purple-950/90 border border-white/20 text-left">
+          <div class="flex items-center justify-between pb-1.5 border-b border-white/10">
+            <span class="text-[10px] font-extrabold text-amber-300 uppercase tracking-widest flex items-center gap-1">
+              <i class="fa-solid fa-ticket text-pink-400"></i>
+              VOUCHER HẸN HÒ 20/10
+            </span>
+            <span class="text-[9px] font-mono text-white/50">#2010-SPECIAL</span>
+          </div>
+          <p id="voucherText" class="text-[11px] text-white/90 mt-2 leading-snug">
+            [NỘI_DUNG_VOUCHER]
+          </p>
+        </div>
+
+        <!-- Nút Kêu Gọi: "Nhận lời mời & Lưu giữ bầu trời này 💫" -->
+        <div class="pt-3 border-t border-white/10">
+          <button id="acceptDateBtn" class="w-full relative group overflow-hidden py-3.5 px-5 rounded-2xl bg-gradient-to-r from-amber-400 via-rose-500 to-purple-600 text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_0_35px_rgba(244,63,94,0.65)] hover:shadow-[0_0_50px_rgba(244,63,94,0.9)] transform active:scale-95 transition duration-300 flex items-center justify-center gap-2">
             <span class="absolute inset-0 bg-white/20 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
-            <i class="fa-solid fa-meteor text-amber-200 text-base animate-bounce"></i>
-            <span>Đồng ý đi chơi với tớ nhé 💫</span>
+            <i class="fa-solid fa-champagne-glasses text-amber-200 text-base animate-bounce"></i>
+            <span>Nhận lời mời & Lưu giữ bầu trời này 💫</span>
           </button>
-          <p class="text-[10px] text-white/50 mt-2">Chạm vào để đón cơn mưa sao băng rực rỡ ✨</p>
         </div>
 
       </div>
@@ -458,21 +485,21 @@
     </div>
 
     <!-- ============================================== -->
-    <!-- MODAL CHỐT KÈO ĐI CHƠI (RSVP CONFIRMATION)     -->
+    <!-- MODAL RSVP XÁC NHẬN CHỐT LỊCH (AFTER ACCEPT)   -->
     <!-- ============================================== -->
-    <div id="dateConfirmModal" class="absolute inset-0 z-50 bg-black/85 backdrop-blur-2xl flex items-center justify-center p-6 transition-all duration-400 opacity-0 pointer-events-none select-none">
-      <div id="dateConfirmCard" class="w-full max-w-sm cosmic-glass p-6 rounded-3xl text-center border-amber-300/40 shadow-[0_0_60px_rgba(253,224,71,0.5)] transform scale-90 transition-transform duration-300">
+    <div id="rsvpModal" class="absolute inset-0 z-50 bg-black/85 backdrop-blur-2xl flex items-center justify-center p-6 transition-all duration-400 opacity-0 pointer-events-none select-none">
+      <div id="rsvpCard" class="w-full max-w-sm biolum-card p-6 rounded-3xl text-center border-amber-300/40 shadow-[0_0_60px_rgba(253,224,71,0.5)] transform scale-90 transition-transform duration-300">
         
-        <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-tr from-amber-400 to-pink-500 flex items-center justify-center text-3xl shadow-lg mb-3">
-          🌠
+        <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-tr from-amber-400 via-pink-500 to-purple-600 flex items-center justify-center text-3xl shadow-lg mb-3">
+          🥂
         </div>
 
-        <h3 class="font-handwriting text-2xl font-bold text-amber-200">
-          LỜI HẸN ĐÃ ĐƯỢC CÁC VÌ SAO CHỨNG GIÁM!
+        <h3 class="font-serif text-2xl font-bold text-amber-200">
+          KÈO 20/10 ĐÃ CHÍNH THỨC ĐƯỢC CHỐT!
         </h3>
 
         <p class="text-xs text-white/80 mt-2 leading-relaxed">
-          Bầu trời đêm nay đã đẹp, nhưng chắc chắn sẽ đẹp hơn rất nhiều khi được ngắm cùng cậu. Tối nay hẹn gặp cậu nhé! 💖
+          Khu vườn ánh sáng đã chuyển sang sắc hồng tình yêu dành riêng cho cậu! Tớ đã sẵn sàng lên lịch đón cậu rồi nhé! 💖
         </p>
 
         <div class="mt-5 space-y-2.5">
@@ -481,28 +508,27 @@
             Nhắn cho tớ để chọn giờ đón cậu 💌
           </a>
 
-          <button id="closeConfirmModalBtn" class="w-full py-2.5 rounded-xl bg-white/10 text-white/70 hover:text-white font-medium text-xs transition">
-            <i class="fa-solid fa-stars mr-1.5"></i>
-            Tiếp tục ngắm bầu trời sao ✨
+          <button id="closeRsvpBtn" class="w-full py-2.5 rounded-xl bg-white/10 text-white/70 hover:text-white font-medium text-xs transition">
+            <i class="fa-solid fa-flower mr-1.5"></i>
+            Tiếp tục ngắm đóa hoa nở rộ ✨
           </button>
         </div>
 
       </div>
     </div>
 
-    <!-- Background Audio Element -->
+    <!-- Thẻ Audio Phát Nhạc Thật Mất Kết Nối -->
     <audio id="bgAudio" preload="auto" loop></audio>
 
   </main>
 
   <!-- ======================================================== -->
-  <!-- JAVASCRIPT: LOGIC CANVAS BẦU TRỜI & TƯƠNG TÁC           -->
+  <!-- JAVASCRIPT: WEBGL/CANVAS PARTICLES & INTERACTION ENGINE  -->
   <!-- ======================================================== -->
   <script>
     /**
      * ========================================================
-     * ⚙️ THÔNG TIN TÙY CHỈNH (CONFIG) DÀNH CHO BẠN
-     * Bạn có thể dễ dàng thay đổi các thông tin dưới đây!
+     * ⚙️ CONFIGURATION (DỄ DÀNG TÙY BIẾN CHO CRUSH)
      * ========================================================
      */
     const CONFIG = {
@@ -510,330 +536,581 @@
       crushName: "Thanh Trúc", // [TÊN_CRUSH]
       yourName: "Minh Quân",   // [TÊN_BẠN]
 
-      // 2. Link file nhạc Piano/Acoustic ngọt ngào
-      // [ĐIỀN_LINK_NHẠC_MP3]: Nhạc Mất Kết Nối - Dương Domic
+      // 2. Link file nhạc MP3 (Bài Mất Kết Nối - Dương Domic từ Catbox tốc độ cao)
       audioUrl: "https://files.catbox.moe/779t29.mp3",
 
-      // 3. Link ảnh cho 3 ngôi sao đầu tiên
-      // [LINK_ẢNH_1]: Ảnh ngôi sao 1
-      starPhoto1: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
-      // [LINK_ẢNH_2]: Ảnh ngôi sao 2
-      starPhoto2: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
-      // [LINK_ẢNH_3]: Ảnh ngôi sao 3
-      starPhoto3: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80",
+      // 3. Link 3 ảnh của Crush
+      photo1: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
+      photo2: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
+      photo3: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80",
 
-      // 4. Lời nhắn cho 5 Ngôi Sao
-      message1: "Ngôi sao của sự dịu dàng — Cảm ơn cậu vì luôn ấm áp, bao dung và mang lại cảm giác bình yên mỗi khi ở cạnh ✨",
-      message2: "Ngôi sao của niềm vui — Nụ cười của cậu chính là tia nắng rực rỡ nhất làm sáng bừng cả thế giới của tớ 🌸",
-      message3: "Ngôi sao của sự bản lĩnh — Luôn tự tin, kiên định và tỏa sáng rực rỡ theo cách rất riêng của cậu nhé ⭐",
-      message4: "Ngôi sao may mắn — Chúc cô gái đặc biệt ngày 20/10 và tất cả 365 ngày tới ngập tràn niềm vui, hoa và tình yêu thương 💐",
-      message5: "Ngôi sao bí mật — Điều tuyệt vời nhất trên đời không nằm ở vũ trụ xa xôi, mà chính là cậu đang hiện diện ở đây 🎁",
+      // 4. Lời nhắn cho 3 tinh cầu đầu tiên
+      message1: "Ánh sáng của niềm vui — Cảm ơn nụ cười của cậu đã thắp sáng những ngày u ám nhất trong tớ ✨",
+      message2: "Ánh sáng của sự dịu dàng — Ở bên cậu luôn có cảm giác bình yên như một buổi chiều mùa thu dịu mát 🌸",
+      message3: "Ánh sáng của những điều tốt đẹp — Chúc cô gái nhỏ một ngày 20/10 ngập tràn hạnh phúc và sự cưng chiều 💐",
 
-      // 5. Nội dung Bức Thư Chính 20/10
-      mainLetter: "Giữa hàng tỷ ngôi sao lấp lánh trên dải ngân hà bao la, cậu vẫn luôn là vì sao sáng nhất và đặc biệt nhất trong mắt tớ.\n\nCảm ơn cậu đã xuất hiện, mang đến cho tớ thật nhiều nụ cười và làm những ngày bình thường bỗng chốc trở nên đáng nhớ.\n\nChúc cậu ngày 20/10 thật hạnh phúc, luôn giữ nụ cười thật tươi và được cả thế giới này cưng chiều nhé. Tối nay, cho phép tớ được gặp vì sao rực rỡ ấy ngoài đời thật nhé?",
+      // 5. Nội dung Bức Thư Chính & Voucher
+      mainLetter: "Gửi Thanh Trúc,\n\nTrong khu vườn ánh sáng kỳ diệu này, đóa hoa pha lê chỉ nở khi chính cậu chạm tay vào, cũng như trái tim tớ chỉ thực sự rung động trước nụ cười của cậu.\n\nCảm ơn cậu vì đã xuất hiện, làm thế giới của tớ thêm phần rực rỡ và ấm áp. Ngày 20/10 này, tớ muốn cùng cậu bước ra ngoài kia, cùng thưởng thức một buổi tối thật dịu dàng. Cậu đồng ý nhé?",
+      voucherContent: "Đặc quyền 20/10: 01 buổi tối trọn vẹn gồm món ăn ngon theo sở thích của cậu, trà sữa/cà phê ấm áp và một người đồng hành luôn sẵn sàng lắng nghe mọi tâm sự của cậu ✨",
 
-      // 6. Link nhắn tin chốt kèo (Zalo / Messenger)
+      // 6. Link liên hệ chốt giờ đón
       contactUrl: "https://zalo.me"
     };
 
     /**
      * ========================================================
-     * KHỞI TẠO BIẾN & TRẠNG THÁI
+     * STATE MANAGEMENT & DOM ELEMENTS
      * ========================================================
      */
-    const skyCanvas = document.getElementById('skyCanvas');
-    const ctx = skyCanvas.getContext('2d');
+    const canvas = document.getElementById('gardenCanvas');
+    const ctx = canvas.getContext('2d');
     const bgAudio = document.getElementById('bgAudio');
-    const introOverlay = document.getElementById('introOverlay');
-    const startExploreBtn = document.getElementById('startExploreBtn');
-    const starCounter = document.getElementById('starCounter');
-    const hintText = document.getElementById('hintText');
     const toggleAudioBtn = document.getElementById('toggleAudioBtn');
     const audioIcon = document.getElementById('audioIcon');
+    const touchTarget = document.getElementById('touchTarget');
+    const holdProgressCircle = document.getElementById('holdProgressCircle');
+    const flowerContainer = document.getElementById('flowerContainer');
+    const memoryOrbsGroup = document.getElementById('memoryOrbsGroup');
+    const guideTextContainer = document.getElementById('guideTextContainer');
+    const mainInstruction = document.getElementById('mainInstruction');
+    const subInstruction = document.getElementById('subInstruction');
+    const footerStatusText = document.getElementById('footerStatusText');
 
     // Modals
-    const starModal = document.getElementById('starModal');
-    const starModalCard = document.getElementById('starModalCard');
-    const closeStarModalBtn = document.getElementById('closeStarModalBtn');
-    const modalStarIcon = document.getElementById('modalStarIcon');
-    const modalStarTag = document.getElementById('modalStarTag');
-    const modalMediaContainer = document.getElementById('modalMediaContainer');
-    const modalMessageText = document.getElementById('modalMessageText');
+    const orbModal = document.getElementById('orbModal');
+    const orbCard = document.getElementById('orbCard');
+    const closeOrbModalBtn = document.getElementById('closeOrbModalBtn');
+    const modalOrbIcon = document.getElementById('modalOrbIcon');
+    const modalOrbTag = document.getElementById('modalOrbTag');
+    const modalOrbPhoto = document.getElementById('modalOrbPhoto');
+    const modalOrbMessage = document.getElementById('modalOrbMessage');
 
-    // Letter & RSVP
     const letterModal = document.getElementById('letterModal');
     const letterCard = document.getElementById('letterCard');
     const acceptDateBtn = document.getElementById('acceptDateBtn');
-    const dateConfirmModal = document.getElementById('dateConfirmModal');
-    const dateConfirmCard = document.getElementById('dateConfirmCard');
-    const closeConfirmModalBtn = document.getElementById('closeConfirmModalBtn');
+    const rsvpModal = document.getElementById('rsvpModal');
+    const rsvpCard = document.getElementById('rsvpCard');
+    const closeRsvpBtn = document.getElementById('closeRsvpBtn');
     const rsvpContactLink = document.getElementById('rsvpContactLink');
 
-    // State
-    const discoveredStars = new Set();
+    // Petal Layers
+    const outerPetals = document.querySelectorAll('#layerOuterPetals .crystal-petal');
+    const midPetals = document.querySelectorAll('#layerMidPetals .crystal-petal');
+    const innerPetals = document.querySelectorAll('#layerInnerPetals .crystal-petal');
+    const flowerGlowCore = document.getElementById('flowerGlowCore');
+
+    // States
+    let isHolding = false;
+    let holdProgress = 0; // 0 to 1
+    let isBloomed = false;
     let isAudioPlaying = false;
-    let isConstellationConnected = false;
-    let canvasWidth = 0;
-    let canvasHeight = 0;
+    let isPinkGoldTheme = false;
+    let isMeteorShower = false;
 
-    /**
-     * ========================================================
-     * WEB AUDIO API CHIME EFFECT (Âm thanh tinh thể khi chạm sao)
-     * ========================================================
-     */
-    let audioCtx = null;
-    function playCelestialChime(pitchMultiplier = 1) {
-      try {
-        if (!audioCtx) {
-          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(587.33 * pitchMultiplier, audioCtx.currentTime); // Note D5
-        osc.frequency.exponentialRampToValueAtTime(880 * pitchMultiplier, audioCtx.currentTime + 0.3); // Note A5
+    // Pointer Physics Tracking
+    const pointer = {
+      x: -1000,
+      y: -1000,
+      prevX: -1000,
+      prevY: -1000,
+      isDown: false,
+      speed: 0
+    };
 
-        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
-
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 1.2);
-      } catch (e) {
-        // Fallback im lặng nếu thiết bị hạn chế Web Audio
-      }
-    }
-
-    /**
-     * ========================================================
-     * HTML5 CANVAS STARFIELD & METEOR ENGINE (BẦU TRỜI SAO)
-     * ========================================================
-     */
-    const stars = [];
+    const ripples = [];
     const meteors = [];
-    const STAR_COUNT = 160;
+
+    /**
+     * ========================================================
+     * HTML5 CANVAS PARTICLE PHYSICS (ĐOM ĐÓM VẬT LÝ & SÓNG NƯỚC)
+     * ========================================================
+     */
+    const fireflies = [];
+    const PARTICLE_COUNT = 110;
 
     function resizeCanvas() {
-      const rect = skyCanvas.getBoundingClientRect();
+      const rect = canvas.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
-      canvasWidth = rect.width;
-      canvasHeight = rect.height;
-      skyCanvas.width = canvasWidth * dpr;
-      skyCanvas.height = canvasHeight * dpr;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
       ctx.scale(dpr, dpr);
-      updateConstellationCoords();
     }
 
-    // Khởi tạo các vì sao lấp lánh
-    function initStars() {
-      stars.length = 0;
-      for (let i = 0; i < STAR_COUNT; i++) {
-        stars.push({
-          x: Math.random() * canvasWidth,
-          y: Math.random() * canvasHeight,
-          radius: Math.random() * 1.5 + 0.5,
-          alpha: Math.random() * 0.8 + 0.2,
-          speed: Math.random() * 0.02 + 0.005,
-          twinkleFactor: Math.random() * Math.PI,
-          color: Math.random() > 0.3 ? '#ffffff' : (Math.random() > 0.5 ? '#fde047' : '#f472b6')
-        });
+    class Firefly {
+      constructor() {
+        this.reset(true);
+      }
+
+      reset(init = false) {
+        const rect = canvas.getBoundingClientRect();
+        this.x = init ? Math.random() * rect.width : (Math.random() > 0.5 ? 0 : rect.width);
+        this.y = init ? Math.random() * rect.height : Math.random() * rect.height;
+        this.vx = (Math.random() - 0.5) * 0.9;
+        this.vy = (Math.random() - 0.5) * 0.9;
+        this.radius = Math.random() * 2.2 + 1;
+        this.baseAlpha = Math.random() * 0.6 + 0.3;
+        this.pulseSpeed = Math.random() * 0.03 + 0.01;
+        this.pulseAngle = Math.random() * Math.PI * 2;
+        this.hue = Math.random() > 0.5 ? 180 : 330; // Cyan or Pink
+      }
+
+      update(width, height) {
+        // Tự do dao động nhẹ nhàng
+        this.pulseAngle += this.pulseSpeed;
+        this.x += this.vx;
+        this.y += this.vy;
+
+        // TƯƠNG TÁC LỰC HÚT/ĐẨY VỚI NGÓN TAY / CHUỘT
+        const dx = pointer.x - this.x;
+        const dy = pointer.y - this.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < 140 && dist > 2) {
+          // Lực xoáy quanh con trỏ
+          const force = (140 - dist) / 140;
+          const angle = Math.atan2(dy, dx) + Math.PI / 2;
+          this.vx += Math.cos(angle) * force * 0.45;
+          this.vy += Math.sin(angle) * force * 0.45;
+        }
+
+        // Lực hút về tâm bông hoa khi đang nhấn giữ (Hold-to-Bloom)
+        if (isHolding && !isBloomed) {
+          const centerX = width / 2;
+          const centerY = height / 2;
+          const toFlowerX = centerX - this.x;
+          const toFlowerY = centerY - this.y;
+          const distToFlower = Math.sqrt(toFlowerX * toFlowerX + toFlowerY * toFlowerY);
+          if (distToFlower > 10) {
+            this.vx += (toFlowerX / distToFlower) * 0.35;
+            this.vy += (toFlowerY / distToFlower) * 0.35;
+          }
+        }
+
+        // Ma sát hãm tốc độ để chuyển động êm
+        this.vx *= 0.96;
+        this.vy *= 0.96;
+
+        // Biên giới màn hình
+        if (this.x < 0) this.x = width;
+        if (this.x > width) this.x = 0;
+        if (this.y < 0) this.y = height;
+        if (this.y > height) this.y = 0;
+      }
+
+      draw(ctx) {
+        const currentAlpha = Math.max(0.1, this.baseAlpha + Math.sin(this.pulseAngle) * 0.3);
+        let colorCore = '#ffffff';
+        let colorGlow = isPinkGoldTheme ? 'rgba(251, 113, 133, 0.8)' : (this.hue === 180 ? 'rgba(6, 182, 212, 0.8)' : 'rgba(244, 63, 94, 0.8)');
+
+        if (isPinkGoldTheme && Math.random() > 0.6) {
+          colorGlow = 'rgba(253, 224, 71, 0.9)'; // Thêm sắc vàng kim lãng mạn
+        }
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = colorCore;
+        ctx.shadowBlur = 18;
+        ctx.shadowColor = colorGlow;
+        ctx.globalAlpha = currentAlpha;
+        ctx.fill();
+        ctx.restore();
       }
     }
 
-    // Tạo sao băng (Shooting Star)
-    function spawnMeteor(isShower = false) {
-      const startX = Math.random() * canvasWidth;
-      const startY = Math.random() * (canvasHeight * 0.4);
-      const length = Math.random() * 80 + 50;
-      const speed = Math.random() * 8 + 7;
-      const angle = (Math.PI / 4) + (Math.random() * 0.2 - 0.1); // ~45 độ chéo xuống
+    function initFireflies() {
+      fireflies.length = 0;
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        fireflies.push(new Firefly());
+      }
+    }
 
-      meteors.push({
-        x: startX,
-        y: startY,
-        length: length,
-        speed: speed,
-        angle: angle,
-        opacity: 1,
-        fadeSpeed: isShower ? 0.03 : 0.015,
-        thickness: Math.random() * 2 + 1,
-        color: Math.random() > 0.4 ? '#ffffff' : '#fde047'
+    // Tạo Vòng Sóng Ánh Sáng (Expanding Ripple) khi chạm
+    function createRipple(x, y) {
+      ripples.push({
+        x: x,
+        y: y,
+        radius: 5,
+        maxRadius: 110,
+        alpha: 0.8,
+        color: isPinkGoldTheme ? '#f43f5e' : '#06b6d4'
       });
     }
 
-    // Vòng lặp vẽ Canvas mỗi khung hình (60 FPS)
-    function renderSky() {
-      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    // Sao Băng (Meteors)
+    function spawnMeteor() {
+      const rect = canvas.getBoundingClientRect();
+      meteors.push({
+        x: Math.random() * rect.width,
+        y: Math.random() * (rect.height * 0.3),
+        length: Math.random() * 90 + 60,
+        speed: Math.random() * 8 + 8,
+        alpha: 1,
+        thickness: Math.random() * 2 + 1.2
+      });
+    }
 
-      // 1. Vẽ nền gradient sâu thẳm
-      const skyGrad = ctx.createLinearGradient(0, 0, 0, canvasHeight);
-      skyGrad.addColorStop(0, '#04060d');
-      skyGrad.addColorStop(0.5, '#070c1d');
-      skyGrad.addColorStop(1, '#0e0b20');
-      ctx.fillStyle = skyGrad;
-      ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    // VÒNG LẶP RENDER CHÍNH (60 FPS)
+    function animateGarden() {
+      const rect = canvas.getBoundingClientRect();
+      ctx.clearRect(0, 0, rect.width, rect.height);
 
-      // 2. Vẽ các vì sao lấp lánh (Twinkling Stars)
-      for (let i = 0; i < stars.length; i++) {
-        const s = stars[i];
-        s.twinkleFactor += s.speed;
-        const currentAlpha = Math.max(0.15, Math.min(1, s.alpha + Math.sin(s.twinkleFactor) * 0.4));
-
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-        ctx.fillStyle = s.color;
-        ctx.globalAlpha = currentAlpha;
-        ctx.fill();
-
-        // Ánh hào quang nhẹ quanh một số sao sáng
-        if (s.radius > 1.3) {
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.radius * 2.5, 0, Math.PI * 2);
-          ctx.fillStyle = s.color;
-          ctx.globalAlpha = currentAlpha * 0.2;
-          ctx.fill();
-        }
+      // 1. Cập nhật & Vẽ đom đóm
+      for (let i = 0; i < fireflies.length; i++) {
+        fireflies[i].update(rect.width, rect.height);
+        fireflies[i].draw(ctx);
       }
 
-      // 3. Vẽ Sao Băng (Shooting Stars)
+      // 2. Vẽ Vòng Sóng Nước Ánh Sáng (Ripples)
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const r = ripples[i];
+        r.radius += 2.5;
+        r.alpha -= 0.02;
+
+        if (r.alpha <= 0 || r.radius >= r.maxRadius) {
+          ripples.splice(i, 1);
+          continue;
+        }
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = r.color;
+        ctx.lineWidth = 2;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = r.color;
+        ctx.globalAlpha = r.alpha;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // 3. Vẽ Mưa Sao Băng nếu kích hoạt
+      if (isMeteorShower) {
+        if (Math.random() > 0.6) spawnMeteor();
+      }
+
       for (let i = meteors.length - 1; i >= 0; i--) {
         const m = meteors[i];
-        m.x += Math.cos(m.angle) * m.speed;
-        m.y += Math.sin(m.angle) * m.speed;
-        m.opacity -= m.fadeSpeed;
+        m.x += m.speed * 0.8;
+        m.y += m.speed * 0.8;
+        m.alpha -= 0.02;
 
-        if (m.opacity <= 0 || m.x > canvasWidth + 100 || m.y > canvasHeight + 100) {
+        if (m.alpha <= 0) {
           meteors.splice(i, 1);
           continue;
         }
 
-        const tailX = m.x - Math.cos(m.angle) * m.length;
-        const tailY = m.y - Math.sin(m.angle) * m.length;
-
-        const meteorGrad = ctx.createLinearGradient(tailX, tailY, m.x, m.y);
-        meteorGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-        meteorGrad.addColorStop(1, m.color);
+        ctx.save();
+        const tailX = m.x - m.length * 0.8;
+        const tailY = m.y - m.length * 0.8;
+        const grad = ctx.createLinearGradient(tailX, tailY, m.x, m.y);
+        grad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+        grad.addColorStop(1, '#ffffff');
 
         ctx.beginPath();
         ctx.moveTo(tailX, tailY);
         ctx.lineTo(m.x, m.y);
-        ctx.strokeStyle = meteorGrad;
+        ctx.strokeStyle = grad;
         ctx.lineWidth = m.thickness;
         ctx.lineCap = 'round';
-        ctx.globalAlpha = m.opacity;
+        ctx.shadowBlur = 14;
+        ctx.shadowColor = '#fde047';
+        ctx.globalAlpha = m.alpha;
         ctx.stroke();
-
-        // Đầu sao băng sáng chói
-        ctx.beginPath();
-        ctx.arc(m.x, m.y, m.thickness * 1.5, 0, Math.PI * 2);
-        ctx.fillStyle = '#ffffff';
-        ctx.globalAlpha = m.opacity;
-        ctx.fill();
+        ctx.restore();
       }
 
-      ctx.globalAlpha = 1;
-      requestAnimationFrame(renderSky);
-    }
-
-    // Định kỳ bắn sao băng ngẫu nhiên mỗi 3 đến 5 giây
-    setInterval(() => {
-      if (Math.random() > 0.3) {
-        spawnMeteor();
-      }
-    }, 3200);
-
-    /**
-     * ========================================================
-     * CẬP NHẬT TỌA ĐỘ VÀ VẼ ĐƯỜNG NỐI CHÒM SAO HÌNH TRÁI TIM
-     * ========================================================
-     */
-    function updateConstellationCoords() {
-      const b1 = document.getElementById('starBtn1');
-      const b2 = document.getElementById('starBtn2');
-      const b3 = document.getElementById('starBtn3');
-      const b4 = document.getElementById('starBtn4');
-      const b5 = document.getElementById('starBtn5');
-
-      if (!b1 || !b2 || !b3 || !b4 || !b5) return;
-
-      const r1 = b1.getBoundingClientRect();
-      const r2 = b2.getBoundingClientRect();
-      const r3 = b3.getBoundingClientRect();
-      const r4 = b4.getBoundingClientRect();
-      const r5 = b5.getBoundingClientRect();
-
-      const container = document.getElementById('skyCanvas').getBoundingClientRect();
-
-      const p1 = { x: r1.left + r1.width / 2 - container.left, y: r1.top + r1.height / 2 - container.top };
-      const p2 = { x: r2.left + r2.width / 2 - container.left, y: r2.top + r2.height / 2 - container.top };
-      const p3 = { x: r3.left + r3.width / 2 - container.left, y: r3.top + r3.height / 2 - container.top };
-      const p4 = { x: r4.left + r4.width / 2 - container.left, y: r4.top + r4.height / 2 - container.top };
-      const p5 = { x: r5.left + r5.width / 2 - container.left, y: r5.top + r5.height / 2 - container.top };
-
-      // Nối đường 1: Sao 1 (Đỉnh trái) -> Sao 2 (Vết lõm giữa)
-      setLineCoords('line1', p1.x, p1.y, p2.x, p2.y);
-      // Nối đường 2: Sao 2 (Vết lõm giữa) -> Sao 3 (Đỉnh phải)
-      setLineCoords('line2', p2.x, p2.y, p3.x, p3.y);
-      // Nối đường 3: Sao 3 (Đỉnh phải) -> Sao 4 (Sườn phải)
-      setLineCoords('line3', p3.x, p3.y, p4.x, p4.y);
-      // Nối đường 4: Sao 4 (Sườn phải) -> Sao 5 (Chóp đáy nhọn)
-      setLineCoords('line4', p4.x, p4.y, p5.x, p5.y);
-      // Nối đường 5: Sao 5 (Chóp đáy nhọn) -> Sao 1 (Đỉnh trái vòng qua sườn)
-      setLineCoords('line5', p5.x, p5.y, p1.x, p1.y);
-    }
-
-    function setLineCoords(id, x1, y1, x2, y2) {
-      const line = document.getElementById(id);
-      if (line) {
-        line.setAttribute('x1', x1);
-        line.setAttribute('y1', y1);
-        line.setAttribute('x2', x2);
-        line.setAttribute('y2', y2);
-      }
+      requestAnimationFrame(animateGarden);
     }
 
     /**
      * ========================================================
-     * FLOW KHỞI ĐỘNG & BẬT NHẠC
+     * MULTI-LAYER 3D PARALLAX (ĐA NỀN TẢNG PC & MOBILE)
      * ========================================================
      */
-    function startExperience() {
-      // 1. Kích hoạt âm thanh
-      bgAudio.src = CONFIG.audioUrl;
-      bgAudio.play().then(() => {
-        isAudioPlaying = true;
-        updateAudioButtonUI();
-      }).catch(err => {
-        console.warn("Autoplay audio blocked or error:", err);
+    const parallaxNebula = document.getElementById('parallaxNebula');
+    const parallaxCore = document.getElementById('parallaxCore');
+
+    function applyParallax(normX, normY) {
+      // Dịch chuyển lệch pha tạo chiều sâu 3D
+      parallaxNebula.style.transform = `translate(${normX * 18}px, ${normY * 18}px)`;
+      parallaxCore.style.transform = `translate(${normX * 9}px, ${normY * 9}px) rotateX(${-normY * 5}deg) rotateY(${normX * 5}deg)`;
+    }
+
+    // Parallax trên PC qua Mousemove
+    window.addEventListener('mousemove', (e) => {
+      const normX = (e.clientX / window.innerWidth) - 0.5;
+      const normY = (e.clientY / window.innerHeight) - 0.5;
+      applyParallax(normX, normY);
+
+      const rect = canvas.getBoundingClientRect();
+      pointer.x = e.clientX - rect.left;
+      pointer.y = e.clientY - rect.top;
+    });
+
+    // Tương tác cảm ứng & Parallax trên Mobile (Touchmove / DeviceOrientation)
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        const normX = (touch.clientX / window.innerWidth) - 0.5;
+        const normY = (touch.clientY / window.innerHeight) - 0.5;
+        applyParallax(normX, normY);
+
+        const rect = canvas.getBoundingClientRect();
+        pointer.x = touch.clientX - rect.left;
+        pointer.y = touch.clientY - rect.top;
+      }
+    }, { passive: true });
+
+    // Hiệu ứng sóng khi nhấp chuột hoặc chạm tay
+    window.addEventListener('pointerdown', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      createRipple(x, y);
+    });
+
+    /**
+     * ========================================================
+     * GIAI ĐOẠN 1: HOLD-TO-BLOOM INTERACTION (ĐÁNH THỨC HOA)
+     * ========================================================
+     */
+    const CIRCLE_CIRCUMFERENCE = 722.56;
+    let holdInterval = null;
+
+    function startHold(e) {
+      if (isBloomed) return;
+      e.preventDefault();
+      isHolding = true;
+
+      // Tự động phát nhạc khi bắt đầu tương tác
+      playMusic();
+
+      if (holdInterval) clearInterval(holdInterval);
+      holdInterval = setInterval(() => {
+        if (!isHolding) return;
+        holdProgress += 0.025; // ~2.2 giây để nở 100%
+
+        if (holdProgress >= 1) {
+          holdProgress = 1;
+          clearInterval(holdInterval);
+          completeBloom();
+        }
+
+        updateBloomVisuals(holdProgress);
+      }, 50);
+    }
+
+    function stopHold() {
+      if (isBloomed) return;
+      isHolding = false;
+      if (holdInterval) clearInterval(holdInterval);
+
+      // Nếu thả tay trước 100%, hoa co lại nhẹ nhàng
+      const decayInterval = setInterval(() => {
+        if (isHolding || isBloomed) {
+          clearInterval(decayInterval);
+          return;
+        }
+        holdProgress -= 0.05;
+        if (holdProgress <= 0) {
+          holdProgress = 0;
+          clearInterval(decayInterval);
+        }
+        updateBloomVisuals(holdProgress);
+      }, 40);
+    }
+
+    touchTarget.addEventListener('pointerdown', startHold);
+    window.addEventListener('pointerup', stopHold);
+    window.addEventListener('pointercancel', stopHold);
+
+    function updateBloomVisuals(progress) {
+      // 1. Cập nhật vòng tròn tiến trình
+      const offset = CIRCLE_CIRCUMFERENCE * (1 - progress);
+      holdProgressCircle.style.strokeDashoffset = offset;
+
+      // 2. Mở rộng từng tầng cánh hoa
+      // Tầng ngoài
+      outerPetals.forEach((p, idx) => {
+        const baseAngle = idx * 60;
+        const currentScale = 0.45 + progress * 0.55;
+        const currentRotate = baseAngle + (progress * 15);
+        p.style.transform = `rotate(${currentRotate}deg) scale(${currentScale})`;
+        p.style.opacity = 0.5 + progress * 0.5;
       });
 
-      // 2. Chime âm thanh chào mừng
-      playCelestialChime(1.2);
+      // Tầng giữa
+      midPetals.forEach((p, idx) => {
+        const baseAngle = 30 + idx * 60;
+        const currentScale = 0.4 + progress * 0.6;
+        const currentRotate = baseAngle - (progress * 15);
+        p.style.transform = `rotate(${currentRotate}deg) scale(${currentScale})`;
+        p.style.opacity = 0.6 + progress * 0.4;
+      });
 
-      // 3. Pháo hoa stardust nhẹ
+      // Tầng trong
+      innerPetals.forEach((p, idx) => {
+        const baseAngle = 15 + idx * 60;
+        const currentScale = 0.35 + progress * 0.65;
+        p.style.transform = `rotate(${baseAngle}deg) scale(${currentScale})`;
+        p.style.opacity = 0.7 + progress * 0.3;
+      });
+
+      // Hào quang nhụy hoa
+      flowerGlowCore.style.transform = `scale(${1 + progress * 1.5})`;
+      flowerGlowCore.style.opacity = 0.5 + progress * 0.5;
+    }
+
+    function completeBloom() {
+      isBloomed = true;
+      holdProgress = 1;
+      updateBloomVisuals(1);
+
+      // Ẩn vòng tròn tiến trình và nút "GIỮ ĐÂY"
+      holdProgressCircle.style.display = 'none';
+      touchTarget.style.display = 'none';
+
+      // Pháo hoa chùm sao ánh sáng tỏa ra
       if (typeof confetti !== 'undefined') {
         confetti({
-          particleCount: 40,
-          spread: 60,
-          origin: { y: 0.6 },
-          colors: ['#fde047', '#f472b6', '#38bdf8', '#ffffff']
+          particleCount: 70,
+          spread: 80,
+          origin: { y: 0.55 },
+          colors: ['#06b6d4', '#f43f5e', '#fde047', '#ffffff']
         });
       }
 
-      // 4. Mờ dần Intro Overlay
-      introOverlay.classList.add('opacity-0', 'pointer-events-none');
+      // Đổi câu hướng dẫn
+      mainInstruction.innerText = "Đóa hoa pha lê đã nở rộ vì cậu! 🌸";
+      mainInstruction.className = "text-lg sm:text-xl font-bold text-white mt-1.5 leading-snug glow-text-cyan";
+      subInstruction.innerText = "Hãy chạm vào 4 tinh cầu ánh sáng lơ lửng xung quanh để khám phá";
+      footerStatusText.innerText = "Chạm vào Tinh Cầu Lớn Nhất để mở bức thư 20/10 💌";
+
+      // GIAI ĐOẠN 2: Bung 4 Tinh Cầu Ánh Sáng
       setTimeout(() => {
-        introOverlay.style.display = 'none';
-      }, 1000);
+        memoryOrbsGroup.classList.remove('opacity-0');
+        memoryOrbsGroup.classList.add('opacity-100');
+      }, 400);
     }
 
-    startExploreBtn.addEventListener('click', startExperience);
+    /**
+     * ========================================================
+     * GIAI ĐOẠN 2: TƯƠNG TÁC 4 TINH CẦU KỶ NIỆM (ORB MODALS)
+     * ========================================================
+     */
+    document.getElementById('orbBtn1').addEventListener('click', () => openOrbModal(1));
+    document.getElementById('orbBtn2').addEventListener('click', () => openOrbModal(2));
+    document.getElementById('orbBtn3').addEventListener('click', () => openOrbModal(3));
+    document.getElementById('orbBtn4').addEventListener('click', () => openLetterModal());
 
-    // Bật/tắt âm lượng
+    function openOrbModal(idx) {
+      if (idx === 1) {
+        modalOrbIcon.className = "fa-solid fa-face-smile text-cyan-900 text-lg";
+        modalOrbTag.innerText = "TINH CẦU NIỀM VUI";
+        modalOrbTag.className = "text-[10px] font-extrabold tracking-widest text-cyan-300 uppercase bg-cyan-500/20 px-3 py-1 rounded-full border border-cyan-500/30";
+        modalOrbPhoto.src = CONFIG.photo1;
+        modalOrbMessage.innerText = CONFIG.message1;
+
+      } else if (idx === 2) {
+        modalOrbIcon.className = "fa-solid fa-heart text-pink-900 text-lg";
+        modalOrbTag.innerText = "TINH CẦU DỊU DÀNG";
+        modalOrbTag.className = "text-[10px] font-extrabold tracking-widest text-pink-300 uppercase bg-pink-500/20 px-3 py-1 rounded-full border border-pink-500/30";
+        modalOrbPhoto.src = CONFIG.photo2;
+        modalOrbMessage.innerText = CONFIG.message2;
+
+      } else if (idx === 3) {
+        modalOrbIcon.className = "fa-solid fa-clover text-emerald-900 text-lg";
+        modalOrbTag.innerText = "TINH CẦU MAY MẮN";
+        modalOrbTag.className = "text-[10px] font-extrabold tracking-widest text-emerald-300 uppercase bg-emerald-500/20 px-3 py-1 rounded-full border border-emerald-500/30";
+        modalOrbPhoto.src = CONFIG.photo3;
+        modalOrbMessage.innerText = CONFIG.message3;
+      }
+
+      orbModal.classList.remove('opacity-0', 'pointer-events-none');
+      orbModal.classList.add('opacity-100', 'pointer-events-auto');
+    }
+
+    closeOrbModalBtn.addEventListener('click', () => {
+      orbModal.classList.remove('opacity-100', 'pointer-events-auto');
+      orbModal.classList.add('opacity-0', 'pointer-events-none');
+    });
+
+    /**
+     * ========================================================
+     * GIAI ĐOẠN 3: MƯA SAO BĂNG, BỨC THƯ CUỐI & VOUCHER HẸN HÒ
+     * ========================================================
+     */
+    function openLetterModal() {
+      // Kích hoạt mưa sao băng trên nền Canvas
+      isMeteorShower = true;
+
+      letterModal.classList.remove('opacity-0', 'pointer-events-none');
+      letterModal.classList.add('opacity-100', 'pointer-events-auto');
+      letterCard.classList.remove('scale-90');
+      letterCard.classList.add('scale-100');
+    }
+
+    // Chấp nhận lời mời & Lưu giữ bầu trời
+    acceptDateBtn.addEventListener('click', () => {
+      // 1. Chuyển toàn bộ màu đom đóm sang sắc Hồng Vàng lãng mạn
+      isPinkGoldTheme = true;
+
+      // 2. Bắn pháo hoa ánh sáng tưng bừng
+      fireCelebrationConfetti();
+
+      // 3. Mở Modal chốt kèo hẹn hò
+      setTimeout(() => {
+        rsvpModal.classList.remove('opacity-0', 'pointer-events-none');
+        rsvpModal.classList.add('opacity-100', 'pointer-events-auto');
+        rsvpCard.classList.remove('scale-90');
+        rsvpCard.classList.add('scale-100');
+      }, 400);
+    });
+
+    closeRsvpBtn.addEventListener('click', () => {
+      rsvpModal.classList.remove('opacity-100', 'pointer-events-auto');
+      rsvpModal.classList.add('opacity-0', 'pointer-events-none');
+      letterModal.classList.remove('opacity-100', 'pointer-events-auto');
+      letterModal.classList.add('opacity-0', 'pointer-events-none');
+    });
+
+    function fireCelebrationConfetti() {
+      if (typeof confetti === 'undefined') return;
+
+      const duration = 2500;
+      const animationEnd = Date.now() + duration;
+
+      const interval = setInterval(() => {
+        const timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) return clearInterval(interval);
+
+        confetti({
+          particleCount: 40,
+          spread: 360,
+          origin: { x: Math.random(), y: Math.random() - 0.2 },
+          colors: ['#f43f5e', '#fb7185', '#fde047', '#ffffff']
+        });
+      }, 250);
+    }
+
+    /**
+     * ========================================================
+     * ÂM THANH (MẤT KẾT NỐI - DƯƠNG DOMIC)
+     * ========================================================
+     */
+    function playMusic() {
+      if (!isAudioPlaying) {
+        bgAudio.src = CONFIG.audioUrl;
+        bgAudio.play().then(() => {
+          isAudioPlaying = true;
+          updateAudioUI();
+        }).catch(err => {
+          console.warn("Autoplay blocked:", err);
+        });
+      }
+    }
+
     toggleAudioBtn.addEventListener('click', () => {
       if (isAudioPlaying) {
         bgAudio.pause();
@@ -843,231 +1120,41 @@
           isAudioPlaying = true;
         });
       }
-      updateAudioButtonUI();
+      updateAudioUI();
     });
 
-    function updateAudioButtonUI() {
+    function updateAudioUI() {
       if (isAudioPlaying) {
-        audioIcon.className = "fa-solid fa-music text-pink-400 animate-bounce";
+        audioIcon.className = "fa-solid fa-volume-high text-cyan-400 text-[11px] animate-bounce";
       } else {
-        audioIcon.className = "fa-solid fa-volume-xmark text-white/50";
+        audioIcon.className = "fa-solid fa-volume-xmark text-white/50 text-[11px]";
       }
     }
 
     /**
      * ========================================================
-     * TƯƠNG TÁC 5 NGÔI SAO & HIỂN THỊ MODAL THÔNG ĐIỆP
-     * ========================================================
-     */
-    const majorStarButtons = document.querySelectorAll('.major-star-btn');
-    majorStarButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const starIdx = parseInt(btn.getAttribute('data-index'), 10);
-        openStarModal(starIdx);
-      });
-    });
-
-    function openStarModal(idx) {
-      playCelestialChime(1 + idx * 0.15);
-
-      // Đánh dấu đã mở sao này
-      discoveredStars.add(idx);
-      starCounter.innerText = discoveredStars.size;
-
-      // Cập nhật giao diện của nút sao đó
-      const currentStarBtn = document.getElementById(`starBtn${idx}`);
-      if (currentStarBtn) {
-        currentStarBtn.querySelector('.star-core').classList.add('ring-4', 'ring-white');
-      }
-
-      // Điền nội dung tương ứng vào Modal
-      modalStarTag.innerText = `NGÔI SAO THỨ ${idx}`;
-
-      if (idx === 1) {
-        modalStarIcon.className = "fa-solid fa-star text-amber-900 text-lg";
-        modalMediaContainer.innerHTML = `
-          <div class="w-44 h-44 rounded-2xl overflow-hidden border-2 border-amber-300/60 shadow-[0_0_25px_rgba(253,224,71,0.5)] mx-auto transform -rotate-1">
-            <img src="${CONFIG.starPhoto1}" alt="Ảnh Ngôi Sao 1" class="w-full h-full object-cover">
-          </div>
-        `;
-        modalMessageText.innerText = CONFIG.message1;
-
-      } else if (idx === 2) {
-        modalStarIcon.className = "fa-solid fa-star text-pink-900 text-lg";
-        modalMediaContainer.innerHTML = `
-          <div class="w-44 h-44 rounded-2xl overflow-hidden border-2 border-pink-400/60 shadow-[0_0_25px_rgba(244,114,182,0.5)] mx-auto transform rotate-2">
-            <img src="${CONFIG.starPhoto2}" alt="Ảnh Ngôi Sao 2" class="w-full h-full object-cover">
-          </div>
-        `;
-        modalMessageText.innerText = CONFIG.message2;
-
-      } else if (idx === 3) {
-        modalStarIcon.className = "fa-solid fa-star text-sky-900 text-lg";
-        modalMediaContainer.innerHTML = `
-          <div class="w-44 h-44 rounded-2xl overflow-hidden border-2 border-sky-400/60 shadow-[0_0_25px_rgba(56,189,248,0.5)] mx-auto transform -rotate-2">
-            <img src="${CONFIG.starPhoto3}" alt="Ảnh Ngôi Sao 3" class="w-full h-full object-cover">
-          </div>
-        `;
-        modalMessageText.innerText = CONFIG.message3;
-
-      } else if (idx === 4) {
-        modalStarIcon.className = "fa-solid fa-fan text-rose-900 text-lg";
-        modalMediaContainer.innerHTML = `
-          <div class="w-32 h-32 rounded-3xl bg-gradient-to-tr from-pink-500/30 to-amber-400/30 border border-pink-400/40 flex items-center justify-center mx-auto shadow-[0_0_30px_rgba(244,114,182,0.6)]">
-            <i class="fa-solid fa-flower-tulip text-5xl text-pink-300 animate-pulse"></i>
-          </div>
-        `;
-        modalMessageText.innerText = CONFIG.message4;
-
-      } else if (idx === 5) {
-        modalStarIcon.className = "fa-solid fa-gift text-amber-900 text-lg";
-        modalMediaContainer.innerHTML = `
-          <div class="w-32 h-32 rounded-3xl bg-gradient-to-tr from-amber-400/30 to-purple-600/30 border border-amber-400/40 flex items-center justify-center mx-auto shadow-[0_0_35px_rgba(253,224,71,0.7)]">
-            <i class="fa-solid fa-gift text-5xl text-amber-300 animate-bounce"></i>
-          </div>
-        `;
-        modalMessageText.innerText = CONFIG.message5;
-      }
-
-      // Hiển thị modal
-      starModal.classList.remove('opacity-0', 'pointer-events-none');
-      starModal.classList.add('opacity-100', 'pointer-events-auto');
-      starModalCard.classList.remove('scale-90');
-      starModalCard.classList.add('scale-100');
-    }
-
-    closeStarModalBtn.addEventListener('click', () => {
-      starModal.classList.remove('opacity-100', 'pointer-events-auto');
-      starModal.classList.add('opacity-0', 'pointer-events-none');
-      starModalCard.classList.remove('scale-100');
-      starModalCard.classList.add('scale-90');
-
-      // Kiểm tra nếu đã thu thập đủ 5/5 ngôi sao
-      if (discoveredStars.size >= 5 && !isConstellationConnected) {
-        isConstellationConnected = true;
-        hintText.innerText = "✨ Các vì sao đang hòa quyện tạo thành chòm sao Trái Tim!";
-        hintText.classList.add('text-amber-300', 'font-bold');
-
-        setTimeout(triggerConstellationConnection, 600);
-      }
-    });
-
-    /**
-     * ========================================================
-     * HIỆU ỨNG NỐI CHÒM SAO TRÁI TIM & BỨC THƯ CUỐI CÙNG
-     * ========================================================
-     */
-    function triggerConstellationConnection() {
-      // 1. Cập nhật vị trí và nối các đường kẻ sáng
-      updateConstellationCoords();
-      const lines = ['line1', 'line2', 'line3', 'line4', 'line5'];
-      lines.forEach((id, i) => {
-        setTimeout(() => {
-          const l = document.getElementById(id);
-          if (l) l.classList.add('connected');
-          playCelestialChime(1.2 + i * 0.1);
-        }, i * 350);
-      });
-
-      // 2. Bắn một đợt pháo hoa stardust chúc mừng
-      setTimeout(() => {
-        if (typeof confetti !== 'undefined') {
-          confetti({
-            particleCount: 80,
-            spread: 90,
-            origin: { y: 0.5 },
-            colors: ['#fde047', '#f472b6', '#ffffff']
-          });
-        }
-      }, 1500);
-
-      // 3. Sau 1.8 giây, hiện bức thư chính thức
-      setTimeout(() => {
-        letterModal.classList.remove('opacity-0', 'pointer-events-none');
-        letterModal.classList.add('opacity-100', 'pointer-events-auto');
-        letterCard.classList.remove('scale-90');
-        letterCard.classList.add('scale-100');
-      }, 1800);
-    }
-
-    /**
-     * ========================================================
-     * BẤM CHẤP NHẬN LỜI HẸN & BÃO SAO BĂNG
-     * ========================================================
-     */
-    acceptDateBtn.addEventListener('click', () => {
-      // 1. Cơn mưa sao băng dồn dập trên Canvas
-      for (let i = 0; i < 25; i++) {
-        setTimeout(() => {
-          spawnMeteor(true);
-        }, i * 80);
-      }
-
-      // 2. Pháo hoa rực rỡ từ 2 phía
-      fireGrandConfetti();
-
-      // 3. Mở Modal xác nhận kèo đi chơi
-      setTimeout(() => {
-        dateConfirmModal.classList.remove('opacity-0', 'pointer-events-none');
-        dateConfirmModal.classList.add('opacity-100', 'pointer-events-auto');
-        dateConfirmCard.classList.remove('scale-90');
-        dateConfirmCard.classList.add('scale-100');
-      }, 400);
-    });
-
-    closeConfirmModalBtn.addEventListener('click', () => {
-      dateConfirmModal.classList.remove('opacity-100', 'pointer-events-auto');
-      dateConfirmModal.classList.add('opacity-0', 'pointer-events-none');
-      letterModal.classList.remove('opacity-100', 'pointer-events-auto');
-      letterModal.classList.add('opacity-0', 'pointer-events-none');
-    });
-
-    function fireGrandConfetti() {
-      if (typeof confetti === 'undefined') return;
-
-      const duration = 2500;
-      const animationEnd = Date.now() + duration;
-      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 60 };
-
-      const interval = setInterval(function() {
-        const timeLeft = animationEnd - Date.now();
-        if (timeLeft <= 0) {
-          return clearInterval(interval);
-        }
-        const particleCount = 50 * (timeLeft / duration);
-        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-        confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-      }, 250);
-    }
-
-    function randomInRange(min, max) {
-      return Math.random() * (max - min) + min;
-    }
-
-    /**
-     * ========================================================
-     * SETUP DỮ LIỆU TỪ CONFIG & SỰ KIỆN WINDOW
+     * INIT DATA FROM CONFIG
      * ========================================================
      */
     function initData() {
-      document.getElementById('introCrushName').innerText = CONFIG.crushName;
-      document.getElementById('footerCrushName').innerText = CONFIG.crushName;
+      document.getElementById('crushNameLabel').innerText = CONFIG.crushName;
       document.getElementById('letterCrushName').innerText = CONFIG.crushName;
       document.getElementById('letterYourName').innerText = CONFIG.yourName;
-      document.getElementById('mainLetterContent').innerText = CONFIG.mainLetter;
+      document.getElementById('mainLetterText').innerText = CONFIG.mainLetter;
+      document.getElementById('voucherText').innerText = CONFIG.voucherContent;
       document.getElementById('rsvpContactLink').href = CONFIG.contactUrl;
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       initData();
       resizeCanvas();
-      initStars();
-      renderSky();
+      initFireflies();
+      animateGarden();
     });
 
     window.addEventListener('resize', () => {
       resizeCanvas();
-      initStars();
+      initFireflies();
     });
   </script>
 </body>
