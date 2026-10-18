@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Khu Vườn Ánh Sáng 3D & Đóa Hoa Dành Cho Cậu 🌸✨ 20/10</title>
+  <title>Studio Đĩa Than 3D & Gachapon 20/10 🎵✨</title>
 
-  <!-- Google Fonts: Cormorant Garamond & Quicksand -->
+  <!-- Google Fonts: Outfit & Pacifico -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -25,35 +25,36 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Quicksand', 'sans-serif'],
-            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['Outfit', 'sans-serif'],
+            cursive: ['Pacifico', 'cursive'],
           },
           colors: {
-            garden: {
-              void: '#02040a',
-              deep: '#060a18',
-              emerald: '#059669',
-              teal: '#14b8a6',
+            studio: {
+              void: '#07050f',
+              card: 'rgba(255, 255, 255, 0.07)',
+              pink: '#ff3b7f',
+              rose: '#f43f5e',
+              purple: '#8b5cf6',
+              violet: '#6366f1',
               cyan: '#06b6d4',
-              pink: '#f43f5e',
-              rose: '#fb7185',
-              gold: '#fde047',
+              gold: '#facc15',
             }
           },
           animation: {
-            'pulse-slow': 'pulse 3.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'spin-slow': 'spin 25s linear infinite',
-            'float-orb': 'floatOrb 4s ease-in-out infinite alternate',
-            'glow-breathe': 'glowBreathe 3s ease-in-out infinite alternate',
+            'spin-slow': 'spin 16s linear infinite',
+            'bounce-subtle': 'bounceSubtle 3s ease-in-out infinite alternate',
+            'float-bubble': 'floatBubble 8s linear infinite',
           },
           keyframes: {
-            floatOrb: {
-              '0%': { transform: 'translateY(0px) scale(1)' },
-              '100%': { transform: 'translateY(-12px) scale(1.05)' },
+            bounceSubtle: {
+              '0%': { transform: 'translateY(0px)' },
+              '100%': { transform: 'translateY(-10px)' },
             },
-            glowBreathe: {
-              '0%': { filter: 'drop-shadow(0 0 15px rgba(6, 182, 212, 0.4))' },
-              '100%': { filter: 'drop-shadow(0 0 35px rgba(244, 63, 94, 0.8))' },
+            floatBubble: {
+              '0%': { transform: 'translateY(100vh) scale(0.6)', opacity: '0' },
+              '20%': { opacity: '0.6' },
+              '80%': { opacity: '0.6' },
+              '100%': { transform: 'translateY(-20vh) scale(1.1)', opacity: '0' }
             }
           }
         }
@@ -62,7 +63,7 @@
   </script>
 
   <style>
-    /* Reset & chống cuộn trên mobile */
+    /* Reset & chống cuộn giật trên Mobile */
     * {
       -webkit-tap-highlight-color: transparent;
       user-select: none;
@@ -73,462 +74,562 @@
       height: 100%;
       height: 100dvh;
       overflow: hidden;
-      background-color: #02040a;
+      background-color: #07050f;
       color: #ffffff;
-      font-family: 'Quicksand', sans-serif;
+      font-family: 'Outfit', sans-serif;
     }
 
-    /* Canvas nền Hạt Đom Đóm & Hiệu Ứng Sóng */
-    #gardenCanvas {
-      position: absolute;
+    /* Animated Aurora Background (Mesh Gradient) */
+    .aurora-bg {
+      position: fixed;
       inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: auto;
+      z-index: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.25) 0%, transparent 40%),
+                  radial-gradient(circle at 90% 30%, rgba(255, 59, 127, 0.25) 0%, transparent 45%),
+                  radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.2) 0%, transparent 50%),
+                  #07050f;
     }
 
-    /* Kính mờ siêu thực (Bioluminescent Glass) */
-    .biolum-card {
-      background: rgba(10, 18, 38, 0.65);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+    .aurora-orb {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(80px);
+      mix-blend-mode: screen;
+      animation: auroraShift 18s ease-in-out infinite alternate;
     }
 
-    .biolum-pill {
+    @keyframes auroraShift {
+      0% { transform: scale(1) translate(0, 0); }
+      50% { transform: scale(1.2) translate(40px, -30px); }
+      100% { transform: scale(0.9) translate(-30px, 40px); }
+    }
+
+    /* Glassmorphic Panel */
+    .glass-studio {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.18);
+    }
+
+    .glass-pill {
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.16);
     }
 
-    /* Text Glow Typography */
-    .glow-text-cyan {
-      text-shadow: 0 0 15px rgba(6, 182, 212, 0.8), 0 0 30px rgba(20, 184, 166, 0.5);
-    }
-    .glow-text-pink {
-      text-shadow: 0 0 15px rgba(244, 63, 94, 0.85), 0 0 35px rgba(251, 113, 133, 0.6);
-    }
-    .glow-text-gold {
-      text-shadow: 0 0 12px rgba(253, 224, 71, 0.9), 0 0 25px rgba(245, 158, 11, 0.6);
-    }
-
-    /* Lớp Parallax Container */
-    .parallax-layer {
-      transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1);
-      will-change: transform;
+    /* Vinyl Turntable Grooves & Sheen */
+    .vinyl-plate {
+      position: relative;
+      border-radius: 50%;
+      background: repeating-radial-gradient(
+        circle at 50% 50%,
+        #121118 0px,
+        #171620 2px,
+        #0b0a10 3px,
+        #1b1a26 4px
+      );
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(255, 255, 255, 0.08);
     }
 
-    /* Cánh Hoa Pha Lê SVG & Animation Nở */
-    .crystal-petal {
-      transform-origin: 150px 150px;
-      transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
-    }
-
-    /* Vòng tròn tiến trình Hold-to-Bloom */
-    .hold-progress-ring {
-      transition: stroke-dashoffset 0.05s linear;
-      transform: rotate(-90deg);
-      transform-origin: 50% 50%;
-    }
-
-    /* Tinh Cầu Kỷ Niệm (Floating Memory Orbs) */
-    .memory-orb {
+    .vinyl-specular {
       position: absolute;
-      transform: translate(-50%, -50%);
-      transition: all 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+      inset: 0;
+      border-radius: 50%;
+      background: conic-gradient(
+        from 45deg,
+        rgba(255,255,255,0.12) 0deg,
+        transparent 35deg,
+        rgba(255,255,255,0.12) 70deg,
+        transparent 110deg,
+        rgba(255,255,255,0.12) 180deg,
+        transparent 215deg,
+        rgba(255,255,255,0.12) 250deg,
+        transparent 290deg,
+        rgba(255,255,255,0.12) 360deg
+      );
+      pointer-events: none;
     }
 
-    /* 3D Tilt Glare Card Effect */
-    .tilt-card-wrapper {
-      perspective: 1000px;
+    /* Tonearm Animation */
+    .tonearm {
+      position: absolute;
+      top: 10px;
+      right: 22px;
+      width: 80px;
+      height: 130px;
+      transform-origin: 58px 18px;
+      transition: transform 0.8s cubic-bezier(0.34, 1.4, 0.64, 1);
+      z-index: 20;
+      filter: drop-shadow(4px 8px 12px rgba(0,0,0,0.7));
+    }
+    .tonearm.resting {
+      transform: rotate(-32deg);
+    }
+    .tonearm.playing {
+      transform: rotate(4deg);
     }
 
-    .tilt-card {
-      transition: transform 0.2s ease-out;
+    /* Equalizer Bar */
+    .eq-bar {
+      width: 3.5px;
+      border-radius: 99px;
+      background: linear-gradient(to top, #ff3b7f, #c084fc, #38bdf8);
+      transition: height 0.12s ease;
+      height: 6px;
+    }
+
+    /* 3D Cylindrical Carousel */
+    .carousel-3d-scene {
+      perspective: 1100px;
       transform-style: preserve-3d;
     }
 
-    /* Voucher Viền Ánh Kim Hologram */
-    .voucher-border {
+    .carousel-3d-cylinder {
       position: relative;
+      width: 170px;
+      height: 240px;
+      transform-style: preserve-3d;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: grab;
     }
-    .voucher-border::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      border-radius: inherit;
-      background: linear-gradient(135deg, #f43f5e, #fde047, #06b6d4, #f43f5e);
-      background-size: 300% 300%;
-      animation: voucherShimmer 6s linear infinite;
-      z-index: -1;
+    .carousel-3d-cylinder:active {
+      cursor: grabbing;
     }
 
-    @keyframes voucherShimmer {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    .carousel-3d-card {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      overflow: hidden;
+      backface-visibility: visible;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      -webkit-box-reflect: below 8px linear-gradient(transparent, transparent 65%, rgba(255,255,255,0.25));
+    }
+
+    /* Gachapon Dome Glass Effect */
+    .gacha-dome {
+      background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.08) 50%, rgba(0, 0, 0, 0.2) 100%);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      box-shadow: inset 0 5px 20px rgba(255, 255, 255, 0.3), 0 15px 35px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Gacha Knob Rotation */
+    .gacha-knob {
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Holographic SSR Card */
+    .holo-card {
+      position: relative;
+      background: linear-gradient(135deg, rgba(20, 16, 35, 0.95), rgba(35, 22, 55, 0.95));
+      border: 1.5px solid rgba(255, 215, 0, 0.5);
+      box-shadow: 0 0 40px rgba(255, 59, 127, 0.4), inset 0 0 25px rgba(250, 204, 21, 0.2);
+    }
+    .holo-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(125deg, transparent 20%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 59, 127, 0.25) 60%, transparent 80%);
+      background-size: 200% 200%;
+      animation: holoShine 4s ease infinite;
+      pointer-events: none;
+    }
+    @keyframes holoShine {
+      0% { background-position: -100% -100%; }
+      100% { background-position: 200% 200%; }
     }
   </style>
 </head>
-<body class="flex items-center justify-center bg-[#02040a]">
+<body class="flex items-center justify-center bg-[#07050f]">
 
-  <!-- Mobile App Frame Container (100dvh trên mobile, Luxury Glass Frame trên PC) -->
-  <main id="appContainer" class="relative w-full max-w-[440px] h-[100dvh] sm:h-[890px] sm:max-h-[96vh] bg-[#02040a] sm:rounded-[44px] sm:border sm:border-white/15 shadow-[0_30px_90px_rgba(0,0,0,0.95)] overflow-hidden flex flex-col z-10 select-none">
+  <!-- Animated Aurora Background Orbs -->
+  <div class="aurora-bg">
+    <div class="aurora-orb w-[420px] h-[420px] bg-purple-600/30 -top-20 -left-20"></div>
+    <div class="aurora-orb w-[450px] h-[450px] bg-pink-600/25 top-1/2 -right-32"></div>
+    <div class="aurora-orb w-[380px] h-[380px] bg-cyan-600/25 -bottom-24 left-1/3"></div>
+  </div>
 
-    <!-- Canvas Nền Đom Đóm Vật Lý & Sóng Nước Ánh Sáng -->
-    <canvas id="gardenCanvas"></canvas>
+  <!-- Main Container: PC Dual Dashboard / Mobile Smart Tabs -->
+  <main class="relative w-full max-w-[1200px] h-[100dvh] md:h-[880px] md:max-h-[95vh] md:my-auto bg-[#090715]/85 backdrop-blur-3xl md:rounded-[40px] md:border md:border-white/15 shadow-[0_30px_90px_rgba(0,0,0,0.85)] flex flex-col overflow-hidden z-10">
 
-    <!-- Parallax Layer 1: Nebula Glow xa mờ -->
-    <div id="parallaxNebula" class="parallax-layer absolute inset-0 pointer-events-none z-10 flex items-center justify-center">
-      <div class="w-[320px] h-[320px] rounded-full bg-gradient-to-tr from-cyan-600/20 via-pink-600/20 to-teal-500/15 filter blur-[90px] animate-pulse-slow"></div>
-    </div>
-
-    <!-- Header Thông Báo Trạng Thái & Nút Nhạc -->
-    <header class="w-full pt-4 px-6 pb-2 flex items-center justify-between z-40">
-      
-      <!-- Live Tag -->
-      <div class="flex items-center space-x-2 biolum-pill px-3 py-1 rounded-full border border-teal-400/30">
-        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-        <span class="text-[11px] font-bold tracking-wider text-cyan-200 uppercase">20/10 GARDEN</span>
+    <!-- Top Universal Header -->
+    <header class="w-full pt-3 px-6 pb-2 flex items-center justify-between z-40 border-b border-white/10 select-none">
+      <div class="flex items-center space-x-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+        <span class="font-cursive text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-300 to-amber-300">
+          Studio 20/10 Special
+        </span>
       </div>
 
-      <!-- Âm Lượng & Bài Hát -->
-      <button id="toggleAudioBtn" class="flex items-center space-x-2 biolum-pill px-3 py-1 rounded-full text-xs text-white/80 hover:text-cyan-300 transition" title="Bật/Tắt Nhạc">
-        <i id="audioIcon" class="fa-solid fa-volume-high text-cyan-400 text-[11px]"></i>
-        <span class="text-[10px] font-medium text-white/70">Mất Kết Nối</span>
-      </button>
+      <!-- Station Title -->
+      <div class="hidden sm:flex items-center space-x-2 text-xs font-semibold text-white/80 bg-white/10 px-3.5 py-1.5 rounded-full border border-white/15">
+        <i class="fa-solid fa-compact-disc text-rose-400 animate-spin-slow"></i>
+        <span>Dành riêng cho: <strong id="headerCrushName" class="text-pink-300">[TÊN_CRUSH]</strong></span>
+      </div>
 
+      <!-- Quick Audio & Help Status -->
+      <div class="flex items-center space-x-3 text-xs">
+        <button id="toggleAudioBtn" class="flex items-center space-x-1.5 bg-white/10 hover:bg-white/20 text-white/90 px-3 py-1.5 rounded-full transition border border-white/15">
+          <i id="audioIcon" class="fa-solid fa-volume-high text-rose-400"></i>
+          <span class="text-[11px] font-semibold hidden xs:inline" id="audioLabel">Mất Kết Nối</span>
+        </button>
+      </div>
     </header>
 
-    <!-- Khu Vực Trung Tâm: Đóa Hoa Pha Lê & Tinh Cầu (Parallax Mid Layer) -->
-    <div id="parallaxCore" class="parallax-layer relative flex-1 w-full flex flex-col items-center justify-center z-30">
+    <!-- Content Workspace -->
+    <div class="relative flex-1 w-full overflow-hidden flex flex-col md:flex-row">
       
-      <!-- Dòng Chữ Hướng Dẫn & Thông Điệp Trên Hoa -->
-      <div id="guideTextContainer" class="text-center px-6 mb-3 transition-opacity duration-700">
-        <p class="font-serif italic text-xs text-cyan-200/80 tracking-widest uppercase">
-          Dành tặng <span id="crushNameLabel" class="text-white font-bold underline decoration-pink-400 decoration-2 underline-offset-4">[TÊN_CRUSH]</span> ngày 20/10
-        </p>
-        <h1 id="mainInstruction" class="text-lg sm:text-xl font-bold text-white mt-1.5 leading-snug glow-text-pink">
-          Chạm và giữ để đánh thức đóa hoa pha lê
-        </h1>
-        <p id="subInstruction" class="text-[11px] text-white/60 mt-1">
-          Giữ ngón tay trên nhụy hoa trong 2 giây để chứng kiến điều kỳ diệu ✨
-        </p>
-      </div>
-
-      <!-- ĐÓA HOA PHA LÊ (CRYSTAL LOTUS) & HOLD-TO-BLOOM BUTTON -->
-      <div class="relative w-[280px] h-[280px] flex items-center justify-center my-auto">
+      <!-- ============================================== -->
+      <!-- CỘT TRÁI / SECTION 1: TRẠM ĐĨA THAN VINYL     -->
+      <!-- ============================================== -->
+      <section id="sectionVinyl" class="view-panel w-full md:w-1/2 h-full flex flex-col justify-between p-5 md:p-6 transition-all duration-500 overflow-y-auto no-scrollbar border-b md:border-b-0 md:border-r border-white/10">
         
-        <!-- Vòng tiến trình tròn SVG (Hold Progress Ring) -->
-        <svg class="absolute inset-0 w-full h-full pointer-events-none z-30" viewBox="0 0 280 280">
-          <!-- Track mờ -->
-          <circle cx="140" cy="140" r="115" stroke="rgba(255, 255, 255, 0.08)" stroke-width="4" fill="none"/>
-          <!-- Progress Stroke -->
-          <circle id="holdProgressCircle" class="hold-progress-ring" cx="140" cy="140" r="115" stroke="url(#progressGrad)" stroke-width="5" stroke-linecap="round" fill="none" stroke-dasharray="722.56" stroke-dashoffset="722.56"/>
-          <defs>
-            <linearGradient id="progressGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#06b6d4"/>
-              <stop offset="50%" stop-color="#f43f5e"/>
-              <stop offset="100%" stop-color="#fde047"/>
-            </linearGradient>
-          </defs>
-        </svg>
+        <!-- Header Tag -->
+        <div class="text-center pt-1">
+          <p class="text-[11px] uppercase tracking-widest text-white/50 font-semibold">TRẠM PHÁT NHẠC TÌNH YÊU</p>
+          <h2 class="text-base sm:text-lg font-bold text-white mt-0.5">
+            Giai Điệu Dành Cho <span id="vinylCrushName" class="text-pink-400">[TÊN_CRUSH]</span> ✨
+          </h2>
+        </div>
 
-        <!-- Đóa Hoa Đa Lớp Cánh (Crystal Flower SVG) -->
-        <div id="flowerContainer" class="relative w-[250px] h-[250px] flex items-center justify-center cursor-pointer transition-transform duration-500">
+        <!-- The Vinyl Turntable Platform -->
+        <div class="relative w-full aspect-square max-w-[280px] sm:max-w-[310px] mx-auto my-auto flex items-center justify-center">
           
-          <!-- Hào quang nhụy hoa phát sáng -->
-          <div id="flowerGlowCore" class="absolute w-24 h-24 rounded-full bg-gradient-to-tr from-cyan-400 via-pink-500 to-amber-300 filter blur-xl opacity-50 transition-all duration-700"></div>
+          <!-- Turntable Deck -->
+          <div class="relative w-full h-full rounded-[38px] glass-studio p-4 flex items-center justify-center overflow-hidden">
+            
+            <!-- Metallic Screws -->
+            <div class="absolute top-3.5 left-3.5 w-2 h-2 rounded-full bg-white/30 border border-white/20"></div>
+            <div class="absolute bottom-3.5 left-3.5 w-2 h-2 rounded-full bg-white/30 border border-white/20"></div>
+            <div class="absolute bottom-3.5 right-3.5 w-2 h-2 rounded-full bg-white/30 border border-white/20"></div>
 
-          <!-- SVG Đóa Hoa 12 Cánh Pha Lê -->
-          <svg id="flowerSvg" class="w-full h-full filter drop-shadow-[0_0_20px_rgba(6,182,212,0.6)]" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <!-- Gradient Cánh Tầng Ngoài (Cyan/Teal) -->
-              <linearGradient id="petalOuterGrad" x1="150" y1="40" x2="150" y2="160" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.95"/>
-                <stop offset="70%" stop-color="#06b6d4" stop-opacity="0.6"/>
-                <stop offset="100%" stop-color="#0d9488" stop-opacity="0.2"/>
-              </linearGradient>
-              <!-- Gradient Cánh Tầng Giữa (Pink/Rose) -->
-              <linearGradient id="petalMidGrad" x1="150" y1="65" x2="150" y2="160" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#fb7185" stop-opacity="0.95"/>
-                <stop offset="60%" stop-color="#f43f5e" stop-opacity="0.7"/>
-                <stop offset="100%" stop-color="#9333ea" stop-opacity="0.3"/>
-              </linearGradient>
-              <!-- Gradient Cánh Tầng Trong (Gold/Amber) -->
-              <linearGradient id="petalInnerGrad" x1="150" y1="85" x2="150" y2="155" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#fde047" stop-opacity="0.95"/>
-                <stop offset="70%" stop-color="#f59e0b" stop-opacity="0.75"/>
-                <stop offset="100%" stop-color="#e11d48" stop-opacity="0.4"/>
-              </linearGradient>
-            </defs>
+            <!-- Tonearm (SVG Metallic Needle) -->
+            <div id="tonearm" class="tonearm resting">
+              <svg width="80" height="130" viewBox="0 0 80 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Pivot -->
+                <circle cx="58" cy="18" r="14" fill="#2d2d38" stroke="#5d5d70" stroke-width="2"/>
+                <circle cx="58" cy="18" r="6" fill="#14141c"/>
+                <circle cx="58" cy="18" r="2.5" fill="#ff3b7f"/>
+                <!-- Arm -->
+                <path d="M58 18 Q 54 65 32 94 L 20 114" stroke="#e2e8f0" stroke-width="3" stroke-linecap="round"/>
+                <!-- Cartridge -->
+                <g transform="translate(12, 110) rotate(20)">
+                  <rect x="0" y="0" width="12" height="18" rx="2" fill="#1e1e28" stroke="#ff3b7f" stroke-width="1.5"/>
+                  <line x1="6" y1="18" x2="6" y2="22" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+                </g>
+              </svg>
+            </div>
 
-            <!-- TẦNG CÁNH NGOÀI CÙNG (6 Cánh Lớn) -->
-            <g id="layerOuterPetals">
-              <!-- Cánh 1 -->
-              <path class="crystal-petal" style="transform: rotate(0deg) scale(0.45); opacity: 0.5;" d="M150 35 C175 80 185 130 150 160 C115 130 125 80 150 35 Z" fill="url(#petalOuterGrad)" stroke="#ffffff" stroke-width="0.8"/>
-              <!-- Cánh 2 -->
-              <path class="crystal-petal" style="transform: rotate(60deg) scale(0.45); opacity: 0.5;" d="M150 35 C175 80 185 130 150 160 C115 130 125 80 150 35 Z" fill="url(#petalOuterGrad)" stroke="#ffffff" stroke-width="0.8"/>
-              <!-- Cánh 3 -->
-              <path class="crystal-petal" style="transform: rotate(120deg) scale(0.45); opacity: 0.5;" d="M150 35 C175 80 185 130 150 160 C115 130 125 80 150 35 Z" fill="url(#petalOuterGrad)" stroke="#ffffff" stroke-width="0.8"/>
-              <!-- Cánh 4 -->
-              <path class="crystal-petal" style="transform: rotate(180deg) scale(0.45); opacity: 0.5;" d="M150 35 C175 80 185 130 150 160 C115 130 125 80 150 35 Z" fill="url(#petalOuterGrad)" stroke="#ffffff" stroke-width="0.8"/>
-              <!-- Cánh 5 -->
-              <path class="crystal-petal" style="transform: rotate(240deg) scale(0.45); opacity: 0.5;" d="M150 35 C175 80 185 130 150 160 C115 130 125 80 150 35 Z" fill="url(#petalOuterGrad)" stroke="#ffffff" stroke-width="0.8"/>
-              <!-- Cánh 6 -->
-              <path class="crystal-petal" style="transform: rotate(300deg) scale(0.45); opacity: 0.5;" d="M150 35 C175 80 185 130 150 160 C115 130 125 80 150 35 Z" fill="url(#petalOuterGrad)" stroke="#ffffff" stroke-width="0.8"/>
-            </g>
+            <!-- Vinyl Disc (Bấm trực tiếp để Play/Pause) -->
+            <div id="vinylDisc" class="vinyl-plate w-[230px] h-[230px] sm:w-[250px] sm:h-[250px] flex items-center justify-center cursor-pointer transition-transform duration-500 hover:scale-[1.02]">
+              <div class="vinyl-specular"></div>
 
-            <!-- TẦNG CÁNH GIỮA (6 Cánh Hoa Hồng) -->
-            <g id="layerMidPetals">
-              <path class="crystal-petal" style="transform: rotate(30deg) scale(0.4); opacity: 0.6;" d="M150 60 C170 95 175 135 150 155 C125 135 130 95 150 60 Z" fill="url(#petalMidGrad)" stroke="#ffffff" stroke-width="0.8"/>
-              <path class="crystal-petal" style="transform: rotate(90deg) scale(0.4); opacity: 0.6;" d="M150 60 C170 95 175 135 150 155 C125 135 130 95 150 60 Z" fill="url(#petalMidGrad)" stroke="#ffffff" stroke-width="0.8"/>
-              <path class="crystal-petal" style="transform: rotate(150deg) scale(0.4); opacity: 0.6;" d="M150 60 C170 95 175 135 150 155 C125 135 130 95 150 60 Z" fill="url(#petalMidGrad)" stroke="#ffffff" stroke-width="0.8"/>
-              <path class="crystal-petal" style="transform: rotate(210deg) scale(0.4); opacity: 0.6;" d="M150 60 C170 95 175 135 150 155 C125 135 130 95 150 60 Z" fill="url(#petalMidGrad)" stroke="#ffffff" stroke-width="0.8"/>
-              <path class="crystal-petal" style="transform: rotate(270deg) scale(0.4); opacity: 0.6;" d="M150 60 C170 95 175 135 150 155 C125 135 130 95 150 60 Z" fill="url(#petalMidGrad)" stroke="#ffffff" stroke-width="0.8"/>
-              <path class="crystal-petal" style="transform: rotate(330deg) scale(0.4); opacity: 0.6;" d="M150 60 C170 95 175 135 150 155 C125 135 130 95 150 60 Z" fill="url(#petalMidGrad)" stroke="#ffffff" stroke-width="0.8"/>
-            </g>
+              <!-- Rotating Inner Group -->
+              <div id="vinylRotatingGroup" class="absolute inset-0 flex items-center justify-center transition-all duration-300">
+                <!-- Center Album Art: Crush's Photo -->
+                <div class="relative w-[92px] h-[92px] rounded-full overflow-hidden border-4 border-[#1c1a26] shadow-xl">
+                  <img id="mainCrushPhoto" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Crush Label" class="w-full h-full object-cover">
+                  <div class="absolute inset-0 bg-black/30 flex items-end justify-center pb-1">
+                    <span class="text-[7.5px] font-extrabold uppercase tracking-widest text-white bg-rose-600/80 px-1.5 py-0.5 rounded-full">20/10 VIP</span>
+                  </div>
+                </div>
+                <!-- Spindle Hole -->
+                <div class="absolute w-3.5 h-3.5 rounded-full bg-[#0a0910] border-2 border-white/60 shadow-inner z-10"></div>
+              </div>
+            </div>
 
-            <!-- TẦNG CÁNH TRONG (6 Cánh Nhỏ Vàng Kim) -->
-            <g id="layerInnerPetals">
-              <path class="crystal-petal" style="transform: rotate(15deg) scale(0.35); opacity: 0.7;" d="M150 80 C165 105 168 135 150 150 C132 135 135 105 150 80 Z" fill="url(#petalInnerGrad)" stroke="#fff" stroke-width="0.6"/>
-              <path class="crystal-petal" style="transform: rotate(75deg) scale(0.35); opacity: 0.7;" d="M150 80 C165 105 168 135 150 150 C132 135 135 105 150 80 Z" fill="url(#petalInnerGrad)" stroke="#fff" stroke-width="0.6"/>
-              <path class="crystal-petal" style="transform: rotate(135deg) scale(0.35); opacity: 0.7;" d="M150 80 C165 105 168 135 150 150 C132 135 135 105 150 80 Z" fill="url(#petalInnerGrad)" stroke="#fff" stroke-width="0.6"/>
-              <path class="crystal-petal" style="transform: rotate(195deg) scale(0.35); opacity: 0.7;" d="M150 80 C165 105 168 135 150 150 C132 135 135 105 150 80 Z" fill="url(#petalInnerGrad)" stroke="#fff" stroke-width="0.6"/>
-              <path class="crystal-petal" style="transform: rotate(255deg) scale(0.35); opacity: 0.7;" d="M150 80 C165 105 168 135 150 150 C132 135 135 105 150 80 Z" fill="url(#petalInnerGrad)" stroke="#fff" stroke-width="0.6"/>
-              <path class="crystal-petal" style="transform: rotate(315deg) scale(0.35); opacity: 0.7;" d="M150 80 C165 105 168 135 150 150 C132 135 135 105 150 80 Z" fill="url(#petalInnerGrad)" stroke="#fff" stroke-width="0.6"/>
-            </g>
-
-            <!-- NHỤY HOA PHA LÊ (Pha Lê Trung Tâm) -->
-            <circle cx="150" cy="150" r="18" fill="#ffffff" filter="drop-shadow(0 0 12px #fde047)"/>
-            <circle cx="150" cy="150" r="10" fill="#fde047"/>
-            <circle cx="150" cy="150" r="4" fill="#ffffff"/>
-          </svg>
-
-          <!-- Nút Chạm Nhấn Giữ Trên Nhụy Hoa (Interactive Touch Target) -->
-          <div id="touchTarget" class="absolute w-28 h-28 rounded-full flex items-center justify-center cursor-pointer z-40 active:scale-95 transition-transform">
-            <span class="text-[11px] font-extrabold uppercase tracking-widest text-slate-900 bg-amber-300/90 px-3 py-1 rounded-full shadow-[0_0_15px_rgba(253,224,71,0.8)] border border-white">
-              GIỮ ĐÂY
-            </span>
           </div>
 
         </div>
 
-      </div>
-
-      <!-- 4 TINH CẦU ÁNH SÁNG LƠ LỬNG (GIAI ĐOẠN 2: Xuất hiện sau khi hoa nở) -->
-      <div id="memoryOrbsGroup" class="absolute inset-0 pointer-events-none z-30 transition-opacity duration-1000 opacity-0">
-        
-        <!-- Tinh Cầu 1: Góc Trên Trái (Ánh sáng niềm vui) -->
-        <button id="orbBtn1" data-index="1" class="memory-orb pointer-events-auto group focus:outline-none" style="left: 20%; top: 26%;">
-          <div class="relative w-14 h-14 rounded-full bg-gradient-to-tr from-cyan-400 via-teal-300 to-white p-0.5 shadow-[0_0_25px_rgba(6,182,212,0.85)] group-hover:scale-125 transition-transform duration-300 animate-float-orb">
-            <div class="w-full h-full rounded-full bg-slate-950/80 flex items-center justify-center border border-white/40">
-              <i class="fa-solid fa-face-smile text-cyan-300 text-base"></i>
-            </div>
-            <span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] font-bold text-cyan-200 whitespace-nowrap bg-black/70 px-2 py-0.5 rounded-full border border-cyan-400/40">
-              Niềm Vui ✨
-            </span>
+        <!-- Dynamic Equalizer Visualizer & Song Info -->
+        <div class="w-full flex flex-col items-center my-1 select-none">
+          <div id="visualizerBars" class="flex items-center gap-1 h-7 my-1">
+            <!-- 20 Bars generated via JS -->
           </div>
-        </button>
-
-        <!-- Tinh Cầu 2: Góc Trên Phải (Ánh sáng dịu dàng) -->
-        <button id="orbBtn2" data-index="2" class="memory-orb pointer-events-auto group focus:outline-none" style="left: 80%; top: 26%;">
-          <div class="relative w-14 h-14 rounded-full bg-gradient-to-tr from-pink-400 via-rose-300 to-white p-0.5 shadow-[0_0_25px_rgba(244,63,94,0.85)] group-hover:scale-125 transition-transform duration-300 animate-float-orb" style="animation-delay: 0.7s;">
-            <div class="w-full h-full rounded-full bg-slate-950/80 flex items-center justify-center border border-white/40">
-              <i class="fa-solid fa-heart text-pink-300 text-base"></i>
-            </div>
-            <span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] font-bold text-pink-200 whitespace-nowrap bg-black/70 px-2 py-0.5 rounded-full border border-pink-400/40">
-              Dịu Dàng 🌸
-            </span>
-          </div>
-        </button>
-
-        <!-- Tinh Cầu 3: Góc Dưới Trái (Điều tốt đẹp) -->
-        <button id="orbBtn3" data-index="3" class="memory-orb pointer-events-auto group focus:outline-none" style="left: 20%; top: 76%;">
-          <div class="relative w-14 h-14 rounded-full bg-gradient-to-tr from-teal-300 via-emerald-400 to-white p-0.5 shadow-[0_0_25px_rgba(20,184,166,0.85)] group-hover:scale-125 transition-transform duration-300 animate-float-orb" style="animation-delay: 1.4s;">
-            <div class="w-full h-full rounded-full bg-slate-950/80 flex items-center justify-center border border-white/40">
-              <i class="fa-solid fa-clover text-emerald-300 text-base"></i>
-            </div>
-            <span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[9px] font-bold text-emerald-200 whitespace-nowrap bg-black/70 px-2 py-0.5 rounded-full border border-emerald-400/40">
-              May Mắn 🍀
-            </span>
-          </div>
-        </button>
-
-        <!-- Tinh Cầu 4 (LỚN NHẤT): Góc Dưới Phải (Bức Thư & Cuộc Hẹn) -->
-        <button id="orbBtn4" data-index="4" class="memory-orb pointer-events-auto group focus:outline-none" style="left: 80%; top: 76%;">
-          <div class="relative w-16 h-16 rounded-full bg-gradient-to-tr from-amber-300 via-pink-500 to-purple-600 p-0.5 shadow-[0_0_35px_rgba(253,224,71,0.95)] group-hover:scale-125 transition-transform duration-300 animate-float-orb" style="animation-delay: 2.1s;">
-            <div class="w-full h-full rounded-full bg-slate-950/80 flex items-center justify-center border border-white/50">
-              <i class="fa-solid fa-envelope-open-text text-amber-300 text-lg animate-bounce"></i>
-            </div>
-            <span class="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] font-extrabold text-amber-200 whitespace-nowrap bg-black/80 px-2.5 py-0.5 rounded-full border border-amber-400/50 shadow-md">
-              Bí Mật 💌
-            </span>
-          </div>
-        </button>
-
-      </div>
-
-      <!-- Trạng thái footer hướng dẫn -->
-      <div id="footerStatus" class="mt-4 text-center px-4 z-20">
-        <p class="text-[11px] text-white/50 flex items-center justify-center gap-1.5">
-          <i class="fa-solid fa-sparkles text-amber-300 text-[10px]"></i>
-          <span id="footerStatusText">Di chuyển tay để tương tác với đom đóm ánh sáng</span>
-        </p>
-      </div>
-
-    </div>
-
-    <!-- ============================================== -->
-    <!-- MODAL 3D TILT KỶ NIỆM (TINH CẦU 1, 2, 3)       -->
-    <!-- ============================================== -->
-    <div id="orbModal" class="absolute inset-0 z-50 bg-black/85 backdrop-blur-xl flex items-center justify-center p-6 transition-all duration-400 opacity-0 pointer-events-none select-none">
-      
-      <div class="tilt-card-wrapper w-full max-w-sm">
-        <div id="orbCard" class="tilt-card relative w-full biolum-card rounded-3xl p-6 text-center border-teal-400/40 shadow-[0_0_60px_rgba(6,182,212,0.4)]">
-          
-          <!-- Top Orb Icon Badge -->
-          <div class="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-400 to-pink-500 flex items-center justify-center shadow-lg border border-white/40">
-            <i id="modalOrbIcon" class="fa-solid fa-sparkles text-slate-900 text-lg"></i>
-          </div>
-
-          <!-- Tag Title -->
-          <div class="pt-4 pb-2">
-            <span id="modalOrbTag" class="text-[10px] font-extrabold tracking-widest text-cyan-300 uppercase bg-cyan-500/20 px-3 py-1 rounded-full border border-cyan-500/30">
-              TINH CẦU KỶ NIỆM
-            </span>
-          </div>
-
-          <!-- Image Container -->
-          <div class="my-4 w-full flex items-center justify-center">
-            <div class="w-48 h-48 rounded-2xl overflow-hidden border-2 border-white/30 shadow-2xl transform rotate-1">
-              <img id="modalOrbPhoto" src="" alt="Crush Memory" class="w-full h-full object-cover">
-            </div>
-          </div>
-
-          <!-- Message Text -->
-          <p id="modalOrbMessage" class="text-xs sm:text-sm font-medium text-white/90 leading-relaxed px-2">
-            [LỜI_NHẮN]
+          <p class="text-sm font-bold text-white tracking-wide truncate mt-0.5" id="songTitle">
+            Mất Kết Nối — Dương Domic
           </p>
+          <p class="text-[11px] text-pink-300 font-medium">Bấm vào đĩa than hoặc cần gạt để phát nhạc</p>
+        </div>
 
-          <!-- Close Button -->
-          <div class="pt-5">
-            <button id="closeOrbModalBtn" class="w-full py-3 rounded-2xl bg-gradient-to-r from-teal-500 via-cyan-500 to-blue-600 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 active:scale-95 transition">
-              ✨ Thu thập tinh cầu & Tiếp tục
+        <!-- Lyrics Tâm Tình Tự Động Highlight (Karaoke Apple Music Style) -->
+        <div class="w-full rounded-2xl glass-studio p-4 text-center my-1">
+          <div class="text-[10px] uppercase font-bold text-white/50 tracking-widest mb-1.5 flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-microphone-lines text-pink-400"></i>
+            <span>Lời Tâm Tình Đồng Bộ</span>
+          </div>
+          <div id="lyricsStream" class="h-14 flex items-center justify-center">
+            <p id="currentLyricLine" class="text-xs sm:text-sm font-bold text-white leading-relaxed transition-all duration-500 glow-text-pink px-2">
+              🎵 Chào cô gái xinh đẹp nhất ngày 20/10: [TÊN_CRUSH]
+            </p>
+          </div>
+        </div>
+
+        <!-- Audio Progress Scrub -->
+        <div class="w-full pt-1 pb-2">
+          <div id="progressContainer" class="w-full h-1.5 bg-white/10 rounded-full cursor-pointer overflow-hidden">
+            <div id="progressBar" class="h-full bg-gradient-to-r from-pink-500 via-rose-400 to-cyan-400 rounded-full w-0 transition-all duration-100"></div>
+          </div>
+          <div class="flex justify-between text-[10px] text-white/40 mt-1 font-medium">
+            <span id="currentTimeLabel">00:00</span>
+            <span id="totalTimeLabel">03:15</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ============================================== -->
+      <!-- CỘT PHẢI / SECTION 2: 3D CAROUSEL & GACHAPON   -->
+      <!-- ============================================== -->
+      <section id="sectionInteract" class="view-panel w-full md:w-1/2 h-full flex flex-col justify-between p-5 md:p-6 transition-all duration-500 overflow-y-auto no-scrollbar">
+        
+        <!-- Toggle Sub-View trên PC: 3D Coverflow VS Máy Gachapon -->
+        <div class="flex items-center justify-between pb-3 border-b border-white/10">
+          <div class="grid grid-cols-2 p-1 rounded-2xl bg-white/10 border border-white/15 w-full max-w-xs mx-auto">
+            <button id="tabCoverflowBtn" class="py-1.5 rounded-xl text-xs font-bold transition-all bg-white/20 text-white shadow-sm flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-cubes text-cyan-400"></i>
+              <span>Vòng Xoay 3D</span>
+            </button>
+            <button id="tabGachaponBtn" class="py-1.5 rounded-xl text-xs font-bold transition-all text-white/60 hover:text-white flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-gift text-pink-400"></i>
+              <span>Máy Gachapon</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- ===================================== -->
+        <!-- SUB-PANEL 1: 3D CYLINDRICAL CAROUSEL -->
+        <!-- ===================================== -->
+        <div id="panelCoverflow" class="flex-1 w-full flex flex-col items-center justify-between py-4 transition-all duration-500">
+          
+          <div class="text-center">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-cyan-300 bg-cyan-500/20 px-3 py-1 rounded-full border border-cyan-400/30">
+              3D CYLINDRICAL GALLERY
+            </span>
+            <h3 class="text-base sm:text-lg font-bold text-white mt-2">
+              Bộ Sưu Tập Khoảnh Khắc Của Cậu ✨
+            </h3>
+            <p class="text-[11px] text-white/60 mt-0.5">Vuốt ngang hoặc kéo chuột để xoay 360 độ</p>
+          </div>
+
+          <!-- 3D Carousel Scene -->
+          <div class="carousel-3d-scene w-full flex items-center justify-center my-auto py-8">
+            <div id="cylinderContainer" class="carousel-3d-cylinder">
+              <!-- 5 3D Photo Cards dynamically positioned around the circle -->
+              <div class="carousel-3d-card" style="transform: rotateY(0deg) translateZ(220px);">
+                <img id="cardImg1" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Card 1" class="w-full h-full object-cover">
+                <div class="absolute bottom-0 inset-x-0 p-2 bg-gradient-to-t from-black/80 to-transparent text-center">
+                  <span class="text-[10px] font-bold text-white">Rạng rỡ 🌸</span>
+                </div>
+              </div>
+
+              <div class="carousel-3d-card" style="transform: rotateY(72deg) translateZ(220px);">
+                <img id="cardImg2" src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" alt="Card 2" class="w-full h-full object-cover">
+                <div class="absolute bottom-0 inset-x-0 p-2 bg-gradient-to-t from-black/80 to-transparent text-center">
+                  <span class="text-[10px] font-bold text-white">Ấm áp ✨</span>
+                </div>
+              </div>
+
+              <div class="carousel-3d-card" style="transform: rotateY(144deg) translateZ(220px);">
+                <img id="cardImg3" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80" alt="Card 3" class="w-full h-full object-cover">
+                <div class="absolute bottom-0 inset-x-0 p-2 bg-gradient-to-t from-black/80 to-transparent text-center">
+                  <span class="text-[10px] font-bold text-white">Tỏa sáng ⭐</span>
+                </div>
+              </div>
+
+              <div class="carousel-3d-card" style="transform: rotateY(216deg) translateZ(220px);">
+                <img id="cardImg4" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80" alt="Card 4" class="w-full h-full object-cover">
+                <div class="absolute bottom-0 inset-x-0 p-2 bg-gradient-to-t from-black/80 to-transparent text-center">
+                  <span class="text-[10px] font-bold text-white">Đáng yêu 💖</span>
+                </div>
+              </div>
+
+              <div class="carousel-3d-card" style="transform: rotateY(288deg) translateZ(220px);">
+                <img id="cardImg5" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=600&q=80" alt="Card 5" class="w-full h-full object-cover">
+                <div class="absolute bottom-0 inset-x-0 p-2 bg-gradient-to-t from-black/80 to-transparent text-center">
+                  <span class="text-[10px] font-bold text-white">Dịu dàng 💐</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Navigation Buttons -->
+          <div class="flex items-center justify-center space-x-4 pt-4">
+            <button id="prev3dBtn" class="w-9 h-9 rounded-full glass-studio hover:bg-white/20 flex items-center justify-center text-xs text-white/80 transition">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <span class="text-xs font-semibold text-white/60">Xoay 360°</span>
+            <button id="next3dBtn" class="w-9 h-9 rounded-full glass-studio hover:bg-white/20 flex items-center justify-center text-xs text-white/80 transition">
+              <i class="fa-solid fa-chevron-right"></i>
             </button>
           </div>
 
         </div>
-      </div>
 
-    </div>
-
-    <!-- ============================================== -->
-    <!-- GIAI ĐOẠN 3: BỨC THƯ TÂM TÌNH & DATE VOUCHER   -->
-    <!-- (MỞ RA KHI CHẠM TINH CẦU 4 - TINH CẦU LỚN)     -->
-    <!-- ============================================== -->
-    <div id="letterModal" class="absolute inset-0 z-50 bg-[#02040a]/92 backdrop-blur-2xl flex items-center justify-center p-5 transition-all duration-700 opacity-0 pointer-events-none select-none">
-      
-      <div id="letterCard" class="relative w-full max-w-sm biolum-card rounded-3xl p-6 text-center border-pink-400/40 shadow-[0_0_80px_rgba(244,63,94,0.45)] transform scale-90 transition-transform duration-500 overflow-hidden flex flex-col justify-between max-h-[92vh]">
-        
-        <!-- Header -->
-        <div class="pt-1 pb-2 border-b border-white/10">
-          <div class="inline-flex items-center gap-1.5 text-xs text-amber-300 font-serif italic tracking-wider mb-1">
-            <i class="fa-solid fa-sparkles text-[10px]"></i>
-            <span>20/10 Special Edition</span>
-            <i class="fa-solid fa-sparkles text-[10px]"></i>
-          </div>
-          <h2 class="font-serif text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-200 via-amber-200 to-white">
-            Gửi <span id="letterCrushName">[TÊN_CRUSH]</span>
-          </h2>
-        </div>
-
-        <!-- Bức Thư Tâm Tình (Có thể cuộn êm) -->
-        <div class="my-3 overflow-y-auto max-h-[38vh] px-2 text-left space-y-3">
-          <p id="mainLetterText" class="font-sans text-xs sm:text-sm text-pink-50/90 leading-relaxed text-justify">
-            [NỘI_DUNG_THƯ]
-          </p>
-          <div class="text-right pt-1">
-            <p class="font-serif italic text-xs text-amber-300/80">Khu vườn ánh sáng được tạo bởi,</p>
-            <p id="letterYourName" class="font-serif text-base font-bold text-pink-300">[TÊN_BẠN]</p>
-          </div>
-        </div>
-
-        <!-- TẤM VÉ HẸN HÒ (VIP DATE VOUCHER) -->
-        <div class="my-2 voucher-border rounded-2xl p-3.5 bg-gradient-to-r from-slate-900/90 to-purple-950/90 border border-white/20 text-left">
-          <div class="flex items-center justify-between pb-1.5 border-b border-white/10">
-            <span class="text-[10px] font-extrabold text-amber-300 uppercase tracking-widest flex items-center gap-1">
-              <i class="fa-solid fa-ticket text-pink-400"></i>
-              VOUCHER HẸN HÒ 20/10
+        <!-- ===================================== -->
+        <!-- SUB-PANEL 2: MÁY GACHAPON TÌNH YÊU   -->
+        <!-- ===================================== -->
+        <div id="panelGachapon" class="hidden flex-1 w-full flex flex-col items-center justify-between py-2 transition-all duration-500">
+          
+          <div class="text-center pt-1">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-pink-300 bg-pink-500/20 px-3 py-1 rounded-full border border-pink-400/30">
+              MINI-GAME 20/10 GACHAPON
             </span>
-            <span class="text-[9px] font-mono text-white/50">#2010-SPECIAL</span>
+            <h3 class="text-base sm:text-lg font-bold text-white mt-1.5">
+              Quay Trứng May Mắn 🎁
+            </h3>
+            <p class="text-[11px] text-white/60">Bấm vào Núm Xoay bên dưới để mở hộp quà bí mật</p>
           </div>
-          <p id="voucherText" class="text-[11px] text-white/90 mt-2 leading-snug">
-            [NỘI_DUNG_VOUCHER]
-          </p>
+
+          <!-- Chiếc Máy Gachapon Chân Thực -->
+          <div class="relative w-[210px] flex flex-col items-center my-auto">
+            
+            <!-- Lồng Kính Tròn Chứa Các Quả Cầu Màu Sắc -->
+            <div id="gachaDome" class="relative w-[180px] h-[180px] rounded-full gacha-dome overflow-hidden flex items-center justify-center p-3 shadow-2xl">
+              <!-- Nắp kim loại máy -->
+              <div class="absolute -top-1 w-20 h-4 bg-gradient-to-r from-pink-500 via-rose-400 to-purple-600 rounded-b-xl border border-white/40 z-20"></div>
+
+              <!-- Các quả cầu nảy bên trong -->
+              <div id="capsulesContainer" class="relative w-full h-full">
+                <!-- Quả hồng -->
+                <div class="capsule-ball absolute w-9 h-9 rounded-full bg-gradient-to-tr from-pink-500 to-rose-300 border border-white shadow-md flex items-center justify-center text-[10px] text-white animate-bounce-subtle" style="left: 15%; bottom: 15%;">
+                  ★
+                </div>
+                <!-- Quả vàng -->
+                <div class="capsule-ball absolute w-9 h-9 rounded-full bg-gradient-to-tr from-amber-400 to-yellow-200 border border-white shadow-md flex items-center justify-center text-[10px] text-slate-800 animate-bounce-subtle" style="left: 45%; bottom: 10%; animation-delay: 0.4s;">
+                  ♥
+                </div>
+                <!-- Quả tím -->
+                <div class="capsule-ball absolute w-9 h-9 rounded-full bg-gradient-to-tr from-purple-500 to-violet-300 border border-white shadow-md flex items-center justify-center text-[10px] text-white animate-bounce-subtle" style="left: 65%; bottom: 25%; animation-delay: 0.8s;">
+                  ✦
+                </div>
+                <!-- Quả xanh cyan -->
+                <div class="capsule-ball absolute w-9 h-9 rounded-full bg-gradient-to-tr from-cyan-400 to-teal-200 border border-white shadow-md flex items-center justify-center text-[10px] text-slate-800 animate-bounce-subtle" style="left: 30%; bottom: 35%; animation-delay: 1.2s;">
+                  ★
+                </div>
+                <!-- Quả đỏ kim cương -->
+                <div class="capsule-ball absolute w-9 h-9 rounded-full bg-gradient-to-tr from-rose-500 to-red-400 border border-white shadow-md flex items-center justify-center text-[10px] text-white animate-bounce-subtle" style="left: 55%; bottom: 45%; animation-delay: 0.6s;">
+                  ♦
+                </div>
+              </div>
+            </div>
+
+            <!-- Thân Máy Đỏ & Núm Xoay Cơ Học -->
+            <div class="relative w-[190px] h-[130px] rounded-3xl bg-gradient-to-b from-rose-500 via-pink-600 to-purple-800 border-2 border-white/30 shadow-2xl -mt-5 p-3 flex flex-col items-center justify-between z-10">
+              
+              <!-- Khe nhét xu & Logo -->
+              <div class="flex items-center justify-between w-full px-2 pt-1">
+                <span class="text-[9px] font-black tracking-widest text-amber-300 uppercase">20/10 GACHA</span>
+                <div class="w-6 h-1.5 bg-black/60 rounded-full border border-white/20"></div>
+              </div>
+
+              <!-- NÚM XOAY CƠ HỌC (TURN KNOB) -->
+              <div id="gachaKnob" class="gacha-knob relative w-14 h-14 rounded-full bg-gradient-to-tr from-slate-200 via-white to-slate-300 border-2 border-slate-400 shadow-lg flex items-center justify-center cursor-pointer active:scale-95 transition-transform" title="Bấm vào đây để xoay">
+                <div class="w-9 h-3 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full shadow-inner"></div>
+                <div class="absolute w-3 h-9 bg-gradient-to-b from-rose-500 to-pink-500 rounded-full shadow-inner"></div>
+                <div class="absolute w-3.5 h-3.5 rounded-full bg-amber-400 border border-white shadow-md"></div>
+              </div>
+
+              <!-- Khay Nhận Trứng -->
+              <div class="w-16 h-5 bg-black/70 rounded-t-xl border border-white/20 flex items-center justify-center">
+                <span class="text-[8px] font-mono text-white/50">EXIT</span>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Lời Nhắc -->
+          <div class="text-center pt-2">
+            <button id="turnKnobActionBtn" class="py-2.5 px-6 rounded-2xl bg-gradient-to-r from-amber-400 via-pink-500 to-purple-600 text-white font-extrabold text-xs uppercase tracking-wider shadow-lg hover:brightness-110 active:scale-95 transition flex items-center gap-2 mx-auto">
+              <i class="fa-solid fa-arrows-rotate animate-spin-slow"></i>
+              <span>Vặn Núm Quay Quà (Lượt: <span id="pullCountBadge">1</span>/3)</span>
+            </button>
+          </div>
+
         </div>
 
-        <!-- Nút Kêu Gọi: "Nhận lời mời & Lưu giữ bầu trời này 💫" -->
-        <div class="pt-3 border-t border-white/10">
-          <button id="acceptDateBtn" class="w-full relative group overflow-hidden py-3.5 px-5 rounded-2xl bg-gradient-to-r from-amber-400 via-rose-500 to-purple-600 text-white font-extrabold text-xs sm:text-sm tracking-wide shadow-[0_0_35px_rgba(244,63,94,0.65)] hover:shadow-[0_0_50px_rgba(244,63,94,0.9)] transform active:scale-95 transition duration-300 flex items-center justify-center gap-2">
-            <span class="absolute inset-0 bg-white/20 transform -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
-            <i class="fa-solid fa-champagne-glasses text-amber-200 text-base animate-bounce"></i>
-            <span>Nhận lời mời & Lưu giữ bầu trời này 💫</span>
-          </button>
-        </div>
-
-      </div>
+      </section>
 
     </div>
 
     <!-- ============================================== -->
-    <!-- MODAL RSVP XÁC NHẬN CHỐT LỊCH (AFTER ACCEPT)   -->
+    <!-- MOBILE BOTTOM NAVIGATION BAR (CHỈ HIỆN TRÊN MOBILE) -->
     <!-- ============================================== -->
-    <div id="rsvpModal" class="absolute inset-0 z-50 bg-black/85 backdrop-blur-2xl flex items-center justify-center p-6 transition-all duration-400 opacity-0 pointer-events-none select-none">
-      <div id="rsvpCard" class="w-full max-w-sm biolum-card p-6 rounded-3xl text-center border-amber-300/40 shadow-[0_0_60px_rgba(253,224,71,0.5)] transform scale-90 transition-transform duration-300">
+    <nav class="md:hidden w-full p-2.5 bg-[#090715]/95 border-t border-white/10 flex items-center justify-around z-40 select-none">
+      <button id="navMobileMusic" class="flex flex-col items-center text-xs font-bold text-pink-400 transition">
+        <i class="fa-solid fa-compact-disc text-base"></i>
+        <span class="text-[10px] mt-0.5">Trạm Nhạc</span>
+      </button>
+
+      <button id="navMobileCoverflow" class="flex flex-col items-center text-xs font-bold text-white/50 hover:text-white transition">
+        <i class="fa-solid fa-cubes text-base"></i>
+        <span class="text-[10px] mt-0.5">Vòng Xoay 3D</span>
+      </button>
+
+      <button id="navMobileGachapon" class="flex flex-col items-center text-xs font-bold text-white/50 hover:text-white transition">
+        <i class="fa-solid fa-gift text-base"></i>
+        <span class="text-[10px] mt-0.5">Máy Quay Quà</span>
+      </button>
+    </nav>
+
+    <!-- ============================================== -->
+    <!-- MODAL PHẦN THƯỞNG GACHAPON (HOLOGRAPHIC CARD)  -->
+    <!-- ============================================== -->
+    <div id="rewardModal" class="absolute inset-0 z-50 bg-black/85 backdrop-blur-2xl flex items-center justify-center p-6 transition-all duration-400 opacity-0 pointer-events-none select-none">
+      
+      <div id="rewardCard" class="holo-card relative w-full max-w-sm rounded-3xl p-6 text-center border-amber-300/50 shadow-2xl transform scale-90 transition-transform duration-300">
         
-        <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-tr from-amber-400 via-pink-500 to-purple-600 flex items-center justify-center text-3xl shadow-lg mb-3">
-          🥂
+        <!-- Top Badge -->
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-[10px] font-black uppercase tracking-widest mb-3">
+          <i id="rewardBadgeIcon" class="fa-solid fa-crown text-amber-400"></i>
+          <span id="rewardBadgeText">SSR PULL</span>
         </div>
 
-        <h3 class="font-serif text-2xl font-bold text-amber-200">
-          KÈO 20/10 ĐÃ CHÍNH THỨC ĐƯỢC CHỐT!
+        <h3 id="rewardTitle" class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-rose-300 to-white">
+          [TIÊU ĐỀ PHẦN THƯỞNG]
         </h3>
 
-        <p class="text-xs text-white/80 mt-2 leading-relaxed">
-          Khu vườn ánh sáng đã chuyển sang sắc hồng tình yêu dành riêng cho cậu! Tớ đã sẵn sàng lên lịch đón cậu rồi nhé! 💖
-        </p>
+        <!-- Media / Text Content -->
+        <div class="my-4">
+          <div id="rewardMediaContainer" class="w-full flex items-center justify-center">
+            <!-- Dynamic Icon / Content -->
+          </div>
+          <p id="rewardDescription" class="text-xs sm:text-sm text-white/90 font-medium leading-relaxed mt-3 px-2">
+            [MÔ TẢ PHẦN THƯỞNG]
+          </p>
+        </div>
 
-        <div class="mt-5 space-y-2.5">
-          <a id="rsvpContactLink" href="#" target="_blank" class="w-full block py-3 rounded-xl bg-gradient-to-r from-pink-500 to-rose-600 text-white font-bold text-xs shadow-md hover:brightness-110 transition">
-            <i class="fa-solid fa-paper-plane mr-1.5"></i>
-            Nhắn cho tớ để chọn giờ đón cậu 💌
-          </a>
-
-          <button id="closeRsvpBtn" class="w-full py-2.5 rounded-xl bg-white/10 text-white/70 hover:text-white font-medium text-xs transition">
-            <i class="fa-solid fa-flower mr-1.5"></i>
-            Tiếp tục ngắm đóa hoa nở rộ ✨
+        <!-- Action Button -->
+        <div class="pt-2">
+          <button id="closeRewardBtn" class="w-full py-3 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-xs uppercase tracking-wider shadow-lg hover:brightness-110 active:scale-95 transition">
+            Thu Thập Phần Thưởng ✨
           </button>
         </div>
 
       </div>
+
     </div>
 
-    <!-- Thẻ Audio Phát Nhạc Thật Mất Kết Nối -->
-    <audio id="bgAudio" preload="auto" loop></audio>
+    <!-- Hidden HTML5 Audio Player -->
+    <audio id="audioPlayer" preload="auto" loop></audio>
 
   </main>
 
   <!-- ======================================================== -->
-  <!-- JAVASCRIPT: WEBGL/CANVAS PARTICLES & INTERACTION ENGINE  -->
+  <!-- JAVASCRIPT: LOGIC ĐĨA THAN, 3D CAROUSEL & GACHAPON       -->
   <!-- ======================================================== -->
   <script>
     /**
      * ========================================================
-     * ⚙️ CONFIGURATION (DỄ DÀNG TÙY BIẾN CHO CRUSH)
+     * ⚙️ CONFIGURATION (DÀNH CHO BẠN VÀ CRUSH)
      * ========================================================
      */
     const CONFIG = {
@@ -536,626 +637,507 @@
       crushName: "Thanh Trúc", // [TÊN_CRUSH]
       yourName: "Minh Quân",   // [TÊN_BẠN]
 
-      // 2. Link file nhạc MP3 (Bài Mất Kết Nối - Dương Domic từ Catbox tốc độ cao)
-      audioUrl: "https://files.catbox.moe/779t29.mp3",
+      // 2. Link file nhạc MP3 (Bài Mất Kết Nối - Dương Domic)
+      audioUrl: "https://files.catbox.moe/779t29.mp3", // [ĐIỀN_LINK_NHẠC_MP3]
 
-      // 3. Link 3 ảnh của Crush
+      // 3. Link 5 bức ảnh tuyệt đẹp trong Vòng Xoay 3D
       photo1: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80",
       photo2: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80",
       photo3: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80",
+      photo4: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=600&q=80",
+      photo5: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=600&q=80",
 
-      // 4. Lời nhắn cho 3 tinh cầu đầu tiên
-      message1: "Ánh sáng của niềm vui — Cảm ơn nụ cười của cậu đã thắp sáng những ngày u ám nhất trong tớ ✨",
-      message2: "Ánh sáng của sự dịu dàng — Ở bên cậu luôn có cảm giác bình yên như một buổi chiều mùa thu dịu mát 🌸",
-      message3: "Ánh sáng của những điều tốt đẹp — Chúc cô gái nhỏ một ngày 20/10 ngập tràn hạnh phúc và sự cưng chiều 💐",
+      // 4. Lời chúc trong Trạm Đĩa Than
+      wishes: [
+        "🎵 Chào cô gái xinh đẹp nhất ngày 20/10: Thanh Trúc ✨",
+        "🎵 Tần số dễ thương của cậu hôm nay vượt ngưỡng cho phép rồi đấy 💖",
+        "🎵 Chúc cậu luôn giữ vững nụ cười tỏa nắng và hạnh phúc này nhé 🌸",
+        "🎵 Hãy thử xoay vòng ảnh 3D và quay máy Gachapon bên cạnh xem! 🎁"
+      ],
 
-      // 5. Nội dung Bức Thư Chính & Voucher
-      mainLetter: "Gửi Thanh Trúc,\n\nTrong khu vườn ánh sáng kỳ diệu này, đóa hoa pha lê chỉ nở khi chính cậu chạm tay vào, cũng như trái tim tớ chỉ thực sự rung động trước nụ cười của cậu.\n\nCảm ơn cậu vì đã xuất hiện, làm thế giới của tớ thêm phần rực rỡ và ấm áp. Ngày 20/10 này, tớ muốn cùng cậu bước ra ngoài kia, cùng thưởng thức một buổi tối thật dịu dàng. Cậu đồng ý nhé?",
-      voucherContent: "Đặc quyền 20/10: 01 buổi tối trọn vẹn gồm món ăn ngon theo sở thích của cậu, trà sữa/cà phê ấm áp và một người đồng hành luôn sẵn sàng lắng nghe mọi tâm sự của cậu ✨",
+      // 5. Nội dung bức thư bí mật (Gacha lần 2)
+      letterContent: "Gửi Thanh Trúc,\n\nNgày 20/10 năm nay tớ không chọn hoa tươi vì hoa rồi cũng sẽ tàn, tớ tạo riêng một trạm đĩa than và chiếc máy quay quà này để lưu giữ nụ cười của cậu mãi mãi.\n\nCảm ơn cậu vì đã luôn mang lại năng lượng tích cực và sự ấm áp mỗi khi xuất hiện. Chúc cậu một ngày 20/10 thật tuyệt vời, luôn được yêu thương và cưng chiều nhé!",
 
-      // 6. Link liên hệ chốt giờ đón
+      // 6. Nội dung Voucher Hẹn Hò Đặc Quyền (Gacha lần 3 - JACKPOT)
+      voucherContent: "01 BUỔI TỐI HẸN HÒ 20/10 TRỌN GÓI: Một bữa ăn ấm cúng, ly đồ uống yêu thích và một người bạn đồng hành sẵn sàng chiều chuộng cậu 100% ✨",
+
+      // 7. Link liên hệ chốt lịch (Zalo / Messenger)
       contactUrl: "https://zalo.me"
     };
 
     /**
      * ========================================================
-     * STATE MANAGEMENT & DOM ELEMENTS
+     * WEB AUDIO API (HIỆU ỨNG ÂM THANH XOAY NÚM GACHAPON)
      * ========================================================
      */
-    const canvas = document.getElementById('gardenCanvas');
-    const ctx = canvas.getContext('2d');
-    const bgAudio = document.getElementById('bgAudio');
+    let sfxAudioCtx = null;
+    function playRatchetClick() {
+      try {
+        if (!sfxAudioCtx) sfxAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (sfxAudioCtx.state === 'suspended') sfxAudioCtx.resume();
+
+        for (let i = 0; i < 4; i++) {
+          setTimeout(() => {
+            const osc = sfxAudioCtx.createOscillator();
+            const gain = sfxAudioCtx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(320 + Math.random() * 80, sfxAudioCtx.currentTime);
+            gain.gain.setValueAtTime(0.3, sfxAudioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, sfxAudioCtx.currentTime + 0.06);
+            osc.connect(gain);
+            gain.connect(sfxAudioCtx.destination);
+            osc.start();
+            osc.stop(sfxAudioCtx.currentTime + 0.06);
+          }, i * 70);
+        }
+      } catch (e) {}
+    }
+
+    function playCapsuleOpenFanfare() {
+      try {
+        if (!sfxAudioCtx) sfxAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (sfxAudioCtx.state === 'suspended') sfxAudioCtx.resume();
+
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        notes.forEach((freq, idx) => {
+          setTimeout(() => {
+            const osc = sfxAudioCtx.createOscillator();
+            const gain = sfxAudioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, sfxAudioCtx.currentTime);
+            gain.gain.setValueAtTime(0.2, sfxAudioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, sfxAudioCtx.currentTime + 0.6);
+            osc.connect(gain);
+            gain.connect(sfxAudioCtx.destination);
+            osc.start();
+            osc.stop(sfxAudioCtx.currentTime + 0.6);
+          }, idx * 100);
+        });
+      } catch (e) {}
+    }
+
+    /**
+     * ========================================================
+     * TÍNH NĂNG 1: TRẠM ĐĨA THAN VINYL & VISUALIZER
+     * ========================================================
+     */
+    const audioPlayer = document.getElementById('audioPlayer');
+    const tonearm = document.getElementById('tonearm');
+    const vinylDisc = document.getElementById('vinylDisc');
+    const vinylRotatingGroup = document.getElementById('vinylRotatingGroup');
     const toggleAudioBtn = document.getElementById('toggleAudioBtn');
     const audioIcon = document.getElementById('audioIcon');
-    const touchTarget = document.getElementById('touchTarget');
-    const holdProgressCircle = document.getElementById('holdProgressCircle');
-    const flowerContainer = document.getElementById('flowerContainer');
-    const memoryOrbsGroup = document.getElementById('memoryOrbsGroup');
-    const guideTextContainer = document.getElementById('guideTextContainer');
-    const mainInstruction = document.getElementById('mainInstruction');
-    const subInstruction = document.getElementById('subInstruction');
-    const footerStatusText = document.getElementById('footerStatusText');
+    const visualizerBars = document.getElementById('visualizerBars');
+    const currentLyricLine = document.getElementById('currentLyricLine');
+    const progressBar = document.getElementById('progressBar');
+    const progressContainer = document.getElementById('progressContainer');
+    const currentTimeLabel = document.getElementById('currentTimeLabel');
+    const totalTimeLabel = document.getElementById('totalTimeLabel');
 
-    // Modals
-    const orbModal = document.getElementById('orbModal');
-    const orbCard = document.getElementById('orbCard');
-    const closeOrbModalBtn = document.getElementById('closeOrbModalBtn');
-    const modalOrbIcon = document.getElementById('modalOrbIcon');
-    const modalOrbTag = document.getElementById('modalOrbTag');
-    const modalOrbPhoto = document.getElementById('modalOrbPhoto');
-    const modalOrbMessage = document.getElementById('modalOrbMessage');
+    let isPlaying = false;
+    let visualizerTimer = null;
+    let lyricTimer = null;
+    let currentLyricIndex = 0;
 
-    const letterModal = document.getElementById('letterModal');
-    const letterCard = document.getElementById('letterCard');
-    const acceptDateBtn = document.getElementById('acceptDateBtn');
-    const rsvpModal = document.getElementById('rsvpModal');
-    const rsvpCard = document.getElementById('rsvpCard');
-    const closeRsvpBtn = document.getElementById('closeRsvpBtn');
-    const rsvpContactLink = document.getElementById('rsvpContactLink');
-
-    // Petal Layers
-    const outerPetals = document.querySelectorAll('#layerOuterPetals .crystal-petal');
-    const midPetals = document.querySelectorAll('#layerMidPetals .crystal-petal');
-    const innerPetals = document.querySelectorAll('#layerInnerPetals .crystal-petal');
-    const flowerGlowCore = document.getElementById('flowerGlowCore');
-
-    // States
-    let isHolding = false;
-    let holdProgress = 0; // 0 to 1
-    let isBloomed = false;
-    let isAudioPlaying = false;
-    let isPinkGoldTheme = false;
-    let isMeteorShower = false;
-
-    // Pointer Physics Tracking
-    const pointer = {
-      x: -1000,
-      y: -1000,
-      prevX: -1000,
-      prevY: -1000,
-      isDown: false,
-      speed: 0
-    };
-
-    const ripples = [];
-    const meteors = [];
-
-    /**
-     * ========================================================
-     * HTML5 CANVAS PARTICLE PHYSICS (ĐOM ĐÓM VẬT LÝ & SÓNG NƯỚC)
-     * ========================================================
-     */
-    const fireflies = [];
-    const PARTICLE_COUNT = 110;
-
-    function resizeCanvas() {
-      const rect = canvas.getBoundingClientRect();
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-    }
-
-    class Firefly {
-      constructor() {
-        this.reset(true);
-      }
-
-      reset(init = false) {
-        const rect = canvas.getBoundingClientRect();
-        this.x = init ? Math.random() * rect.width : (Math.random() > 0.5 ? 0 : rect.width);
-        this.y = init ? Math.random() * rect.height : Math.random() * rect.height;
-        this.vx = (Math.random() - 0.5) * 0.9;
-        this.vy = (Math.random() - 0.5) * 0.9;
-        this.radius = Math.random() * 2.2 + 1;
-        this.baseAlpha = Math.random() * 0.6 + 0.3;
-        this.pulseSpeed = Math.random() * 0.03 + 0.01;
-        this.pulseAngle = Math.random() * Math.PI * 2;
-        this.hue = Math.random() > 0.5 ? 180 : 330; // Cyan or Pink
-      }
-
-      update(width, height) {
-        // Tự do dao động nhẹ nhàng
-        this.pulseAngle += this.pulseSpeed;
-        this.x += this.vx;
-        this.y += this.vy;
-
-        // TƯƠNG TÁC LỰC HÚT/ĐẨY VỚI NGÓN TAY / CHUỘT
-        const dx = pointer.x - this.x;
-        const dy = pointer.y - this.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-
-        if (dist < 140 && dist > 2) {
-          // Lực xoáy quanh con trỏ
-          const force = (140 - dist) / 140;
-          const angle = Math.atan2(dy, dx) + Math.PI / 2;
-          this.vx += Math.cos(angle) * force * 0.45;
-          this.vy += Math.sin(angle) * force * 0.45;
-        }
-
-        // Lực hút về tâm bông hoa khi đang nhấn giữ (Hold-to-Bloom)
-        if (isHolding && !isBloomed) {
-          const centerX = width / 2;
-          const centerY = height / 2;
-          const toFlowerX = centerX - this.x;
-          const toFlowerY = centerY - this.y;
-          const distToFlower = Math.sqrt(toFlowerX * toFlowerX + toFlowerY * toFlowerY);
-          if (distToFlower > 10) {
-            this.vx += (toFlowerX / distToFlower) * 0.35;
-            this.vy += (toFlowerY / distToFlower) * 0.35;
-          }
-        }
-
-        // Ma sát hãm tốc độ để chuyển động êm
-        this.vx *= 0.96;
-        this.vy *= 0.96;
-
-        // Biên giới màn hình
-        if (this.x < 0) this.x = width;
-        if (this.x > width) this.x = 0;
-        if (this.y < 0) this.y = height;
-        if (this.y > height) this.y = 0;
-      }
-
-      draw(ctx) {
-        const currentAlpha = Math.max(0.1, this.baseAlpha + Math.sin(this.pulseAngle) * 0.3);
-        let colorCore = '#ffffff';
-        let colorGlow = isPinkGoldTheme ? 'rgba(251, 113, 133, 0.8)' : (this.hue === 180 ? 'rgba(6, 182, 212, 0.8)' : 'rgba(244, 63, 94, 0.8)');
-
-        if (isPinkGoldTheme && Math.random() > 0.6) {
-          colorGlow = 'rgba(253, 224, 71, 0.9)'; // Thêm sắc vàng kim lãng mạn
-        }
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = colorCore;
-        ctx.shadowBlur = 18;
-        ctx.shadowColor = colorGlow;
-        ctx.globalAlpha = currentAlpha;
-        ctx.fill();
-        ctx.restore();
+    // Tạo 20 thanh sóng âm equalizer
+    function initVisualizer() {
+      visualizerBars.innerHTML = '';
+      for (let i = 0; i < 20; i++) {
+        const bar = document.createElement('div');
+        bar.className = 'eq-bar';
+        visualizerBars.appendChild(bar);
       }
     }
 
-    function initFireflies() {
-      fireflies.length = 0;
-      for (let i = 0; i < PARTICLE_COUNT; i++) {
-        fireflies.push(new Firefly());
+    function togglePlayback() {
+      if (isPlaying) {
+        pauseMusic();
+      } else {
+        playMusic();
       }
     }
 
-    // Tạo Vòng Sóng Ánh Sáng (Expanding Ripple) khi chạm
-    function createRipple(x, y) {
-      ripples.push({
-        x: x,
-        y: y,
-        radius: 5,
-        maxRadius: 110,
-        alpha: 0.8,
-        color: isPinkGoldTheme ? '#f43f5e' : '#06b6d4'
+    function playMusic() {
+      audioPlayer.src = CONFIG.audioUrl;
+      audioPlayer.play().then(() => {
+        isPlaying = true;
+        updatePlayerState(true);
+      }).catch(() => {
+        // Fallback simulation nếu trình duyệt chặn autoplay
+        isPlaying = true;
+        updatePlayerState(true);
       });
     }
 
-    // Sao Băng (Meteors)
-    function spawnMeteor() {
-      const rect = canvas.getBoundingClientRect();
-      meteors.push({
-        x: Math.random() * rect.width,
-        y: Math.random() * (rect.height * 0.3),
-        length: Math.random() * 90 + 60,
-        speed: Math.random() * 8 + 8,
-        alpha: 1,
-        thickness: Math.random() * 2 + 1.2
-      });
+    function pauseMusic() {
+      audioPlayer.pause();
+      isPlaying = false;
+      updatePlayerState(false);
     }
 
-    // VÒNG LẶP RENDER CHÍNH (60 FPS)
-    function animateGarden() {
-      const rect = canvas.getBoundingClientRect();
-      ctx.clearRect(0, 0, rect.width, rect.height);
+    function updatePlayerState(playing) {
+      if (playing) {
+        tonearm.className = 'tonearm playing';
+        setTimeout(() => {
+          if (isPlaying) vinylRotatingGroup.classList.add('animate-spin-slow');
+        }, 400);
 
-      // 1. Cập nhật & Vẽ đom đóm
-      for (let i = 0; i < fireflies.length; i++) {
-        fireflies[i].update(rect.width, rect.height);
-        fireflies[i].draw(ctx);
+        audioIcon.className = "fa-solid fa-volume-high text-rose-400 animate-bounce";
+        startVisualizer();
+        startLyrics();
+      } else {
+        tonearm.className = 'tonearm resting';
+        vinylRotatingGroup.classList.remove('animate-spin-slow');
+        audioIcon.className = "fa-solid fa-volume-xmark text-white/50";
+        stopVisualizer();
+        stopLyrics();
       }
-
-      // 2. Vẽ Vòng Sóng Nước Ánh Sáng (Ripples)
-      for (let i = ripples.length - 1; i >= 0; i--) {
-        const r = ripples[i];
-        r.radius += 2.5;
-        r.alpha -= 0.02;
-
-        if (r.alpha <= 0 || r.radius >= r.maxRadius) {
-          ripples.splice(i, 1);
-          continue;
-        }
-
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = r.color;
-        ctx.lineWidth = 2;
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = r.color;
-        ctx.globalAlpha = r.alpha;
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      // 3. Vẽ Mưa Sao Băng nếu kích hoạt
-      if (isMeteorShower) {
-        if (Math.random() > 0.6) spawnMeteor();
-      }
-
-      for (let i = meteors.length - 1; i >= 0; i--) {
-        const m = meteors[i];
-        m.x += m.speed * 0.8;
-        m.y += m.speed * 0.8;
-        m.alpha -= 0.02;
-
-        if (m.alpha <= 0) {
-          meteors.splice(i, 1);
-          continue;
-        }
-
-        ctx.save();
-        const tailX = m.x - m.length * 0.8;
-        const tailY = m.y - m.length * 0.8;
-        const grad = ctx.createLinearGradient(tailX, tailY, m.x, m.y);
-        grad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-        grad.addColorStop(1, '#ffffff');
-
-        ctx.beginPath();
-        ctx.moveTo(tailX, tailY);
-        ctx.lineTo(m.x, m.y);
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = m.thickness;
-        ctx.lineCap = 'round';
-        ctx.shadowBlur = 14;
-        ctx.shadowColor = '#fde047';
-        ctx.globalAlpha = m.alpha;
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      requestAnimationFrame(animateGarden);
     }
 
-    /**
-     * ========================================================
-     * MULTI-LAYER 3D PARALLAX (ĐA NỀN TẢNG PC & MOBILE)
-     * ========================================================
-     */
-    const parallaxNebula = document.getElementById('parallaxNebula');
-    const parallaxCore = document.getElementById('parallaxCore');
+    vinylDisc.addEventListener('click', togglePlayback);
+    tonearm.addEventListener('click', togglePlayback);
+    toggleAudioBtn.addEventListener('click', togglePlayback);
 
-    function applyParallax(normX, normY) {
-      // Dịch chuyển lệch pha tạo chiều sâu 3D
-      parallaxNebula.style.transform = `translate(${normX * 18}px, ${normY * 18}px)`;
-      parallaxCore.style.transform = `translate(${normX * 9}px, ${normY * 9}px) rotateX(${-normY * 5}deg) rotateY(${normX * 5}deg)`;
-    }
-
-    // Parallax trên PC qua Mousemove
-    window.addEventListener('mousemove', (e) => {
-      const normX = (e.clientX / window.innerWidth) - 0.5;
-      const normY = (e.clientY / window.innerHeight) - 0.5;
-      applyParallax(normX, normY);
-
-      const rect = canvas.getBoundingClientRect();
-      pointer.x = e.clientX - rect.left;
-      pointer.y = e.clientY - rect.top;
-    });
-
-    // Tương tác cảm ứng & Parallax trên Mobile (Touchmove / DeviceOrientation)
-    window.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) {
-        const touch = e.touches[0];
-        const normX = (touch.clientX / window.innerWidth) - 0.5;
-        const normY = (touch.clientY / window.innerHeight) - 0.5;
-        applyParallax(normX, normY);
-
-        const rect = canvas.getBoundingClientRect();
-        pointer.x = touch.clientX - rect.left;
-        pointer.y = touch.clientY - rect.top;
-      }
-    }, { passive: true });
-
-    // Hiệu ứng sóng khi nhấp chuột hoặc chạm tay
-    window.addEventListener('pointerdown', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      createRipple(x, y);
-    });
-
-    /**
-     * ========================================================
-     * GIAI ĐOẠN 1: HOLD-TO-BLOOM INTERACTION (ĐÁNH THỨC HOA)
-     * ========================================================
-     */
-    const CIRCLE_CIRCUMFERENCE = 722.56;
-    let holdInterval = null;
-
-    function startHold(e) {
-      if (isBloomed) return;
-      e.preventDefault();
-      isHolding = true;
-
-      // Tự động phát nhạc khi bắt đầu tương tác
-      playMusic();
-
-      if (holdInterval) clearInterval(holdInterval);
-      holdInterval = setInterval(() => {
-        if (!isHolding) return;
-        holdProgress += 0.025; // ~2.2 giây để nở 100%
-
-        if (holdProgress >= 1) {
-          holdProgress = 1;
-          clearInterval(holdInterval);
-          completeBloom();
-        }
-
-        updateBloomVisuals(holdProgress);
-      }, 50);
-    }
-
-    function stopHold() {
-      if (isBloomed) return;
-      isHolding = false;
-      if (holdInterval) clearInterval(holdInterval);
-
-      // Nếu thả tay trước 100%, hoa co lại nhẹ nhàng
-      const decayInterval = setInterval(() => {
-        if (isHolding || isBloomed) {
-          clearInterval(decayInterval);
-          return;
-        }
-        holdProgress -= 0.05;
-        if (holdProgress <= 0) {
-          holdProgress = 0;
-          clearInterval(decayInterval);
-        }
-        updateBloomVisuals(holdProgress);
-      }, 40);
-    }
-
-    touchTarget.addEventListener('pointerdown', startHold);
-    window.addEventListener('pointerup', stopHold);
-    window.addEventListener('pointercancel', stopHold);
-
-    function updateBloomVisuals(progress) {
-      // 1. Cập nhật vòng tròn tiến trình
-      const offset = CIRCLE_CIRCUMFERENCE * (1 - progress);
-      holdProgressCircle.style.strokeDashoffset = offset;
-
-      // 2. Mở rộng từng tầng cánh hoa
-      // Tầng ngoài
-      outerPetals.forEach((p, idx) => {
-        const baseAngle = idx * 60;
-        const currentScale = 0.45 + progress * 0.55;
-        const currentRotate = baseAngle + (progress * 15);
-        p.style.transform = `rotate(${currentRotate}deg) scale(${currentScale})`;
-        p.style.opacity = 0.5 + progress * 0.5;
-      });
-
-      // Tầng giữa
-      midPetals.forEach((p, idx) => {
-        const baseAngle = 30 + idx * 60;
-        const currentScale = 0.4 + progress * 0.6;
-        const currentRotate = baseAngle - (progress * 15);
-        p.style.transform = `rotate(${currentRotate}deg) scale(${currentScale})`;
-        p.style.opacity = 0.6 + progress * 0.4;
-      });
-
-      // Tầng trong
-      innerPetals.forEach((p, idx) => {
-        const baseAngle = 15 + idx * 60;
-        const currentScale = 0.35 + progress * 0.65;
-        p.style.transform = `rotate(${baseAngle}deg) scale(${currentScale})`;
-        p.style.opacity = 0.7 + progress * 0.3;
-      });
-
-      // Hào quang nhụy hoa
-      flowerGlowCore.style.transform = `scale(${1 + progress * 1.5})`;
-      flowerGlowCore.style.opacity = 0.5 + progress * 0.5;
-    }
-
-    function completeBloom() {
-      isBloomed = true;
-      holdProgress = 1;
-      updateBloomVisuals(1);
-
-      // Ẩn vòng tròn tiến trình và nút "GIỮ ĐÂY"
-      holdProgressCircle.style.display = 'none';
-      touchTarget.style.display = 'none';
-
-      // Pháo hoa chùm sao ánh sáng tỏa ra
-      if (typeof confetti !== 'undefined') {
-        confetti({
-          particleCount: 70,
-          spread: 80,
-          origin: { y: 0.55 },
-          colors: ['#06b6d4', '#f43f5e', '#fde047', '#ffffff']
+    function startVisualizer() {
+      if (visualizerTimer) clearInterval(visualizerTimer);
+      const bars = visualizerBars.querySelectorAll('.eq-bar');
+      visualizerTimer = setInterval(() => {
+        bars.forEach(b => {
+          const h = Math.floor(Math.random() * 22) + 6;
+          b.style.height = `${h}px`;
         });
+      }, 100);
+    }
+
+    function stopVisualizer() {
+      if (visualizerTimer) clearInterval(visualizerTimer);
+      const bars = visualizerBars.querySelectorAll('.eq-bar');
+      bars.forEach(b => b.style.height = '6px');
+    }
+
+    function startLyrics() {
+      if (lyricTimer) clearInterval(lyricTimer);
+      lyricTimer = setInterval(() => {
+        currentLyricIndex = (currentLyricIndex + 1) % CONFIG.wishes.length;
+        currentLyricLine.style.opacity = 0;
+        currentLyricLine.style.transform = 'translateY(8px)';
+        setTimeout(() => {
+          currentLyricLine.innerText = CONFIG.wishes[currentLyricIndex];
+          currentLyricLine.style.opacity = 1;
+          currentLyricLine.style.transform = 'translateY(0)';
+        }, 250);
+      }, 3500);
+    }
+
+    function stopLyrics() {
+      if (lyricTimer) clearInterval(lyricTimer);
+    }
+
+    // Scrub bar
+    audioPlayer.addEventListener('timeupdate', () => {
+      if (audioPlayer.duration) {
+        const pct = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        progressBar.style.width = `${pct}%`;
+        currentTimeLabel.innerText = formatTime(audioPlayer.currentTime);
       }
+    });
 
-      // Đổi câu hướng dẫn
-      mainInstruction.innerText = "Đóa hoa pha lê đã nở rộ vì cậu! 🌸";
-      mainInstruction.className = "text-lg sm:text-xl font-bold text-white mt-1.5 leading-snug glow-text-cyan";
-      subInstruction.innerText = "Hãy chạm vào 4 tinh cầu ánh sáng lơ lửng xung quanh để khám phá";
-      footerStatusText.innerText = "Chạm vào Tinh Cầu Lớn Nhất để mở bức thư 20/10 💌";
+    audioPlayer.addEventListener('loadedmetadata', () => {
+      totalTimeLabel.innerText = formatTime(audioPlayer.duration);
+    });
 
-      // GIAI ĐOẠN 2: Bung 4 Tinh Cầu Ánh Sáng
-      setTimeout(() => {
-        memoryOrbsGroup.classList.remove('opacity-0');
-        memoryOrbsGroup.classList.add('opacity-100');
-      }, 400);
+    progressContainer.addEventListener('click', (e) => {
+      const rect = progressContainer.getBoundingClientRect();
+      const pct = (e.clientX - rect.left) / rect.width;
+      if (audioPlayer.duration) {
+        audioPlayer.currentTime = pct * audioPlayer.duration;
+      }
+      progressBar.style.width = `${pct * 100}%`;
+    });
+
+    function formatTime(sec) {
+      if (isNaN(sec)) return "03:15";
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
     }
 
     /**
      * ========================================================
-     * GIAI ĐOẠN 2: TƯƠNG TÁC 4 TINH CẦU KỶ NIỆM (ORB MODALS)
+     * TÍNH NĂNG 2: VÒNG XOAY ẢNH 3D (3D CYLINDER CAROUSEL)
      * ========================================================
      */
-    document.getElementById('orbBtn1').addEventListener('click', () => openOrbModal(1));
-    document.getElementById('orbBtn2').addEventListener('click', () => openOrbModal(2));
-    document.getElementById('orbBtn3').addEventListener('click', () => openOrbModal(3));
-    document.getElementById('orbBtn4').addEventListener('click', () => openLetterModal());
+    const cylinder = document.getElementById('cylinderContainer');
+    const prev3dBtn = document.getElementById('prev3dBtn');
+    const next3dBtn = document.getElementById('next3dBtn');
 
-    function openOrbModal(idx) {
-      if (idx === 1) {
-        modalOrbIcon.className = "fa-solid fa-face-smile text-cyan-900 text-lg";
-        modalOrbTag.innerText = "TINH CẦU NIỀM VUI";
-        modalOrbTag.className = "text-[10px] font-extrabold tracking-widest text-cyan-300 uppercase bg-cyan-500/20 px-3 py-1 rounded-full border border-cyan-500/30";
-        modalOrbPhoto.src = CONFIG.photo1;
-        modalOrbMessage.innerText = CONFIG.message1;
+    let currentRotationY = 0;
+    let isDragging3D = false;
+    let startX = 0;
+    let prevRotationY = 0;
 
-      } else if (idx === 2) {
-        modalOrbIcon.className = "fa-solid fa-heart text-pink-900 text-lg";
-        modalOrbTag.innerText = "TINH CẦU DỊU DÀNG";
-        modalOrbTag.className = "text-[10px] font-extrabold tracking-widest text-pink-300 uppercase bg-pink-500/20 px-3 py-1 rounded-full border border-pink-500/30";
-        modalOrbPhoto.src = CONFIG.photo2;
-        modalOrbMessage.innerText = CONFIG.message2;
-
-      } else if (idx === 3) {
-        modalOrbIcon.className = "fa-solid fa-clover text-emerald-900 text-lg";
-        modalOrbTag.innerText = "TINH CẦU MAY MẮN";
-        modalOrbTag.className = "text-[10px] font-extrabold tracking-widest text-emerald-300 uppercase bg-emerald-500/20 px-3 py-1 rounded-full border border-emerald-500/30";
-        modalOrbPhoto.src = CONFIG.photo3;
-        modalOrbMessage.innerText = CONFIG.message3;
-      }
-
-      orbModal.classList.remove('opacity-0', 'pointer-events-none');
-      orbModal.classList.add('opacity-100', 'pointer-events-auto');
+    function rotateCylinder(deg) {
+      currentRotationY += deg;
+      cylinder.style.transform = `rotateY(${currentRotationY}deg)`;
     }
 
-    closeOrbModalBtn.addEventListener('click', () => {
-      orbModal.classList.remove('opacity-100', 'pointer-events-auto');
-      orbModal.classList.add('opacity-0', 'pointer-events-none');
+    prev3dBtn.addEventListener('click', () => rotateCylinder(72));
+    next3dBtn.addEventListener('click', () => rotateCylinder(-72));
+
+    // Kéo chuột hoặc vuốt ngón tay xoay 3D
+    cylinder.addEventListener('pointerdown', (e) => {
+      isDragging3D = true;
+      startX = e.clientX;
+      prevRotationY = currentRotationY;
+      cylinder.style.transition = 'none';
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      if (!isDragging3D) return;
+      const deltaX = e.clientX - startX;
+      currentRotationY = prevRotationY + deltaX * 0.45;
+      cylinder.style.transform = `rotateY(${currentRotationY}deg)`;
+    });
+
+    window.addEventListener('pointerup', () => {
+      if (!isDragging3D) return;
+      isDragging3D = false;
+      cylinder.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+      // Snap to nearest 72 deg
+      const snapped = Math.round(currentRotationY / 72) * 72;
+      currentRotationY = snapped;
+      cylinder.style.transform = `rotateY(${snapped}deg)`;
     });
 
     /**
      * ========================================================
-     * GIAI ĐOẠN 3: MƯA SAO BĂNG, BỨC THƯ CUỐI & VOUCHER HẸN HÒ
+     * TÍNH NĂNG 3: MÁY QUAY TRỨNG GACHAPON 20/10 (MINI-GAME)
      * ========================================================
      */
-    function openLetterModal() {
-      // Kích hoạt mưa sao băng trên nền Canvas
-      isMeteorShower = true;
+    const gachaKnob = document.getElementById('gachaKnob');
+    const turnKnobActionBtn = document.getElementById('turnKnobActionBtn');
+    const gachaDome = document.getElementById('gachaDome');
+    const pullCountBadge = document.getElementById('pullCountBadge');
+    const rewardModal = document.getElementById('rewardModal');
+    const rewardCard = document.getElementById('rewardCard');
+    const rewardBadgeIcon = document.getElementById('rewardBadgeIcon');
+    const rewardBadgeText = document.getElementById('rewardBadgeText');
+    const rewardTitle = document.getElementById('rewardTitle');
+    const rewardMediaContainer = document.getElementById('rewardMediaContainer');
+    const rewardDescription = document.getElementById('rewardDescription');
+    const closeRewardBtn = document.getElementById('closeRewardBtn');
 
-      letterModal.classList.remove('opacity-0', 'pointer-events-none');
-      letterModal.classList.add('opacity-100', 'pointer-events-auto');
-      letterCard.classList.remove('scale-90');
-      letterCard.classList.add('scale-100');
+    let pullCount = 1;
+    let isSpinningGacha = false;
+
+    function triggerGachaSpin() {
+      if (isSpinningGacha) return;
+      isSpinningGacha = true;
+
+      // 1. Âm thanh cơ học lạch cạch
+      playRatchetClick();
+
+      // 2. Núm xoay quay 360 độ
+      gachaKnob.style.transform = 'rotate(360deg)';
+
+      // 3. Lồng kính rung lắc quả cầu nảy mạnh
+      gachaDome.classList.add('animate-bounce');
+      const balls = document.querySelectorAll('.capsule-ball');
+      balls.forEach(b => {
+        b.style.transform = `translate(${Math.random() * 20 - 10}px, -${Math.random() * 30 + 10}px)`;
+      });
+
+      // 4. Mở quà sau 700ms
+      setTimeout(() => {
+        gachaDome.classList.remove('animate-bounce');
+        gachaKnob.style.transform = 'rotate(0deg)';
+        playCapsuleOpenFanfare();
+        showReward(pullCount);
+
+        // Tăng lượt quay
+        pullCount = (pullCount % 3) + 1;
+        pullCountBadge.innerText = pullCount;
+        isSpinningGacha = false;
+      }, 750);
     }
 
-    // Chấp nhận lời mời & Lưu giữ bầu trời
-    acceptDateBtn.addEventListener('click', () => {
-      // 1. Chuyển toàn bộ màu đom đóm sang sắc Hồng Vàng lãng mạn
-      isPinkGoldTheme = true;
+    gachaKnob.addEventListener('click', triggerGachaSpin);
+    turnKnobActionBtn.addEventListener('click', triggerGachaSpin);
 
-      // 2. Bắn pháo hoa ánh sáng tưng bừng
-      fireCelebrationConfetti();
+    function showReward(pullNum) {
+      if (pullNum === 1) {
+        rewardBadgeIcon.className = "fa-solid fa-sparkles text-amber-400";
+        rewardBadgeText.innerText = "SSR CARD • NỤ CƯỜI BẤT BẠI";
+        rewardTitle.innerText = "Thẻ Bài: Nụ Cười Toả Nắng ✨";
+        rewardMediaContainer.innerHTML = `
+          <div class="w-36 h-36 rounded-2xl overflow-hidden border-2 border-amber-300 shadow-xl mx-auto">
+            <img src="${CONFIG.photo1}" alt="Reward 1" class="w-full h-full object-cover">
+          </div>
+        `;
+        rewardDescription.innerText = `Chúc mừng ${CONFIG.crushName}! Chỉ số xinh đẹp và năng lượng tích cực hôm nay đạt 1000%! Không ai có thể từ chối nụ cười này đâu nhé! 💖`;
+        closeRewardBtn.innerText = "Tiếp Tục Lượt Quay Sau 🎁";
 
-      // 3. Mở Modal chốt kèo hẹn hò
-      setTimeout(() => {
-        rsvpModal.classList.remove('opacity-0', 'pointer-events-none');
-        rsvpModal.classList.add('opacity-100', 'pointer-events-auto');
-        rsvpCard.classList.remove('scale-90');
-        rsvpCard.classList.add('scale-100');
-      }, 400);
+        if (typeof confetti !== 'undefined') {
+          confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
+        }
+
+      } else if (pullNum === 2) {
+        rewardBadgeIcon.className = "fa-solid fa-envelope-open-text text-pink-400";
+        rewardBadgeText.innerText = "SPECIAL PULL • BỨC THƯ BÍ MẬT";
+        rewardTitle.innerText = "Lá Thư Gửi Riêng Cho Cậu 💌";
+        rewardMediaContainer.innerHTML = `
+          <div class="w-20 h-20 rounded-full bg-pink-500/20 border border-pink-400 flex items-center justify-center mx-auto text-3xl text-pink-300">
+            ✉️
+          </div>
+        `;
+        rewardDescription.innerText = CONFIG.letterContent;
+        closeRewardBtn.innerText = "Mở Giải Đặc Biệt Tiếp Theo 🌟";
+
+        if (typeof confetti !== 'undefined') {
+          confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
+        }
+
+      } else if (pullNum === 3) {
+        rewardBadgeIcon.className = "fa-solid fa-crown text-amber-300 animate-bounce";
+        rewardBadgeText.innerText = "JACKPOT! • GIẢI ĐẶC BIỆT 20/10";
+        rewardTitle.innerText = "VÉ HẸN HÒ ĐỘC QUYỀN 🥂";
+        rewardMediaContainer.innerHTML = `
+          <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-500/20 via-pink-500/20 to-purple-500/20 border border-amber-400/40 text-left">
+            <p class="text-[10px] font-mono text-amber-300 uppercase tracking-widest">OFFICIAL VIP PASS</p>
+            <p class="text-xs text-white font-bold mt-1">${CONFIG.voucherContent}</p>
+          </div>
+        `;
+        rewardDescription.innerText = "Lời hẹn 20/10 đã sẵn sàng! Cậu chỉ cần chuẩn bị một nụ cười thật xinh, mọi việc cứ để tớ lo nhé!";
+        closeRewardBtn.innerHTML = `<i class="fa-solid fa-paper-plane mr-1.5"></i> Nhận Lời Mời & Chốt Lịch Ngay 💖`;
+
+        // Bắn pháo hoa Jackpot ngập trời
+        fireJackpotConfetti();
+      }
+
+      rewardModal.classList.remove('opacity-0', 'pointer-events-none');
+      rewardModal.classList.add('opacity-100', 'pointer-events-auto');
+      rewardCard.classList.remove('scale-90');
+      rewardCard.classList.add('scale-100');
+    }
+
+    closeRewardBtn.addEventListener('click', () => {
+      // Nếu vừa mở Jackpot thì dẫn đến link liên hệ Zalo/Messenger
+      if (pullCount === 1) { // Vừa quay xong lần 3 thì pullCount đã quay lại 1
+        window.open(CONFIG.contactUrl, '_blank');
+      }
+      rewardModal.classList.remove('opacity-100', 'pointer-events-auto');
+      rewardModal.classList.add('opacity-0', 'pointer-events-none');
+      rewardCard.classList.remove('scale-100');
+      rewardCard.classList.add('scale-90');
     });
 
-    closeRsvpBtn.addEventListener('click', () => {
-      rsvpModal.classList.remove('opacity-100', 'pointer-events-auto');
-      rsvpModal.classList.add('opacity-0', 'pointer-events-none');
-      letterModal.classList.remove('opacity-100', 'pointer-events-auto');
-      letterModal.classList.add('opacity-0', 'pointer-events-none');
-    });
-
-    function fireCelebrationConfetti() {
+    function fireJackpotConfetti() {
       if (typeof confetti === 'undefined') return;
-
-      const duration = 2500;
-      const animationEnd = Date.now() + duration;
-
+      const end = Date.now() + 2000;
       const interval = setInterval(() => {
-        const timeLeft = animationEnd - Date.now();
-        if (timeLeft <= 0) return clearInterval(interval);
-
+        if (Date.now() > end) return clearInterval(interval);
         confetti({
-          particleCount: 40,
+          startVelocity: 35,
           spread: 360,
+          ticks: 60,
           origin: { x: Math.random(), y: Math.random() - 0.2 },
-          colors: ['#f43f5e', '#fb7185', '#fde047', '#ffffff']
+          colors: ['#facc15', '#ff3b7f', '#8b5cf6', '#06b6d4', '#ffffff']
         });
       }, 250);
     }
 
     /**
      * ========================================================
-     * ÂM THANH (MẤT KẾT NỐI - DƯƠNG DOMIC)
+     * SWITCHING TABS: PC COVERFLOW VS GACHAPON
      * ========================================================
      */
-    function playMusic() {
-      if (!isAudioPlaying) {
-        bgAudio.src = CONFIG.audioUrl;
-        bgAudio.play().then(() => {
-          isAudioPlaying = true;
-          updateAudioUI();
-        }).catch(err => {
-          console.warn("Autoplay blocked:", err);
-        });
+    const tabCoverflowBtn = document.getElementById('tabCoverflowBtn');
+    const tabGachaponBtn = document.getElementById('tabGachaponBtn');
+    const panelCoverflow = document.getElementById('panelCoverflow');
+    const panelGachapon = document.getElementById('panelGachapon');
+
+    function switchSubPanel(panel) {
+      if (panel === 'coverflow') {
+        tabCoverflowBtn.className = "py-1.5 rounded-xl text-xs font-bold transition-all bg-white/20 text-white shadow-sm flex items-center justify-center gap-1.5";
+        tabGachaponBtn.className = "py-1.5 rounded-xl text-xs font-bold transition-all text-white/60 hover:text-white flex items-center justify-center gap-1.5";
+        panelGachapon.classList.add('hidden');
+        panelCoverflow.classList.remove('hidden');
+      } else {
+        tabGachaponBtn.className = "py-1.5 rounded-xl text-xs font-bold transition-all bg-white/20 text-white shadow-sm flex items-center justify-center gap-1.5";
+        tabCoverflowBtn.className = "py-1.5 rounded-xl text-xs font-bold transition-all text-white/60 hover:text-white flex items-center justify-center gap-1.5";
+        panelCoverflow.classList.add('hidden');
+        panelGachapon.classList.remove('hidden');
       }
     }
 
-    toggleAudioBtn.addEventListener('click', () => {
-      if (isAudioPlaying) {
-        bgAudio.pause();
-        isAudioPlaying = false;
-      } else {
-        bgAudio.play().then(() => {
-          isAudioPlaying = true;
-        });
-      }
-      updateAudioUI();
-    });
-
-    function updateAudioUI() {
-      if (isAudioPlaying) {
-        audioIcon.className = "fa-solid fa-volume-high text-cyan-400 text-[11px] animate-bounce";
-      } else {
-        audioIcon.className = "fa-solid fa-volume-xmark text-white/50 text-[11px]";
-      }
-    }
+    tabCoverflowBtn.addEventListener('click', () => switchSubPanel('coverflow'));
+    tabGachaponBtn.addEventListener('click', () => switchSubPanel('gachapon'));
 
     /**
      * ========================================================
-     * INIT DATA FROM CONFIG
+     * MOBILE BOTTOM NAVIGATION SWITCHING
+     * ========================================================
+     */
+    const navMobileMusic = document.getElementById('navMobileMusic');
+    const navMobileCoverflow = document.getElementById('navMobileCoverflow');
+    const navMobileGachapon = document.getElementById('navMobileGachapon');
+    const sectionVinyl = document.getElementById('sectionVinyl');
+    const sectionInteract = document.getElementById('sectionInteract');
+
+    function switchMobileView(view) {
+      // Reset classes
+      [navMobileMusic, navMobileCoverflow, navMobileGachapon].forEach(b => {
+        b.className = "flex flex-col items-center text-xs font-bold text-white/50 hover:text-white transition";
+      });
+
+      if (view === 'music') {
+        navMobileMusic.className = "flex flex-col items-center text-xs font-bold text-pink-400 transition";
+        sectionVinyl.classList.remove('hidden');
+        sectionInteract.classList.add('hidden');
+
+      } else if (view === 'coverflow') {
+        navMobileCoverflow.className = "flex flex-col items-center text-xs font-bold text-cyan-400 transition";
+        sectionVinyl.classList.add('hidden');
+        sectionInteract.classList.remove('hidden');
+        switchSubPanel('coverflow');
+
+      } else if (view === 'gachapon') {
+        navMobileGachapon.className = "flex flex-col items-center text-xs font-bold text-amber-400 transition";
+        sectionVinyl.classList.add('hidden');
+        sectionInteract.classList.remove('hidden');
+        switchSubPanel('gachapon');
+      }
+    }
+
+    navMobileMusic.addEventListener('click', () => switchMobileView('music'));
+    navMobileCoverflow.addEventListener('click', () => switchMobileView('coverflow'));
+    navMobileGachapon.addEventListener('click', () => switchMobileView('gachapon'));
+
+    /**
+     * ========================================================
+     * INIT DATA & IMAGES
      * ========================================================
      */
     function initData() {
-      document.getElementById('crushNameLabel').innerText = CONFIG.crushName;
-      document.getElementById('letterCrushName').innerText = CONFIG.crushName;
-      document.getElementById('letterYourName').innerText = CONFIG.yourName;
-      document.getElementById('mainLetterText').innerText = CONFIG.mainLetter;
-      document.getElementById('voucherText').innerText = CONFIG.voucherContent;
-      document.getElementById('rsvpContactLink').href = CONFIG.contactUrl;
+      document.getElementById('headerCrushName').innerText = CONFIG.crushName;
+      document.getElementById('vinylCrushName').innerText = CONFIG.crushName;
+      document.getElementById('mainCrushPhoto').src = CONFIG.photo1;
+      document.getElementById('cardImg1').src = CONFIG.photo1;
+      document.getElementById('cardImg2').src = CONFIG.photo2;
+      document.getElementById('cardImg3').src = CONFIG.photo3;
+      document.getElementById('cardImg4').src = CONFIG.photo4;
+      document.getElementById('cardImg5').src = CONFIG.photo5;
+      document.getElementById('currentLyricLine').innerText = CONFIG.wishes[0];
+
+      initVisualizer();
+
+      // Mặc định trên Mobile hiển thị tab Trạm Nhạc
+      if (window.innerWidth < 768) {
+        switchMobileView('music');
+      }
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      initData();
-      resizeCanvas();
-      initFireflies();
-      animateGarden();
-    });
-
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      initFireflies();
-    });
+    window.addEventListener('DOMContentLoaded', initData);
   </script>
 </body>
 </html>
